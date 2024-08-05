@@ -12035,7 +12035,6 @@ spawn(function()
     end)
 end)
 
-end)
 
     _G.BringMon = true
     Main:AddToggleRight("BringMon",_G.BringMon,function(value)
