@@ -3678,27 +3678,7 @@ _G.FastAttack = true
      Main:AddToggleRight("Fast Attack",_G.FastAttack,function(a)
  _G.FastAttack = a
     end) 
-local CameraShaker = require(game.ReplicatedStorage.Util.CameraShaker)
-local CombatFrameworkR = require(plr.PlayerScripts.CombatFramework)
-local y = debug.getupvalues(CombatFrameworkR)[2]
 
-game:GetService("RunService").Stepped:Connect(function()
-    if _G.FastAttack and typeof(y) == "table" then
-        local controller = y.activeController
-        if controller then
-            pcall(function()
-                CameraShaker:Stop()
-                controller.timeToNextAttack = 0
-                controller.hitboxMagnitude = 50
-                controller.active = false
-                controller.increment = 4
-                controller.blocking = false
-                controller.attacking = false
-                controller.humanoid.AutoRotate = true
-            end)
-        end
-    end
-end)
 
     _G.BringMon = true
     Main:AddToggleRight("BringMon",_G.BringMon,function(value)
