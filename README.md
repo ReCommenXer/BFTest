@@ -3662,102 +3662,6 @@ _G.FastAttack = true
      Main:AddToggleRight("Fast Attack",_G.FastAttack,function(a)
  _G.FastAttack = a
     end) 
-     
-    local plr = game.Players.LocalPlayer
-    local CombatFramework = require(plr.PlayerScripts.CombatFramework)
-    local CbFw = debug.getupvalues(CombatFramework)
-    local CbFw2 = CbFw[2]
-    
-    function GetCurrentBlade() 
-        local blade = CbFw2.activeController.blades[1]
-        if not blade then return end
-        while blade.Parent ~= plr.Character do blade = blade.Parent end
-        return blade
-    end
-    
-    function AttackNoCD() 
-        local AC = CbFw2.activeController
-        local bladeHitsModule = require(game.ReplicatedStorage.CombatFramework.RigLib)
-        
-        for i = 1, 1 do 
-            local bladeHits = bladeHitsModule.getBladeHits(plr.Character, {plr.Character.HumanoidRootPart}, 60)
-            local hitParts = {}
-            local hitCache = {}
-    
-            for _, hit in pairs(bladeHits) do
-                local hrp = hit.Parent:FindFirstChild("HumanoidRootPart")
-                if hrp and not hitCache[hit.Parent] then
-                    table.insert(hitParts, hrp)
-                    hitCache[hit.Parent] = true
-                end
-            end
-    
-            if #hitParts > 0 then
-                local u8, u9, u7, u10 = unpack(debug.getupvalues(AC.attack))
-                u12 = (u8 * 798405 + u7 * 727595) % u9
-                u13 = u7 * 798405
-                
-                u12 = (u12 * u9 + u13) % 1099511627776
-                u8 = math.floor(u12 / u9)
-                u7 = u12 - u8 * u9
-                u10 = u10 + 1
-                
-                debug.setupvalue(AC.attack, 5, u8)
-                debug.setupvalue(AC.attack, 6, u9)
-                debug.setupvalue(AC.attack, 4, u7)
-                debug.setupvalue(AC.attack, 7, u10)
-                
-                pcall(function()
-                    for _, anim in pairs(AC.animator.anims.basic) do
-                        anim:Play(0.01, 0.01, 0.2)
-                    end                  
-                end)
-    
-                if plr.Character:FindFirstChildOfClass("Tool") and AC.blades[1] then 
-                    game:GetService("ReplicatedStorage").RigControllerEvent:FireServer("weaponChange", tostring(GetCurrentBlade()))
-                    game.ReplicatedStorage.Remotes.Validator:FireServer(math.floor(u12 / 1099511627776 * 16777215), u10)
-                    game:GetService("ReplicatedStorage").RigControllerEvent:FireServer("hit", hitParts, i, "") 
-                end
-            end
-        end
-    end
-    
-    local waitFunction = Fat and task.wait or wait
-    
-    spawn(function()
-        while waitFunction(0.1) do 
-            pcall(function()
-                if _G.FastAttack then
-                    AttackNoCD()
-                end
-            end)
-        end
-    end)
-    
-  local CameraShaker = require(game.ReplicatedStorage.Util.CameraShaker)
-CombatFrameworkR = require(game:GetService("Players").LocalPlayer.PlayerScripts.CombatFramework)
-y = debug.getupvalues(CombatFrameworkR)[2]
-spawn(function()
-    game:GetService("RunService").RenderStepped:Connect(function()
-        if _G.FastAttack then
-            if typeof(y) == "table" then
-                pcall(function()
-                    CameraShaker:Stop()
-                    y.activeController.timeToNextAttack = 0 
-                    y.activeController.hitboxMagnitude = 50 
-                    y.activeController.active = false
-                    y.activeController.timeToNextBlock = 0
-                    y.activeController.focusStart = 0
-                    y.activeController.increment = 4
-                    y.activeController.blocking = false
-                    y.activeController.attacking = false
-                    y.activeController.humanoid.AutoRotate = true
-                end)
-            end
-        end
-    end)
-end)
-
 
     _G.BringMon = true
     Main:AddToggleRight("BringMon",_G.BringMon,function(value)
@@ -11634,5 +11538,4 @@ end
 _G.GetFunction = value
 
 end)
-
 
