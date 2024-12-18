@@ -1,4 +1,3 @@
------------------zkxsxhshjsh
 
 repeat wait() until game:IsLoaded()
 repeat wait() until game:GetService("Players")
@@ -3284,46 +3283,54 @@ end
     end
     
 
-    local isAttacking = false
+
+    local isAttacking = false -- ตัวแปรใช้ตรวจสอบสถานะการโจมตี
 
     function Click()
-        isAttacking = true -- เปิดใช้งานการโจมตี
-        while isAttacking and wait(0) do
-            -- รวบรวมศัตรูที่สามารถโจมตีได้
-            local enemies = {}
-            for _, enemy in pairs(workspace.Enemies:GetChildren()) do
-                if enemy:FindFirstChild("Head") then
-                    table.insert(enemies, enemy) -- เก็บข้อมูลศัตรูที่มีหัว
+        if isAttacking then return end  -- ถ้ากำลังโจมตีอยู่แล้วจะไม่ทำงานซ้ำ
+        isAttacking = true  -- เปิดการโจมตี
+    
+        while isAttacking do
+            local enemies = workspace.Enemies:GetChildren()
+            local args = {
+                [1] = nil,
+                [2] = {}
+            }
+    
+            -- ตรวจสอบศัตรูที่สามารถโจมตีได้
+            for i, enemy in ipairs(enemies) do
+                if enemy:FindFirstChild("HumanoidRootPart") and enemy:FindFirstChild("Humanoid") and enemy.Humanoid.Health > 0 then
+                    table.insert(args[2], {
+                        [1] = enemy,
+                        [2] = enemy.HumanoidRootPart
+                    })
+    
+                    if not args[1] then
+                        args[1] = enemy.HumanoidRootPart
+                    end
                 end
             end
     
-            -- ส่งคำสั่งโจมตีพร้อมกันสำหรับทุกเป้าหมาย
-            if #enemies > 0 then
-                -- ส่งคำสั่งโจมตีสำหรับการเริ่มโจมตี
+            -- ส่งข้อมูลการโจมตีถ้ามีศัตรูที่สามารถโจมตีได้
+            if args[1] then
                 local attackArgs = {
                     [1] = 1 -- ตัวเลือกการโจมตี
                 }
                 game:GetService("ReplicatedStorage").Modules.Net:FindFirstChild("RE/RegisterAttack"):FireServer(unpack(attackArgs))
     
-                -- วนลูปโจมตีทุกศัตรูในรายการ
-                for _, enemy in pairs(enemies) do
-                    if enemy:FindFirstChild("Head") then
-                        local hitArgs = {
-                            [1] = enemy.Head, -- ส่วนหัวของศัตรู
-                            [2] = {["EnemyId"] = enemy:GetDebugId()} -- ใช้ ID เฉพาะของศัตรู
-                        }
-                        -- ส่งคำสั่งโจมตีให้แต่ละเป้าหมาย
-                        game:GetService("ReplicatedStorage").Modules.Net:FindFirstChild("RE/RegisterHit"):FireServer(unpack(hitArgs))
-                    end
-                end
+                -- ส่งข้อมูลการโจมตีที่เกี่ยวข้องกับศัตรู
+                game:GetService("ReplicatedStorage").Modules.Net:FindFirstChild("RE/RegisterHit"):FireServer(unpack(args))
             end
+    
+            wait(0.5)  -- รอครึ่งวินาที ก่อนที่จะตรวจสอบใหม่
         end
     end
     
-    
-    function StopClick()
-        isAttacking = false -- หยุดการโจมตี
+    -- ตัวอย่างการหยุดการโจมตี
+    function StopAttacking()
+        isAttacking = false  -- หยุดการโจมตี
     end
+    
     
 
     
