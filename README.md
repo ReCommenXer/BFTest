@@ -1,3 +1,4 @@
+-----------------zkxsxhshjsh
 
 repeat wait() until game:IsLoaded()
 repeat wait() until game:GetService("Players")
@@ -3292,31 +3293,33 @@ end
             local enemies = {}
             for _, enemy in pairs(workspace.Enemies:GetChildren()) do
                 if enemy:FindFirstChild("Head") then
-                    table.insert(enemies, enemy) -- เก็บข้อมูลศัตรูทั้งตัว (ไม่ใช่แค่ชื่อ)
+                    table.insert(enemies, enemy) -- เก็บข้อมูลศัตรูที่มีหัว
                 end
             end
     
-            -- ส่งคำสั่งโจมตี (สำหรับทุกเป้าหมาย)
+            -- ส่งคำสั่งโจมตีพร้อมกันสำหรับทุกเป้าหมาย
             if #enemies > 0 then
-                -- เริ่มต้นการโจมตี (ส่งคำสั่งสำหรับโจมตี)
+                -- ส่งคำสั่งโจมตีสำหรับการเริ่มโจมตี
                 local attackArgs = {
-                    [1] = 1 -- กำหนดค่าการโจมตี (สามารถแก้ไขได้ตามความต้องการ)
+                    [1] = 1 -- ตัวเลือกการโจมตี
                 }
-                -- ส่งคำสั่งโจมตี
                 game:GetService("ReplicatedStorage").Modules.Net:FindFirstChild("RE/RegisterAttack"):FireServer(unpack(attackArgs))
-            
-                -- ส่งคำสั่งโจมตีแต่ละเป้าหมายใน enemies
+    
+                -- วนลูปโจมตีทุกศัตรูในรายการ
                 for _, enemy in pairs(enemies) do
-                    local hitArgs = {
-                        [1] = enemy.Head, -- ส่วนหัวของศัตรู
-                        [2] = {["EnemyId"] = enemy:GetDebugId()} -- ใช้ไอดีเฉพาะตัว
-                    }
-                    -- ส่งคำสั่งโจมตีให้กับแต่ละศัตรู
-                    game:GetService("ReplicatedStorage").Modules.Net:FindFirstChild("RE/RegisterHit"):FireServer(unpack(hitArgs))
+                    if enemy:FindFirstChild("Head") then
+                        local hitArgs = {
+                            [1] = enemy.Head, -- ส่วนหัวของศัตรู
+                            [2] = {["EnemyId"] = enemy:GetDebugId()} -- ใช้ ID เฉพาะของศัตรู
+                        }
+                        -- ส่งคำสั่งโจมตีให้แต่ละเป้าหมาย
+                        game:GetService("ReplicatedStorage").Modules.Net:FindFirstChild("RE/RegisterHit"):FireServer(unpack(hitArgs))
+                    end
                 end
             end
         end
     end
+    
     
     function StopClick()
         isAttacking = false -- หยุดการโจมตี
