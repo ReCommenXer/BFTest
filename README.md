@@ -3283,44 +3283,45 @@ end
     end
     
 
-		local isAttacking = false
+    local isAttacking = false
 
-        function Click()
-            isAttacking = true -- เปิดใช้งานการโจมตี
-            while isAttacking and wait(0) do
-                -- รวบรวมศัตรูที่สามารถโจมตีได้
-                local enemies = {}
-                for _, enemyRage in pairs(workspace.Enemies:GetChildren()) do
-                    if enemyRage:FindFirstChild("Head") then
-                        table.insert(enemies, enemyRage.Head) -- เก็บเป้าหมายส่วนหัวของศัตรู
-                    end
+    function Click()
+        isAttacking = true -- เปิดใช้งานการโจมตี
+        while isAttacking and wait(0) do
+            -- รวบรวมศัตรูที่สามารถโจมตีได้
+            local enemies = {}
+            for _, enemyRage in pairs(workspace.Enemies:GetChildren()) do
+                if enemyRage:FindFirstChild("Head") then
+                    table.insert(enemies, enemyRage.Head) -- เก็บเป้าหมายส่วนหัวของศัตรู
                 end
-        
-                -- ส่งคำสั่งโจมตี (สำหรับทุกเป้าหมาย)
-                if #enemies > 0 then
-                    -- เริ่มต้นการโจมตี (ส่งคำสั่งสำหรับโจมตี)
-                    local attackArgs = {
-                        [1] = 1 -- กำหนดค่าการโจมตี
+            end
+    
+            -- ส่งคำสั่งโจมตี (สำหรับทุกเป้าหมาย)
+            if #enemies > 0 then
+                -- เริ่มต้นการโจมตี (ส่งคำสั่งสำหรับโจมตี)
+                local attackArgs = {
+                    [1] = 1 -- กำหนดค่าการโจมตี (สามารถแก้ไขได้ตามความต้องการ)
+                }
+                -- ส่งคำสั่งโจมตี
+                game:GetService("ReplicatedStorage").Modules.Net:FindFirstChild("RE/RegisterAttack"):FireServer(unpack(attackArgs))
+            
+                -- ส่งคำสั่งโจมตีแต่ละเป้าหมายใน enemies
+                for _, enemyHead in pairs(enemies) do
+                    local hitArgs = {
+                        [1] = enemyHead, -- ส่วนหัวของศัตรู
+                        [2] = {} -- ข้อมูลเพิ่มเติม (ถ้ามี)
                     }
-                    game:GetService("ReplicatedStorage").Modules.Net:FindFirstChild("RE/RegisterAttack"):FireServer(unpack(attackArgs))
-        
-                    -- ส่งคำสั่งโจมตีแต่ละเป้าหมายใน enemies
-                    for _, enemyHead in pairs(enemies) do
-                        local hitArgs = {
-                            [1] = enemyHead, -- ส่วนหัวของศัตรู
-                            [2] = {} -- ข้อมูลเพิ่มเติม (ถ้ามี)
-                        }
-                        game:GetService("ReplicatedStorage").Modules.Net:FindFirstChild("RE/RegisterHit"):FireServer(unpack(hitArgs))
-                    end
+                    -- ส่งคำสั่งโจมตีให้กับแต่ละศัตรู
+                    game:GetService("ReplicatedStorage").Modules.Net:FindFirstChild("RE/RegisterHit"):FireServer(unpack(hitArgs))
                 end
             end
         end
-        
-        
-		
-		function StopClick()
-			isAttacking = false -- หยุดการโจมตี
-		end
+    end
+    
+    function StopClick()
+        isAttacking = false -- หยุดการโจมตี
+    end
+    
 
     
     function AutoHaki()
