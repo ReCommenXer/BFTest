@@ -3694,20 +3694,24 @@ _G.FastAttack = true
                 if _G.BringMon then
                     CheckQuest()
                     for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
-                        if _G.AutoFarm and StartMagnet and v.Name == NameMon and (NameMon == "Factory Staff" or NameMon == "Monkey" or NameMon == "Dragon Crew Warrior" or NameMon == "Dragon Crew Archer") and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 and (v.HumanoidRootPart.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 220 then
+                        if _G.AutoFarm and StartMagnet and v.Name == NameMon and (NameMon == "Factory Staff" or NameMon == "Monkey" or NameMon == "Dragon Crew Warrior" or NameMon == "Dragon Crew Archer") and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 and (v.HumanoidRootPart.Position - game:GetService("Players").LocalPlayer.Character.Head.Position).Magnitude <= 220 then
+                            v.Head.Size = Vector3.new(50,50,50)
+                            v.Head.Transparency = 0
                             v.Humanoid:ChangeState(14)
 v.Humanoid:ChangeState(11)
-v.HumanoidRootPart.CFrame = PosMon
-                            v.HumanoidRootPart.CanCollide = false
+v.Head.CFrame = PosMon
+                            v.Head.CanCollide = false
                             v.Head.CanCollide = false
                             if v.Humanoid:FindFirstChild("Animator") then
                                 v.Humanoid.Animator:Destroy()
                             end
                             sethiddenproperty(game:GetService("Players").LocalPlayer,"SimulationRadius",math.huge)
-                        elseif _G.AutoFarm and StartMagnet and v.Name == NameMon and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 and (v.HumanoidRootPart.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 275 then
+                        elseif _G.AutoFarm and StartMagnet and v.Name == NameMon and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 and (v.Head.Position - game:GetService("Players").LocalPlayer.Character.Head.Position).Magnitude <= 275 then
+                            v.Head.Size = Vector3.new(50,50,50)
+                            v.Head.Transparency = 0
                             v.HumanoidRootPart.CFrame = PosMon
                             v.Humanoid:ChangeState(14)
-                            v.HumanoidRootPart.CanCollide = false
+                            v.Head.CanCollide = false
                             v.Head.CanCollide = false
                             if v.Humanoid:FindFirstChild("Animator") then
                                 v.Humanoid.Animator:Destroy()
@@ -5827,12 +5831,10 @@ Main:AddToggleLeft("Auto Farm",_G.AutoFarm,function(value)
                                         if string.find(game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text, NameMon) then
                                             repeat task.wait()
                                                 EquipWeapon(_G.SelectWeapon)
-                                                AutoHaki()       
-                                                v.Head.Transparency = 0             
-                                                v.Head.Size = Vector3.new(50,50,50)                     
+                                                AutoHaki()                                            
                                                 PosMon = v.HumanoidRootPart.CFrame
                                                 Tween(v.HumanoidRootPart.CFrame * CFrame.new(0,20,0))
-                                                v.HumanoidRootPart.CanCollide = false
+                                                v.Head.CanCollide = false
                                                 v.Humanoid.WalkSpeed = 0
                                                 v.Head.CanCollide = false
                                                 StartMagnet = true
@@ -6393,6 +6395,7 @@ else
          end
          end)
 Main:AddSeperatorLeft("Boat")
+
           BoatsName = {}
 
 for i,v in pairs(game:GetService("Workspace").Boats:GetChildren()) do  
@@ -6433,7 +6436,7 @@ end)
 
 Main:AddToggleLeft("Boat Flying",_G.BoatFly,function(a)
     if a then
-    game:GetService("Workspace").Map["WaterBase-Plane"].Size = Vector3.new(1000,400,1000)
+    game:GetService("Workspace").Map["WaterBase-Plane"].Size = Vector3.new(1000,500,1000)
     else
     game:GetService("Workspace").Map["WaterBase-Plane"].Size = Vector3.new(1000,80,1000)
     end
@@ -10939,46 +10942,53 @@ end)
     
     Misc:AddSeperatorLeft("Graphic")
     
-    local a = game.Lighting
-    local c = Instance.new("ColorCorrectionEffect", a)
-    local e = Instance.new("ColorCorrectionEffect", a)
-    OldAmbient = a.Ambient
-    OldBrightness = a.Brightness
-    OldColorShift_Top = a.ColorShift_Top
-    OldBrightnessc = c.Brightness
-    OldContrastc = c.Contrast
-    OldTintColorc = c.TintColor
-    OldTintColore = e.TintColor
-    Misc:AddToggleLeft("RTX Mode",_G.RTXMode,function(value)
-        _G.RTXMode = value
-        if not _G.RTXMode then return end
-        while _G.RTXMode do wait()
-            a.Ambient = Color3.fromRGB(255, 255, 255)
-            a.Brightness = 1
-            c.Brightness = 1
-            c.Contrast = 1
-            c.TintColor = Color3.fromRGB(255, 255, 255)
-            game.Lighting.FogEnd = 9e9
-            if not game:GetService("Players").LocalPlayer.Character.HumanoidRootPart:FindFirstChild("PointLight") then
-                local a2 = Instance.new("PointLight")
-                a2.Parent = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
-                a2.Range = 1000
-                a2.Color = Color3.fromRGB(255, 255, 255)
-            end
-            if not _G.RTXMode then
-                a.Ambient = OldAmbient
-                a.Brightness = OldBrightness
-                a.ColorShift_Top = OldColorShift_Top
-                c.Contrast = OldContrastc
-                c.Brightness = OldBrightnessc
-                c.TintColor = OldTintColorc
-                e.TintColor = OldTintColore
-                game.Lighting.FogEnd = 2500
-                game:GetService("Players").LocalPlayer.Character.HumanoidRootPart:FindFirstChild("PointLight"):Destroy()
-            end
+
+
+Misc:AddToggleLeft("Full Bright Mode", _G.RTXMode, function(value)
+    _G.RTXMode = value
+	   local a = game.Lighting
+local c = game.Lighting:FindFirstChildOfClass("ColorCorrectionEffect")
+local e = game.Lighting:FindFirstChildOfClass("BloomEffect")
+
+local OldAmbient = a.Ambient
+local OldBrightness = a.Brightness
+local OldColorShift_Top = a.ColorShift_Top
+local OldBrightnessc = c and c.Brightness or 0
+local OldContrastc = c and c.Contrast or 0
+local OldTintColorc = c and c.TintColor or Color3.new(1, 1, 1)
+local OldTintColore = e and e.TintColor or Color3.new(1, 1, 1)
+    if not _G.RTXMode then
+        -- Restore original settings
+        a.Ambient = OldAmbient
+        a.Brightness = OldBrightness
+        a.ColorShift_Top = OldColorShift_Top
+        if c then
+            c.Contrast = OldContrastc
+            c.Brightness = OldBrightnessc
+            c.TintColor = OldTintColorc
         end
-    end)
-    
+        if e then
+            e.TintColor = OldTintColore
+        end
+        game.Lighting.FogEnd = 2500
+        local pointLight = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart:FindFirstChild("PointLight")
+        if pointLight then
+            pointLight:Destroy()
+        end
+        return
+    end
+
+    while _G.RTXMode do
+        wait()
+        a.Ambient = Color3.fromRGB(255, 255, 255)
+        a.Brightness = 1
+		a.OutdoorAmblient = Color3.fromRGB(255, 255, 255)
+        a.ColorShift_Bottom = Color3.fromRGB(255, 255, 255)
+        a.ColorShift_Top = Color3.fromRGB(255, 255, 255)
+        game.Lighting.FogEnd = 0
+    end
+end)
+
      
     Misc:AddToggleLeft("Remove Fog",RemoveFog,function(value)
         RemoveFog = value
@@ -10991,8 +11001,8 @@ end)
 					if RemoveFog then
 						game.Lighting.FogEnd = 0
    	                                          game.Lighting.SeaTerrorCC:Destroy()
-						for i,v in pairs(game:GetService("Lighting"):GetDescendants()) do 
-						    if v.Name == "Atmosphere" or v.Name == " MirageFog" or v.Name == "DarkFog" then 
+						for i,v in pairs(game:GetService("Lighting").LightingLayers:GetChildren()) do 
+						    if v.Name == "Atmosphere" or v.Name == " MirageFog" or v.Name == "DarkFog" or v.Name == "PrehistoricFog" or v.Name == "KitsuneFog" then 
 						      v:Destroy()
 
 						    end 
@@ -11399,7 +11409,9 @@ end)
         Tween(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame)
         _G.Clip = false
     end)
-    
+    Misc:AddButtonRight("Remove Rocks",function()
+	workspace:FindFirstChild("Rocks"):Destroy()
+end)
     Misc:AddButtonRight("FPS Boost",function()
          local decalsyeeted = true
 local g = game
