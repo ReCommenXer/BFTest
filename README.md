@@ -3282,10 +3282,33 @@ end
         start()
     end
     
-    function Click()
-        game:GetService'VirtualUser':CaptureController()
-        game:GetService'VirtualUser':Button1Down(Vector2.new(1280, 672))
-    end
+
+		local isAttacking = false
+
+		function Click(enemy)
+			isAttacking = true -- เปิดใช้งานการโจมตี
+			while isAttacking and task.wait(0.05) do
+					for _, enemy in pairs(workspace.Enemies:GetChildren()) do
+						-- เริ่มต้นการโจมตี
+						local attackArgs = {
+							[1] = 1 -- กำหนดค่าการโจมตี
+						}
+						game:GetService("ReplicatedStorage").Modules.Net:FindFirstChild("RE/RegisterAttack"):FireServer(unpack(attackArgs))
+				
+						-- โจมตีเป้าหมาย
+						local hitArgs = {
+							[1] = enemy.Head,
+							[2] = {}
+						}
+						game:GetService("ReplicatedStorage").Modules.Net:FindFirstChild("RE/RegisterHit"):FireServer(unpack(hitArgs))
+				end
+			end
+		end
+		
+		function StopClick()
+			isAttacking = false -- หยุดการโจมตี
+		end
+
     
     function AutoHaki()
         if not game:GetService("Players").LocalPlayer.Character:FindFirstChild("HasBuso") then
@@ -3694,21 +3717,17 @@ _G.FastAttack = true
                 if _G.BringMon then
                     CheckQuest()
                     for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
-                        if _G.AutoFarm and StartMagnet and v.Name == NameMon and (NameMon == "Factory Staff" or NameMon == "Monkey" or NameMon == "Dragon Crew Warrior" or NameMon == "Dragon Crew Archer") and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 and (v.HumanoidRootPart.Position - game:GetService("Players").LocalPlayer.Character.Head.Position).Magnitude <= 220 then
-                            v.Head.Size = Vector3.new(50,50,50)
-                            v.Head.Transparency = 0
+                        if _G.AutoFarm and StartMagnet and v.Name == NameMon and (NameMon == "Factory Staff" or NameMon == "Monkey" or NameMon == "Dragon Crew Warrior" or NameMon == "Dragon Crew Archer") and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 and (v.HumanoidRootPart.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 220 then
                             v.Humanoid:ChangeState(14)
-v.Humanoid:ChangeState(11)
-v.Head.CFrame = PosMon
+							v.Humanoid:ChangeState(11)
+							v.HumanoidRootPart.CFrame = PosMon
                             v.Head.CanCollide = false
                             v.Head.CanCollide = false
                             if v.Humanoid:FindFirstChild("Animator") then
                                 v.Humanoid.Animator:Destroy()
                             end
                             sethiddenproperty(game:GetService("Players").LocalPlayer,"SimulationRadius",math.huge)
-                        elseif _G.AutoFarm and StartMagnet and v.Name == NameMon and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 and (v.Head.Position - game:GetService("Players").LocalPlayer.Character.Head.Position).Magnitude <= 275 then
-                            v.Head.Size = Vector3.new(50,50,50)
-                            v.Head.Transparency = 0
+                        elseif _G.AutoFarm and StartMagnet and v.Name == NameMon and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 and (v.HumanoidRootPart.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 275 then
                             v.HumanoidRootPart.CFrame = PosMon
                             v.Humanoid:ChangeState(14)
                             v.Head.CanCollide = false
@@ -5838,8 +5857,7 @@ Main:AddToggleLeft("Auto Farm",_G.AutoFarm,function(value)
                                                 v.Humanoid.WalkSpeed = 0
                                                 v.Head.CanCollide = false
                                                 StartMagnet = true
-                                                game:GetService'VirtualUser':CaptureController()
-                                                game:GetService'VirtualUser':Button1Down(Vector2.new(1280, 672))
+                                                Click(v)
                                             until not _G.AutoFarm or v.Humanoid.Health <= 0 or not v.Parent or game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false
                                         else
                                             StartMagnet = false
@@ -5850,6 +5868,7 @@ Main:AddToggleLeft("Auto Farm",_G.AutoFarm,function(value)
                             end
                         else
                             StartMagnet = false
+							StopClick()
                             if game:GetService("ReplicatedStorage"):FindFirstChild(Mon) then
                                 Tween(game:GetService("ReplicatedStorage"):FindFirstChild(Mon).HumanoidRootPart.CFrame * CFrame.new(0,0,0))
                             else
@@ -6267,8 +6286,7 @@ end)
 									EquipWeapon(_G.SelectWeapon)
 									PosMon = v.HumanoidRootPart.CFrame
 									Tween(v.HumanoidRootPart.CFrame * CFrame.new(0,45,0))
-									game:GetService'VirtualUser':CaptureController()
-									game:GetService'VirtualUser':Button1Down(Vector2.new(1280, 672))
+									Click(v)
 									v.HumanoidRootPart.Size = Vector3.new(60,60,60)
 									v.HumanoidRootPart.Transparency = 1
 									v.Humanoid.JumpPower = 0
@@ -6277,6 +6295,7 @@ end)
 								until not  _G.MobAura or not v.Parent or v.Humanoid.Health <= 0
 							end
 						end
+					else StopClick()
 					end
 				end)
 		end
@@ -11572,4 +11591,3 @@ end
 _G.GetFunction = value
 
 end)
-
