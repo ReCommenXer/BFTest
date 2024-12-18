@@ -3403,13 +3403,15 @@ function Goto(Pos)
                         Noclip.Parent = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
                         Noclip.MaxForce = Vector3.new(100000,100000,100000)
                         Noclip.Velocity = Vector3.new(0,0,0)
-                       end
+                       
                 else
                     game:GetService("Players").LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyClip"):Destroy()
+                end
                 end
             end
         end)
     end)
+    
 function GetWeaponInventory(Weaponname)
 for i, v in pairs(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("getInventory")) do
 if type(v) == "table" then
@@ -3616,17 +3618,18 @@ Main:AddTextboxLeft("job id ","...",true,function(s)
     
     
     
-    Main:AddToggleRight("Auto Set Home",_G.AutoSetHome,function(value)
-        _G.AutoSetHome = value
+    Main:AddToggleRight("Remove Effect",_G.Remove_Effect,function(value)
+        _G.Remove_Effect = value
     end)
     
     spawn(function()
         pcall(function()
             while wait() do
-                if _G.AutoSetSpawn then
-                    if game:GetService("Players").LocalPlayer.Character.Humanoid.Health > 0 then
-                        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("SetSpawnPoint")
+                if _G.Remove_Effect then
+                    if ReplicatedStorage:FindFirstChild("FX") then
+						ReplicatedStorage:FindFirstChild("FX").Archivable = false
                     end
+					ReplicatedStorage:FindFirstChild("FX").Archivable = true
                 end
             end
         end)
@@ -3679,7 +3682,6 @@ _G.FastAttack = true
      Main:AddToggleRight("Fast Attack",_G.FastAttack,function(a)
  _G.FastAttack = a
     end) 
-
 
     _G.BringMon = true
     Main:AddToggleRight("BringMon",_G.BringMon,function(value)
