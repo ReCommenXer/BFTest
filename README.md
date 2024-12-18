@@ -1,4 +1,4 @@
-
+----aaaaaaaa
 repeat wait() until game:IsLoaded()
 repeat wait() until game:GetService("Players")
 
@@ -3290,9 +3290,10 @@ end
         while isAttacking and wait(0) do
             -- รวบรวมศัตรูที่สามารถโจมตีได้
             local enemies = {}
-            for _, enemyRage in pairs(workspace.Enemies:GetChildren()) do
-                if enemyRage:FindFirstChild("Head") then
-                    table.insert(enemies, enemyRage.Head) -- เก็บเป้าหมายส่วนหัวของศัตรู
+            for _, enemy in pairs(workspace.Enemies:GetChildren()) do
+                if enemy:FindFirstChild("Head") then
+                    -- ใช้ตำแหน่งของศัตรูเพื่อแยกแยะ
+                    table.insert(enemies, enemy)
                 end
             end
     
@@ -3302,16 +3303,14 @@ end
                 local attackArgs = {
                     [1] = 1 -- กำหนดค่าการโจมตี (สามารถแก้ไขได้ตามความต้องการ)
                 }
-                -- ส่งคำสั่งโจมตี
                 game:GetService("ReplicatedStorage").Modules.Net:FindFirstChild("RE/RegisterAttack"):FireServer(unpack(attackArgs))
-            
+    
                 -- ส่งคำสั่งโจมตีแต่ละเป้าหมายใน enemies
-                for _, enemyHead in pairs(enemies) do
+                for _, enemy in pairs(enemies) do
                     local hitArgs = {
-                        [1] = enemyHead, -- ส่วนหัวของศัตรู
-                        [2] = {} -- ข้อมูลเพิ่มเติม (ถ้ามี)
+                        [1] = enemy.Head, -- ส่วนหัวของศัตรู
+                        [2] = {["Position"] = enemy.Head.Position} -- ใช้ตำแหน่งแยกแยะ
                     }
-                    -- ส่งคำสั่งโจมตีให้กับแต่ละศัตรู
                     game:GetService("ReplicatedStorage").Modules.Net:FindFirstChild("RE/RegisterHit"):FireServer(unpack(hitArgs))
                 end
             end
