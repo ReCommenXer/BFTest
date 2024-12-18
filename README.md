@@ -5827,7 +5827,9 @@ Main:AddToggleLeft("Auto Farm",_G.AutoFarm,function(value)
                                         if string.find(game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text, NameMon) then
                                             repeat task.wait()
                                                 EquipWeapon(_G.SelectWeapon)
-                                                AutoHaki()                                            
+                                                AutoHaki()       
+                                                v.Head.Transparency = 0             
+                                                v.Head.Size = Vector3.new(50,50,50)                     
                                                 PosMon = v.HumanoidRootPart.CFrame
                                                 Tween(v.HumanoidRootPart.CFrame * CFrame.new(0,20,0))
                                                 v.HumanoidRootPart.CanCollide = false
