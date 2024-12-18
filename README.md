@@ -3285,26 +3285,38 @@ end
 
 		local isAttacking = false
 
-		function Click()
-			isAttacking = true -- เปิดใช้งานการโจมตี
-			while isAttacking and wait(0) do
-					for _, enemyRage in pairs(workspace.Enemies:GetChildren()) do
-
-						-- เริ่มต้นการโจมตี
-						local attackArgs = {
-							[1] = 1 -- กำหนดค่าการโจมตี
-						}
-						game:GetService("ReplicatedStorage").Modules.Net:FindFirstChild("RE/RegisterAttack"):FireServer(unpack(attackArgs))
-				
-						-- โจมตีเป้าหมาย
-						local hitArgs = {
-							[1] = enemyRage.Head,
-							[2] = {}
-						}
-						game:GetService("ReplicatedStorage").Modules.Net:FindFirstChild("RE/RegisterHit"):FireServer(unpack(hitArgs))
-				end
-			end
-		end
+        function Click()
+            isAttacking = true -- เปิดใช้งานการโจมตี
+            while isAttacking and wait(0) do
+                -- รวบรวมศัตรูที่สามารถโจมตีได้
+                local enemies = {}
+                for _, enemyRage in pairs(workspace.Enemies:GetChildren()) do
+                    if enemyRage:FindFirstChild("Head") then
+                        table.insert(enemies, enemyRage.Head) -- เก็บเป้าหมายส่วนหัวของศัตรู
+                    end
+                end
+        
+                -- ส่งคำสั่งโจมตี (สำหรับทุกเป้าหมาย)
+                if #enemies > 0 then
+                    -- เริ่มต้นการโจมตี (ส่งคำสั่งสำหรับโจมตี)
+                    local attackArgs = {
+                        [1] = 1 -- กำหนดค่าการโจมตี
+                    }
+                    game:GetService("ReplicatedStorage").Modules.Net:FindFirstChild("RE/RegisterAttack"):FireServer(unpack(attackArgs))
+        
+                    -- ส่งคำสั่งโจมตีแต่ละเป้าหมายใน enemies
+                    for _, enemyHead in pairs(enemies) do
+                        local hitArgs = {
+                            [1] = enemyHead, -- ส่วนหัวของศัตรู
+                            [2] = {} -- ข้อมูลเพิ่มเติม (ถ้ามี)
+                        }
+                        game:GetService("ReplicatedStorage").Modules.Net:FindFirstChild("RE/RegisterHit"):FireServer(unpack(hitArgs))
+                    end
+                end
+            end
+        end
+        
+        
 		
 		function StopClick()
 			isAttacking = false -- หยุดการโจมตี
@@ -3688,6 +3700,18 @@ _G.FastAttack = true
      Main:AddToggleRight("Fast Attack",_G.FastAttack,function(a)
  _G.FastAttack = a
     end) 
+
+spawn(function()
+    while wait() do
+        pcall(function()
+            if _G.FastAttack then
+                Click()
+            else
+                StopClick()
+            end
+        end)
+    end
+end)
 
     _G.BringMon = true
     Main:AddToggleRight("BringMon",_G.BringMon,function(value)
