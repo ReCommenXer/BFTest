@@ -1,4 +1,4 @@
-----aaaaaaaa
+
 repeat wait() until game:IsLoaded()
 repeat wait() until game:GetService("Players")
 
@@ -3292,8 +3292,7 @@ end
             local enemies = {}
             for _, enemy in pairs(workspace.Enemies:GetChildren()) do
                 if enemy:FindFirstChild("Head") then
-                    -- ใช้ตำแหน่งของศัตรูเพื่อแยกแยะ
-                    table.insert(enemies, enemy)
+                    table.insert(enemies, enemy) -- เก็บข้อมูลศัตรูทั้งตัว (ไม่ใช่แค่ชื่อ)
                 end
             end
     
@@ -3303,14 +3302,16 @@ end
                 local attackArgs = {
                     [1] = 1 -- กำหนดค่าการโจมตี (สามารถแก้ไขได้ตามความต้องการ)
                 }
+                -- ส่งคำสั่งโจมตี
                 game:GetService("ReplicatedStorage").Modules.Net:FindFirstChild("RE/RegisterAttack"):FireServer(unpack(attackArgs))
-    
+            
                 -- ส่งคำสั่งโจมตีแต่ละเป้าหมายใน enemies
                 for _, enemy in pairs(enemies) do
                     local hitArgs = {
                         [1] = enemy.Head, -- ส่วนหัวของศัตรู
-                        [2] = {["Position"] = enemy.Head.Position} -- ใช้ตำแหน่งแยกแยะ
+                        [2] = {["EnemyId"] = enemy:GetDebugId()} -- ใช้ไอดีเฉพาะตัว
                     }
+                    -- ส่งคำสั่งโจมตีให้กับแต่ละศัตรู
                     game:GetService("ReplicatedStorage").Modules.Net:FindFirstChild("RE/RegisterHit"):FireServer(unpack(hitArgs))
                 end
             end
