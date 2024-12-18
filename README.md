@@ -1,4 +1,4 @@
-
+-------------------rrrrr
 repeat wait() until game:IsLoaded()
 repeat wait() until game:GetService("Players")
 
@@ -3283,7 +3283,6 @@ end
     end
     
 
-
     local isAttacking = false -- ตัวแปรใช้ตรวจสอบสถานะการโจมตี
 
     function Click()
@@ -3322,12 +3321,12 @@ end
                 game:GetService("ReplicatedStorage").Modules.Net:FindFirstChild("RE/RegisterHit"):FireServer(unpack(args))
             end
     
-            wait(0.5)  -- รอครึ่งวินาที ก่อนที่จะตรวจสอบใหม่
+            task.wait(0)  -- ใช้ task.wait(0) เพื่อให้ลูปทำงานได้เร็วที่สุดเท่าที่จะทำได้
         end
     end
     
     -- ตัวอย่างการหยุดการโจมตี
-    function StopAttacking()
+    function StopClick()
         isAttacking = false  -- หยุดการโจมตี
     end
     
@@ -6304,9 +6303,7 @@ end)
 									EquipWeapon(_G.SelectWeapon)
 									PosMon = v.HumanoidRootPart.CFrame
 									Tween(v.HumanoidRootPart.CFrame * CFrame.new(0,45,0))
-									Click(v)
-									v.HumanoidRootPart.Size = Vector3.new(60,60,60)
-									v.HumanoidRootPart.Transparency = 1
+									v.HumanoidRootPart.Transparency = 0
 									v.Humanoid.JumpPower = 0
 									v.Humanoid.WalkSpeed = 0
 									v.HumanoidRootPart.CanCollide = false
@@ -8275,8 +8272,6 @@ spawn(function()
                                     v.HumanoidRootPart.CanCollide = false
                                     v.Humanoid.WalkSpeed = 0
                                     Tween(v.HumanoidRootPart.CFrame * CFrame.new(0,-45,-40))
-                                    game:GetService("VirtualUser"):CaptureController()
-                                    game:GetService("VirtualUser"):Button1Down(Vector2.new(1280,672))
                                 until not _G.AutoDoughtBoss or not v.Parent or v.Humanoid.Health <= 0
                             end
                         end
