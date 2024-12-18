@@ -3285,10 +3285,11 @@ end
 
 		local isAttacking = false
 
-		function Click(enemy)
+		function Click()
 			isAttacking = true -- เปิดใช้งานการโจมตี
-			while isAttacking and task.wait(0.05) do
-					for _, enemy in pairs(workspace.Enemies:GetChildren()) do
+			while isAttacking and wait(0) do
+					for _, enemyRage in pairs(workspace.Enemies:GetChildren()) do
+
 						-- เริ่มต้นการโจมตี
 						local attackArgs = {
 							[1] = 1 -- กำหนดค่าการโจมตี
@@ -3297,7 +3298,7 @@ end
 				
 						-- โจมตีเป้าหมาย
 						local hitArgs = {
-							[1] = enemy.Head,
+							[1] = enemyRage.Head,
 							[2] = {}
 						}
 						game:GetService("ReplicatedStorage").Modules.Net:FindFirstChild("RE/RegisterHit"):FireServer(unpack(hitArgs))
@@ -3336,19 +3337,6 @@ end
         end
     end
    
- function ew(Pos)
-        Distance = (Pos.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
-        pcall(function() tween = game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart,TweenInfo.new(Distance/350, Enum.EasingStyle.Linear),{CFrame = Pos}) end)
-        tween:Play()
-        if Distance <= 250 then
-            tween:Cancel()
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Pos
-        end
-        if _G.StopTween == true then
-            tween:Cancel()
-            _G.Clip = false
-        end
-    end
 
     function Tween(Pos)
         Distance = (Pos.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
@@ -3365,20 +3353,7 @@ end
         end
     end
 
-function Goto(Pos)
-        Distance = (Pos.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
-        if game.Players.LocalPlayer.Character.Humanoid.Sit == true then game.Players.LocalPlayer.Character.Humanoid.Sit = false end
-        pcall(function() tween = game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart,TweenInfo.new(Distance/250, Enum.EasingStyle.Linear),{CFrame = Pos}) end)
-        tween:Play()
-        if Distance <= 250 then
-            tween:Cancel()
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Pos
-        end
-        if _G.StopTween == true then
-            tween:Cancel()
-            _G.Clip = false
-        end
-    end
+
     
     function TP0(Pos)
         Distance = (Pos.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
@@ -3420,20 +3395,28 @@ function Goto(Pos)
         pcall(function()
             while wait() do
                 if _G.AutoFarmFruit or _G.Auto_Cursed_Dual_Katana or _G.AutoDoughKing or _G.KitsuneIsland or _G.Auto_Sea_Event or _G.Auto_Open_Dough_Dungeon or _G.AutoAdvanceDungeon or _G.egg  or _G.AutoLawBoss or _G.Auto_Open_Dough_Dungeon or _G.AutoMysticIsland21 or _G.AutoMysticIsland or _G.AutoMysticIsland2 or _G.Heats or _G.fts or _G.AutoDoughtBoss or _G.human or _G.ghoul or _G.Gear or _G.bot or _G.dv2 or _G.Candy or _G.Cocoa or _G.Ectoplasm or _G.AutoRedioactive or _G.Chest or _G.AutoSaw or _G.Sea1 or _G.Sea or _G.Magma or _G.Fish or _G.My or _G.God or _G.combo or _G.Auto_Bone2 or _G.AutoDoughtBoss or _G.Auto_DungeonMobAura or _G.AutoFarmChest or _G.AutoFarmBossHallow or _G.AutoFarmSwanGlasses or _G.AutoLongSword or _G.AutoBlackSpikeycoat or _G.AutoElectricClaw or _G.AutoFarmGunMastery or _G.AutoHolyTorch or _G.AutoLawRaid or _G.AutoFarmBoss or _G.AutoTwinHooks or _G.AutoOpenSwanDoor or _G.AutoDragon_Trident or _G.AutoSaber or _G.AutoFarmFruitMastery or _G.AutoFarmGunMastery or _G.TeleportIsland or _G.Auto_EvoRace or _G.AutoFarmAllMsBypassType or _G.AutoObservationv2 or _G.AutoMusketeerHat or _G.AutoEctoplasm or _G.AutoRengoku or _G.Auto_Rainbow_Haki or _G.AutoObservation or _G.AutoDarkDagger or _G.Safe_Mode or _G.MasteryFruit or _G.AutoBudySword or _G.AutoBounty or _G.AutoAllBoss or _G.Auto_Bounty or _G.AutoSharkman or _G.Auto_Mastery_Fruit or _G.Auto_Mastery_Gun or _G.Auto_Dungeon or _G.Auto_Cavender or _G.Auto_Pole or _G.Auto_Kill_Ply or _G.Auto_Factory or _G.AutoSecondSea or _G.TeleportPly or _G.AutoBartilo or _G.Auto_DarkBoss or _G.GrabChest or _G.AutoFarmBounty or _G.Holy_Torch or _G.AutoFarm or _G.Clip or FarmBoss or _G.AutoElitehunter or _G.AutoThirdSea or _G.Auto_Bone == true then
-                       if not game:GetService("Players").LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyClip"):Destroy() then
-                        local Noclip = Instance.new("BodyVelocity")
-                        Noclip.Name = "BodyClip"
-                        Noclip.Parent = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
-                        Noclip.MaxForce = Vector3.new(100000,100000,100000)
-                        Noclip.Velocity = Vector3.new(0,0,0)
-                       
-                else
-                    game:GetService("Players").LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyClip"):Destroy()
-                end
-                end
-            end
-        end)
-    end)
+					local character = game:GetService("Players").LocalPlayer.Character
+					local humanoidRootPart = character and character:FindFirstChild("HumanoidRootPart")
+					if humanoidRootPart and not humanoidRootPart:FindFirstChild("BodyClip") then
+						local Noclip = Instance.new("BodyVelocity")
+						Noclip.Name = "BodyClip"
+						Noclip.Parent = humanoidRootPart
+						Noclip.MaxForce = Vector3.new(100000, 100000, 100000)
+						Noclip.Velocity = Vector3.new(0, 0, 0)
+					end
+				else
+					local character = game:GetService("Players").LocalPlayer.Character
+					local humanoidRootPart = character and character:FindFirstChild("HumanoidRootPart")
+					if humanoidRootPart then
+						local bodyClip = humanoidRootPart:FindFirstChild("BodyClip")
+						if bodyClip then
+							bodyClip:Destroy()
+						end
+					end
+				end
+			end
+		end)
+	end)
     
 function GetWeaponInventory(Weaponname)
 for i, v in pairs(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("getInventory")) do
@@ -3718,10 +3701,10 @@ _G.FastAttack = true
                     CheckQuest()
                     for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
                         if _G.AutoFarm and StartMagnet and v.Name == NameMon and (NameMon == "Factory Staff" or NameMon == "Monkey" or NameMon == "Dragon Crew Warrior" or NameMon == "Dragon Crew Archer") and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 and (v.HumanoidRootPart.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 220 then
-                            v.Humanoid:ChangeState(14)
+							v.Humanoid:ChangeState(14)
 							v.Humanoid:ChangeState(11)
 							v.HumanoidRootPart.CFrame = PosMon
-                            v.Head.CanCollide = false
+                            v.HumanoidRootPart.CanCollide = false
                             v.Head.CanCollide = false
                             if v.Humanoid:FindFirstChild("Animator") then
                                 v.Humanoid.Animator:Destroy()
@@ -3730,7 +3713,7 @@ _G.FastAttack = true
                         elseif _G.AutoFarm and StartMagnet and v.Name == NameMon and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 and (v.HumanoidRootPart.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 275 then
                             v.HumanoidRootPart.CFrame = PosMon
                             v.Humanoid:ChangeState(14)
-                            v.Head.CanCollide = false
+                            v.HumanoidRootPart.CanCollide = false
                             v.Head.CanCollide = false
                             if v.Humanoid:FindFirstChild("Animator") then
                                 v.Humanoid.Animator:Destroy()
@@ -5857,7 +5840,7 @@ Main:AddToggleLeft("Auto Farm",_G.AutoFarm,function(value)
                                                 v.Humanoid.WalkSpeed = 0
                                                 v.Head.CanCollide = false
                                                 StartMagnet = true
-                                                Click(v)
+												  Click()
                                             until not _G.AutoFarm or v.Humanoid.Health <= 0 or not v.Parent or game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false
                                         else
                                             StartMagnet = false
