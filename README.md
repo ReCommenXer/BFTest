@@ -1,4 +1,4 @@
--------------------rrrrr
+
 repeat wait() until game:IsLoaded()
 repeat wait() until game:GetService("Players")
 
@@ -7616,8 +7616,6 @@ end)
                                         v.HumanoidRootPart.CanCollide = false
                                         v.Humanoid.WalkSpeed = 0
                                         Tween(v.HumanoidRootPart.CFrame * CFrame.new(0,20,0))
-                                        game:GetService("VirtualUser"):CaptureController()
-                                        game:GetService("VirtualUser"):Button1Down(Vector2.new(1280,672))
                                         sethiddenproperty(game:GetService("Players").LocalPlayer,"SimulationRadius",math.huge)
                                     until not _G.AutoFarmBoss or not v.Parent or v.Humanoid.Health <= 0
                                 end
@@ -10070,8 +10068,8 @@ Teleport:AddSeperatorLeft("Teleport World")
     spawn(function()
         pcall(function()
             while wait() do
-                if game:GetService("Players").LocalPlayer.PlayerGui.Main.Timer.Visible == true then
-                    TimeRaid:Set(game:GetService("Players").LocalPlayer.PlayerGui.Main.Timer.Text)
+                if game:GetService("Players").LocalPlayer.PlayerGui.Main.TopHUDList.RaidTimer.Value == true then
+                    TimeRaid:Set(game:GetService("Players").LocalPlayer.PlayerGui.Main.TopHUDList.RaidTimer.Text)
                 else
                     TimeRaid:Set("Wait.")
                     Wait(.2)
@@ -10140,17 +10138,18 @@ Teleport:AddSeperatorLeft("Teleport World")
         pcall(function()
             while wait() do
                 if _G.Auto_Dungeon then
-                    if game:GetService("Players")["LocalPlayer"].PlayerGui.Main.Timer.Visible == true then
-                        if game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Island 5") then
-                            Tween(game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Island 5").CFrame*CFrame.new(0,80,100))
-                        elseif game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Island 4") then
-                            Tween(game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Island 4").CFrame*CFrame.new(0,80,100))
-                        elseif game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Island 3") then
-                            Tween(game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Island 3").CFrame*CFrame.new(0,80,100))
-                        elseif game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Island 2") then
-                            Tween(game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Island 2").CFrame*CFrame.new(0,80,100))
-                        elseif game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Island 1") then
-                            Tween(game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Island 1").CFrame*CFrame.new(0,80,100))
+                    local raidisland = workspace.Map.RaidMap
+                    if game:GetService("Players").LocalPlayer.PlayerGui.Main.TopHUDList.RaidTimer.Visible == true then
+                        if raidisland:FindFirstChild("RaidIsland5") then
+                            Tween(raidisland:FindFirstChild("RaidIsland5").WorldPivot*CFrame.new(0,80,100))
+                        elseif raidisland:FindFirstChild("RaidIsland4") then
+                            Tween(raidisland:FindFirstChild("RaidIsland4").WorldPivot*CFrame.new(0,80,100))
+                        elseif raidisland:FindFirstChild("RaidIsland3") then
+                            Tween(raidisland:FindFirstChild("RaidIsland3").WorldPivot*CFrame.new(0,80,100))
+                        elseif raidisland:FindFirstChild("RaidIsland2") then
+                            Tween(raidisland:FindFirstChild("RaidIsland2").WorldPivot*CFrame.new(0,80,100))
+                        elseif raidisland:FindFirstChild("RaidIsland1") then
+                            Tween(raidisland:FindFirstChild("RaidIsland1").WorldPivot*CFrame.new(0,80,100))
                         end
                     end
                 end
@@ -10242,7 +10241,7 @@ Teleport:AddSeperatorLeft("Teleport World")
             while wait() do
                 if _G.AutoBuyChip then
                     if not game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Special Microchip") or not game:GetService("Players").LocalPlayer.Character:FindFirstChild("Special Microchip") then
-                        if not game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Island 1") then
+                        if not workspace.Map.RaidMap:FindFirstChild("RaidIsland1") then
                             game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("RaidsNpc", "Select", _G.SelectChip)
                         end
                     end
@@ -10264,7 +10263,7 @@ Teleport:AddSeperatorLeft("Teleport World")
             pcall(function()
                 if _G.Auto_StartRaid then
                     if game:GetService("Players")["LocalPlayer"].PlayerGui.Main.Timer.Visible == false then
-                        if not game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Island 1") and game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Special Microchip") or game:GetService("Players").LocalPlayer.Character:FindFirstChild("Special Microchip") then
+                        if not workspace.Map.RaidMap:FindFirstChild("RaidIsland1") and game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Special Microchip") or game:GetService("Players").LocalPlayer.Character:FindFirstChild("Special Microchip") then
                             if World2 then
                                 fireclickdetector(game:GetService("Workspace").Map.CircleIsland.RaidSummon2.Button.Main.ClickDetector)
                             elseif World3 then
