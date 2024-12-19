@@ -1,4 +1,4 @@
-
+-------------asasas
 repeat wait() until game:IsLoaded()
 repeat wait() until game:GetService("Players")
 
@@ -3735,9 +3735,7 @@ end)
                     CheckQuest()
                     for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
                         if _G.AutoFarm and StartMagnet and v.Name == NameMon and (NameMon == "Factory Staff" or NameMon == "Monkey" or NameMon == "Dragon Crew Warrior" or NameMon == "Dragon Crew Archer") and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 and (v.HumanoidRootPart.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 220 then
-							v.Humanoid:ChangeState(14)
-							v.Humanoid:ChangeState(11)
-							v.HumanoidRootPart.CFrame = PosMon
+                            v.HumanoidRootPart.CFrame = PosMon
                             v.HumanoidRootPart.CanCollide = false
                             v.Head.CanCollide = false
                             if v.Humanoid:FindFirstChild("Animator") then
@@ -5887,7 +5885,6 @@ Main:AddToggleLeft("Auto Farm",_G.AutoFarm,function(value)
                                                 v.Humanoid.WalkSpeed = 0
                                                 v.Head.CanCollide = false
                                                 StartMagnet = true
-												  Click()
                                             until not _G.AutoFarm or v.Humanoid.Health <= 0 or not v.Parent or game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false
                                         else
                                             StartMagnet = false
