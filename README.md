@@ -1,4 +1,4 @@
--------------asasas
+
 repeat wait() until game:IsLoaded()
 repeat wait() until game:GetService("Players")
 
@@ -3735,9 +3735,10 @@ end)
                     CheckQuest()
                     for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
                         if _G.AutoFarm and StartMagnet and v.Name == NameMon and (NameMon == "Factory Staff" or NameMon == "Monkey" or NameMon == "Dragon Crew Warrior" or NameMon == "Dragon Crew Archer") and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 and (v.HumanoidRootPart.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 220 then
-                            v.HumanoidRootPart.CFrame = PosMon
+                            v.Humanoid:ChangeState(11)
                             v.HumanoidRootPart.CanCollide = false
                             v.Head.CanCollide = false
+                            v.HumanoidRootPart.CFrame = PosMon
                             if v.Humanoid:FindFirstChild("Animator") then
                                 v.Humanoid.Animator:Destroy()
                             end
@@ -3896,8 +3897,6 @@ end)
                         end
                         if _G.Auto_Bone and StartMagnetBoneMon then
                             if (v.Name == "Reborn Skeleton [Lv. 1975]" or v.Name == "Living Zombie [Lv. 2000]" or v.Name == "Demonic Soul [Lv. 2025]" or v.Name == "Posessed Mummy [Lv. 2050]") and (v.HumanoidRootPart.Position - PosMonBone.Position).Magnitude <= 250 and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
-          
-                                v.Humanoid:ChangeState(14)
                                 v.HumanoidRootPart.CanCollide = false
                                 v.Head.CanCollide = false
                                 v.HumanoidRootPart.CFrame = PosMonBone
@@ -6059,6 +6058,25 @@ Main:AddToggleLeft("Auto Farm",_G.AutoFarm,function(value)
             end
         end)
     elseif World3 then
+        Main:AddSeperatorLeft("Dargon hunter Quest")
+        Main:AddToggleLeft("Auto Get Ember",AutoGetEmberFrie,function(a)
+            AutoGetEmberFrie = a
+            end)
+        spawn(function()
+            while wait() do
+             pcall(function()
+               if AutoGetEmberFrie then
+           for i,v in pairs(workspace:GetChildren()) do
+                  if v.Name == "EmberTemplate" then
+                    repeat wait()
+                         v.Part.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+                    until not AutoGetEmberFrie or not v.Parent
+                  end
+                   end
+               end
+           end)
+           end
+           end) 
      Main:AddSeperatorLeft("Kitsune Island")
        local igd = Main:AddLabelLeft("")
     
