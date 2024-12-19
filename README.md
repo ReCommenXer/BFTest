@@ -5822,14 +5822,27 @@ elseif MyLevel == 2475 or MyLevel <= 2524 then
                NameMon = "Island Boy"  
                PUK = CFrame.new(-16548.8164, 55.6059914, -172.8125, 0.213092566, -0, -0.977032006, 0, 1, -0, 0.977032006, 0, 0.213092566)
               CFrameQuest = CFrame.new(-16548.8164, 55.6059914, -172.8125, 0.213092566, -0, -0.977032006, 0, 1, -0, 0.977032006, 0, 0.213092566)
-elseif MyLevel >= 2525 then
+elseif MyLevel == 2525 or MyLevel <= 2549 then
                Mon = "Isle Champion"
                LevelQuest = 2
                NameQuest = "TikiQuest2"
                NameMon = "Isle Champion"  
                PUK = CFrame.new(-16541.0215, 54.770813, 1051.46118, 0.0410757065, -0, -0.999156058, 0, 1, -0, 0.999156058, 0, 0.0410757065)
               CFrameQuest = CFrame.new(-16541.0215, 54.770813, 1051.46118, 0.0410757065, -0, -0.999156058, 0, 1, -0, 0.999156058, 0, 0.0410757065)
-       
+            elseif MyLevel == 2550 or MyLevel <= 2574 then
+                Mon = "Serpent Hunter"
+                LevelQuest = 1
+                NameQuest = "TikiQuest3"
+                NameMon = "Serpent Hunter"  
+                PUK = CFrame.new(-16665.1914, 104.596405, 1579.69434, 0.951068401, -0, -0.308980465, 0, 1, -0, 0.308980465, 0, 0.951068401)
+               CFrameQuest = CFrame.new(-16665.1914, 104.596405, 1579.69434, 0.951068401, -0, -0.308980465, 0, 1, -0, 0.308980465, 0, 0.951068401)
+            elseif MyLevel >= 2575 then
+                Mon = "Skull Slayer"
+                LevelQuest = 2
+                NameQuest = "TikiQuest3"
+                NameMon = "Skull Slayer"  
+                PUK = CFrame.new(-16665.1914, 104.596405, 1579.69434, 0.951068401, -0, -0.308980465, 0, 1, -0, 0.308980465, 0, 0.951068401)
+               CFrameQuest = CFrame.new(-16665.1914, 104.596405, 1579.69434, 0.951068401, -0, -0.308980465, 0, 1, -0, 0.308980465, 0, 0.951068401)
 
           end
         end
