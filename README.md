@@ -6059,24 +6059,27 @@ Main:AddToggleLeft("Auto Farm",_G.AutoFarm,function(value)
         end)
     elseif World3 then
         Main:AddSeperatorLeft("Dargon hunter Quest")
-        Main:AddToggleLeft("Auto Get Ember",AutoGetEmberFrie,function(a)
+        Main:AddToggleLeft("Auto Get Ember Fire",AutoGetEmberFrie,function(a)
             AutoGetEmberFrie = a
             end)
-        spawn(function()
-            while wait() do
-             pcall(function()
-               if AutoGetEmberFrie then
-           for i,v in pairs(workspace:GetChildren()) do
-                  if v.Name == "EmberTemplate" then
-                    repeat wait()
-                         v.Part.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-                    until not AutoGetEmberFrie or not v.Parent
-                  end
-                   end
-               end
-           end)
-           end
-           end) 
+            
+            spawn(function()
+                while wait() do
+                    pcall(function()
+                        if AutoGetEmberFrie then
+                            for _, v in pairs(workspace:GetChildren()) do
+                                if v.Name == "EmberTemplate" and v:FindFirstChild("Part") then
+                                    repeat
+                                        wait()
+                                        v.Part.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+                                    until not AutoGetEmberFrie or not v.Parent
+                                end
+                            end
+                        end
+                    end)
+                end
+            end)
+            
      Main:AddSeperatorLeft("Kitsune Island")
        local igd = Main:AddLabelLeft("")
     
