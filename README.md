@@ -8042,14 +8042,17 @@ end)
                             end
                         else
                             StartMagnetMini_Tusk = false
-                         Tween(-13368.1875, 488.188721, -6930.43457, 0.316854268, 7.56199299e-08, 0.948474228, 4.37376357e-08, 1, -9.43392919e-08, -0.948474228, 7.13758297e-08, 0.316854268)
-                                                                 
+                            for i,v in pairs(game:GetService("ReplicatedStorage"):GetChildren()) do 
+                                if game:GetService("ReplicatedStorage"):FindFirstChild("Mythological Pirate") then
+                                         Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Mythological Pirate").HumanoidRootPart.CFrame * CFrame.new(5,25,7))
+                                        end
+                                    end
+                                end
+                                Tween(-13368.1875, 488.188721, -6930.43457, 0.316854268, 7.56199299e-08, 0.948474228, 4.37376357e-08, 1, -9.43392919e-08, -0.948474228, 7.13758297e-08, 0.316854268)
+                          end)
                         end
-                   end)
-                end
-            end
-        end)
-
+                    end
+                end)
     Main:AddToggleLeft("Leather & Scrap Metal",nil,function(a)
     _G.Iron = a
     StopTween(_G.Iron)
