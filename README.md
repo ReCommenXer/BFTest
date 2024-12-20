@@ -56,11 +56,12 @@ ImageButton.BorderSizePixel = 0
 ImageButton.Position = UDim2.new(0.120833337, 0, 0.0952890813, 0)
 ImageButton.Size = UDim2.new(0, 45, 0, 45)
 ImageButton.Draggable = true
-ImageButton.Image = ""
+ImageButton.Image = "rbxassetid://10039618734"
 ImageButton.MouseButton1Down:connect(function()
-game:GetService("VirtualInputManager"):SendKeyEvent(true,305,false,game)
- game:GetService("VirtualInputManager"):SendKeyEvent(false,305,false,game)
-end)
+    game:GetService("VirtualInputManager"):SendKeyEvent(true,305,false,game)
+     game:GetService("VirtualInputManager"):SendKeyEvent(false,305,false,game)
+    end)
+    
 
 
 fuckshit.Parent = Open
@@ -102,7 +103,7 @@ _G.SectionTextColor = Color3.fromRGB(0, 0, 255)
 _G.SectionOn = Color3.fromRGB(0, 250, 0)
 
 _G.Color1 = Color3.fromRGB(255,255,255)
-do local GUI = game.CoreGui:FindFirstChild("1xliiUI");if GUI then GUI:Destroy();end;if _G.Color == nil then
+do local GUI = game.CoreGui:FindFirstChild("ReBornxerHubGui");if GUI then GUI:Destroy();end;if _G.Color == nil then
 _G.Color = Color3.fromRGB(255,255,255)
 end 
 end
@@ -178,17 +179,17 @@ function Update:AddWindow(name,logo,keybind)
 	local keybind = keybind or Enum.KeyCode.RightControl
 	local yoo = string.gsub(tostring(keybind),"Enum.KeyCode.","")
 	
-	local SOMEXHUB = Instance.new("ScreenGui")
-	SOMEXHUB.Name = "1xliiUI"
-	SOMEXHUB.Parent = game.CoreGui
-	SOMEXHUB.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+	local RebornXerHub = Instance.new("ScreenGui")
+	RebornXerHub.Name = "ReBornxerHubGui"
+	RebornXerHub.Parent = game.CoreGui
+	RebornXerHub.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 local osfunc = {}
  local osfunc2 = {}
 	local Main = Instance.new("Frame")
 	local WindowStrokemain = Instance.new("UIStroke")
 	Main.Name = "Main"
-	Main.Parent = SOMEXHUB
+	Main.Parent = RebornXerHub
 	Main.ClipsDescendants = true
 	Main.AnchorPoint = Vector2.new(0.5,0.5)
 	Main.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
@@ -262,7 +263,7 @@ local ListNof = Instance.new("Frame")
 	local NofList = Instance.new("UIListLayout")
 
 	ListNof.Name = "ListNof"
-	ListNof.Parent = SOMEXHUB
+	ListNof.Parent = RebornXerHub
 	ListNof.BackgroundColor3 = Color3.fromRGB(255,255,255)
 	ListNof.BackgroundTransparency = 1.000
 	ListNof.Position = UDim2.new(0.778017223, 0, -0.00217864919, 0)
@@ -374,7 +375,7 @@ local ListNof = Instance.new("Frame")
  
  
  NotificationFrame.Name = "NotificationFrame"
- NotificationFrame.Parent = SOMEXHUB
+ NotificationFrame.Parent = RebornXerHub
  NotificationFrame.AnchorPoint = Vector2.new(0.5, 0.5)
  NotificationFrame.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
  NotificationFrame.BorderColor3 = _G.SectionColor
@@ -635,18 +636,17 @@ local Page2 = Instance.new("Frame")
  UIPageLayout2.TouchInputEnabled = false
  
  MakeDraggable(Top,Main)
- 
  UserInputService.InputBegan:Connect(function(input)
-if input.KeyCode == Enum.KeyCode[yoo] then
-if uihide == false then
- uihide = true
- Main:TweenSize(UDim2.new(0, 0, 0, 0),"In","Quad",0,true)
-else
- uihide = false
- Main:TweenSize(UDim2.new(0, 600, 0, 400),"Out","Quad",0,true)
-end
-end
- end)
+    if input.KeyCode == Enum.KeyCode[yoo] then
+    if uihide == false then
+     uihide = true
+     Main:TweenSize(UDim2.new(0, 0, 0, 0),"In","Quad",0,true)
+    else
+     uihide = false
+     Main:TweenSize(UDim2.new(0, 600, 0, 400),"Out","Quad",0,true)
+    end
+    end
+     end)
 	
 
 
@@ -3416,7 +3416,7 @@ end
     spawn(function()
         pcall(function()
             while wait() do
-                if _G.MobAura or _G.AutoFarmFruit or _G.Auto_Cursed_Dual_Katana or _G.AutoDoughKing or _G.KitsuneIsland or _G.Auto_Sea_Event or _G.Auto_Open_Dough_Dungeon or _G.AutoAdvanceDungeon or _G.egg  or _G.AutoLawBoss or _G.Auto_Open_Dough_Dungeon or _G.AutoMysticIsland21 or _G.AutoMysticIsland or _G.AutoMysticIsland2 or _G.Heats or _G.fts or _G.AutoDoughtBoss or _G.human or _G.ghoul or _G.Gear or _G.bot or _G.dv2 or _G.Candy or _G.Cocoa or _G.Ectoplasm or _G.AutoRedioactive or _G.Chest or _G.AutoSaw or _G.Sea1 or _G.Sea or _G.Magma or _G.Fish or _G.My or _G.God or _G.combo or _G.Auto_Bone2 or _G.AutoDoughtBoss or _G.Auto_DungeonMobAura or _G.AutoFarmChest or _G.AutoFarmBossHallow or _G.AutoFarmSwanGlasses or _G.AutoLongSword or _G.AutoBlackSpikeycoat or _G.AutoElectricClaw or _G.AutoFarmGunMastery or _G.AutoHolyTorch or _G.AutoLawRaid or _G.AutoFarmBoss or _G.AutoTwinHooks or _G.AutoOpenSwanDoor or _G.AutoDragon_Trident or _G.AutoSaber or _G.AutoFarmFruitMastery or _G.AutoFarmGunMastery or _G.TeleportIsland or _G.Auto_EvoRace or _G.AutoFarmAllMsBypassType or _G.AutoObservationv2 or _G.AutoMusketeerHat or _G.AutoEctoplasm or _G.AutoRengoku or _G.Auto_Rainbow_Haki or _G.AutoObservation or _G.AutoDarkDagger or _G.Safe_Mode or _G.MasteryFruit or _G.AutoBudySword or _G.AutoBounty or _G.AutoAllBoss or _G.Auto_Bounty or _G.AutoSharkman or _G.Auto_Mastery_Fruit or _G.Auto_Mastery_Gun or _G.Auto_Dungeon or _G.Auto_Cavender or _G.Auto_Pole or _G.Auto_Kill_Ply or _G.Auto_Factory or _G.AutoSecondSea or _G.TeleportPly or _G.AutoBartilo or _G.Auto_DarkBoss or _G.GrabChest or _G.AutoFarmBounty or _G.Holy_Torch or _G.AutoFarm or _G.Clip or FarmBoss or _G.AutoElitehunter or _G.AutoThirdSea or _G.Auto_Bone == true then
+                if _G.Mini_Tusk or _G.MobAura or _G.AutoFarmFruit or _G.Auto_Cursed_Dual_Katana or _G.AutoDoughKing or _G.KitsuneIsland or _G.Auto_Sea_Event or _G.Auto_Open_Dough_Dungeon or _G.AutoAdvanceDungeon or _G.egg  or _G.AutoLawBoss or _G.Auto_Open_Dough_Dungeon or _G.AutoMysticIsland21 or _G.AutoMysticIsland or _G.AutoMysticIsland2 or _G.Heats or _G.fts or _G.AutoDoughtBoss or _G.human or _G.ghoul or _G.Gear or _G.bot or _G.dv2 or _G.Candy or _G.Cocoa or _G.Ectoplasm or _G.AutoRedioactive or _G.Chest or _G.AutoSaw or _G.Sea1 or _G.Sea or _G.Magma or _G.Fish or _G.My or _G.God or _G.combo or _G.Auto_Bone2 or _G.AutoDoughtBoss or _G.Auto_DungeonMobAura or _G.AutoFarmChest or _G.AutoFarmBossHallow or _G.AutoFarmSwanGlasses or _G.AutoLongSword or _G.AutoBlackSpikeycoat or _G.AutoElectricClaw or _G.AutoFarmGunMastery or _G.AutoHolyTorch or _G.AutoLawRaid or _G.AutoFarmBoss or _G.AutoTwinHooks or _G.AutoOpenSwanDoor or _G.AutoDragon_Trident or _G.AutoSaber or _G.AutoFarmFruitMastery or _G.AutoFarmGunMastery or _G.TeleportIsland or _G.Auto_EvoRace or _G.AutoFarmAllMsBypassType or _G.AutoObservationv2 or _G.AutoMusketeerHat or _G.AutoEctoplasm or _G.AutoRengoku or _G.Auto_Rainbow_Haki or _G.AutoObservation or _G.AutoDarkDagger or _G.Safe_Mode or _G.MasteryFruit or _G.AutoBudySword or _G.AutoBounty or _G.AutoAllBoss or _G.Auto_Bounty or _G.AutoSharkman or _G.Auto_Mastery_Fruit or _G.Auto_Mastery_Gun or _G.Auto_Dungeon or _G.Auto_Cavender or _G.Auto_Pole or _G.Auto_Kill_Ply or _G.Auto_Factory or _G.AutoSecondSea or _G.TeleportPly or _G.AutoBartilo or _G.Auto_DarkBoss or _G.GrabChest or _G.AutoFarmBounty or _G.Holy_Torch or _G.AutoFarm or _G.Clip or FarmBoss or _G.AutoElitehunter or _G.AutoThirdSea or _G.Auto_Bone == true then
 					local character = game:GetService("Players").LocalPlayer.Character
 					local humanoidRootPart = character and character:FindFirstChild("HumanoidRootPart")
 					if humanoidRootPart and not humanoidRootPart:FindFirstChild("BodyClip") then
@@ -3470,7 +3470,7 @@ end
     spawn(function()
         pcall(function()
             game:GetService("RunService").Stepped:Connect(function()
-                if _G.MobAura or _G.AutoAdvanceDungeon or _G.Auto_Cursed_Dual_Katana or _G.AutoDoughKing or _G.KitsuneIsland or _G.Auto_Sea_Event or _G.Auto_Open_Dough_Dungeon or _G.AutoFarmFruit or _G.egg or _G.Auto_Open_Dough_Dungeon or _G.AutoLawBoss or _G.AutoMysticIsland2 or _G.Heats or _G.fts or _G.AutoDoughtBoss or _G.human or _G.ghoul or _G.Gear or _G.bot or _G.dv2 or _G.Cocoa or _G.Candy or _G.Ectoplasm or _G.Chest1 or _G.AutoRedioactive or _G.AutoSaw or _G.Chest or _G.Sea1 or _G.Sea or _G.Magma or _G.Fish or _G.My or _G.God or _G.combo or _G.Auto_Bone2 or _G.AutoDoughtBoss or _G.Auto_DungeonMobAura or _G.AutoFarmChest or _G.AutoFarmBossHallow or _G.AutoFarmSwanGlasses or _G.AutoLongSword or _G.AutoBlackSpikeycoat or _G.AutoElectricClaw or _G.AutoFarmGunMastery or _G.AutoHolyTorch or _G.AutoLawRaid or _G.AutoFarmBoss or _G.AutoTwinHooks or _G.AutoOpenSwanDoor or _G.AutoDragon_Trident or _G.AutoSaber or _G.NOCLIP or _G.AutoFarmFruitMastery or _G.AutoFarmGunMastery or _G.TeleportIsland or _G.Auto_EvoRace or _G.AutoFarmAllMsBypassType or _G.AutoObservationv2 or _G.AutoMusketeerHat or _G.AutoEctoplasm or _G.AutoRengoku or _G.Auto_Rainbow_Haki or _G.AutoObservation or _G.AutoDarkDagger or _G.Safe_Mode or _G.MasteryFruit or _G.AutoBudySword or _G.AutoBounty or _G.AutoAllBoss or _G.Auto_Bounty or _G.AutoSharkman or _G.Auto_Mastery_Fruit or _G.Auto_Mastery_Gun or _G.Auto_Dungeon or _G.Auto_Cavender or _G.Auto_Pole or _G.Auto_Kill_Ply or _G.Auto_Factory or _G.AutoSecondSea or _G.TeleportPly or _G.AutoBartilo or _G.Auto_DarkBoss or _G.GrabChest or _G.AutoFarmBounty or _G.Holy_Torch or _G.AutoFarm or _G.Clip or _G.AutoElitehunter or _G.AutoThirdSea or _G.Auto_Bone == true then
+                if _G.Mini_Tusk or _G.MobAura or _G.AutoAdvanceDungeon or _G.Auto_Cursed_Dual_Katana or _G.AutoDoughKing or _G.KitsuneIsland or _G.Auto_Sea_Event or _G.Auto_Open_Dough_Dungeon or _G.AutoFarmFruit or _G.egg or _G.Auto_Open_Dough_Dungeon or _G.AutoLawBoss or _G.AutoMysticIsland2 or _G.Heats or _G.fts or _G.AutoDoughtBoss or _G.human or _G.ghoul or _G.Gear or _G.bot or _G.dv2 or _G.Cocoa or _G.Candy or _G.Ectoplasm or _G.Chest1 or _G.AutoRedioactive or _G.AutoSaw or _G.Chest or _G.Sea1 or _G.Sea or _G.Magma or _G.Fish or _G.My or _G.God or _G.combo or _G.Auto_Bone2 or _G.AutoDoughtBoss or _G.Auto_DungeonMobAura or _G.AutoFarmChest or _G.AutoFarmBossHallow or _G.AutoFarmSwanGlasses or _G.AutoLongSword or _G.AutoBlackSpikeycoat or _G.AutoElectricClaw or _G.AutoFarmGunMastery or _G.AutoHolyTorch or _G.AutoLawRaid or _G.AutoFarmBoss or _G.AutoTwinHooks or _G.AutoOpenSwanDoor or _G.AutoDragon_Trident or _G.AutoSaber or _G.NOCLIP or _G.AutoFarmFruitMastery or _G.AutoFarmGunMastery or _G.TeleportIsland or _G.Auto_EvoRace or _G.AutoFarmAllMsBypassType or _G.AutoObservationv2 or _G.AutoMusketeerHat or _G.AutoEctoplasm or _G.AutoRengoku or _G.Auto_Rainbow_Haki or _G.AutoObservation or _G.AutoDarkDagger or _G.Safe_Mode or _G.MasteryFruit or _G.AutoBudySword or _G.AutoBounty or _G.AutoAllBoss or _G.Auto_Bounty or _G.AutoSharkman or _G.Auto_Mastery_Fruit or _G.Auto_Mastery_Gun or _G.Auto_Dungeon or _G.Auto_Cavender or _G.Auto_Pole or _G.Auto_Kill_Ply or _G.Auto_Factory or _G.AutoSecondSea or _G.TeleportPly or _G.AutoBartilo or _G.Auto_DarkBoss or _G.GrabChest or _G.AutoFarmBounty or _G.Holy_Torch or _G.AutoFarm or _G.Clip or _G.AutoElitehunter or _G.AutoThirdSea or _G.Auto_Bone == true then
                     for _, v in pairs(game:GetService("Players").LocalPlayer.Character:GetDescendants()) do
                         if v:IsA("BasePart") then
                             v.CanCollide = false    
@@ -3483,7 +3483,7 @@ end
     
     spawn(function()
         while wait() do
-            if _G.MobAura or _G.AutoDoughtBoss or _G.Auto_Cursed_Dual_Katana or _G.Auto_Sea_Event or _G.AutoDoughKing or _G.Auto_Open_Dough_Dungeon or _G.AutoFarmFruit or _G.dv2 or _G.Heats or _G.Auto_Open_Dough_Dungeon or _G.AutoLawBoss or _G.human or _G.AutoDoughtBoss or _G.ghoul or _G.Candy or _G.Gear or _G.dv2 or _G.Cocoa or _G.Chest1 or _G.Ectoplasm or _G.AutoRedioactive or _G.AutoSaw or _G.Chest or _G.Sea1 or _G.Sea or _G.Magma or _G.Fish or _G.My or _G.God or _G.combo or _G.Auto_Bone2 or _G.Auto_DungeonMobAura or _G.AutoFarmChest or _G.AutoFarmBossHallow or _G.AutoFarmSwanGlasses or _G.AutoLongSword or _G.AutoBlackSpikeycoat or _G.AutoElectricClaw or _G.AutoFarmGunMastery or _G.AutoHolyTorch or _G.AutoLawRaid or _G.AutoFarmBoss or _G.AutoTwinHooks or _G.AutoOpenSwanDoor or _G.AutoDragon_Trident or _G.AutoSaber or _G.NOCLIP or _G.AutoFarmFruitMastery or _G.AutoFarmGunMastery or _G.TeleportIsland or _G.Auto_EvoRace or _G.AutoFarmAllMsBypassType or _G.AutoObservationv2 or _G.AutoMusketeerHat or _G.AutoEctoplasm or _G.AutoRengoku or _G.Auto_Rainbow_Haki or _G.AutoObservation or _G.AutoDarkDagger or _G.Safe_Mode or _G.MasteryFruit or _G.AutoBudySword or _G.AutoAllBoss or _G.Auto_Bounty or _G.AutoSharkman or _G.Auto_Mastery_Fruit or _G.Auto_Mastery_Gun or _G.Auto_Dungeon or _G.Auto_Cavender or _G.Auto_Pole or _G.Auto_Kill_Ply or _G.Auto_Factory or _G.AutoSecondSea or _G.AutoBartilo or _G.Auto_DarkBoss or _G.AutoFarm or _G.Clip or _G.AutoElitehunter or _G.AutoThirdSea or _G.Auto_Bone == true then
+            if _G.Mini_Tusk or _G.MobAura or _G.AutoDoughtBoss or _G.Auto_Cursed_Dual_Katana or _G.Auto_Sea_Event or _G.AutoDoughKing or _G.Auto_Open_Dough_Dungeon or _G.AutoFarmFruit or _G.dv2 or _G.Heats or _G.Auto_Open_Dough_Dungeon or _G.AutoLawBoss or _G.human or _G.AutoDoughtBoss or _G.ghoul or _G.Candy or _G.Gear or _G.dv2 or _G.Cocoa or _G.Chest1 or _G.Ectoplasm or _G.AutoRedioactive or _G.AutoSaw or _G.Chest or _G.Sea1 or _G.Sea or _G.Magma or _G.Fish or _G.My or _G.God or _G.combo or _G.Auto_Bone2 or _G.Auto_DungeonMobAura or _G.AutoFarmChest or _G.AutoFarmBossHallow or _G.AutoFarmSwanGlasses or _G.AutoLongSword or _G.AutoBlackSpikeycoat or _G.AutoElectricClaw or _G.AutoFarmGunMastery or _G.AutoHolyTorch or _G.AutoLawRaid or _G.AutoFarmBoss or _G.AutoTwinHooks or _G.AutoOpenSwanDoor or _G.AutoDragon_Trident or _G.AutoSaber or _G.NOCLIP or _G.AutoFarmFruitMastery or _G.AutoFarmGunMastery or _G.TeleportIsland or _G.Auto_EvoRace or _G.AutoFarmAllMsBypassType or _G.AutoObservationv2 or _G.AutoMusketeerHat or _G.AutoEctoplasm or _G.AutoRengoku or _G.Auto_Rainbow_Haki or _G.AutoObservation or _G.AutoDarkDagger or _G.Safe_Mode or _G.MasteryFruit or _G.AutoBudySword or _G.AutoAllBoss or _G.Auto_Bounty or _G.AutoSharkman or _G.Auto_Mastery_Fruit or _G.Auto_Mastery_Gun or _G.Auto_Dungeon or _G.Auto_Cavender or _G.Auto_Pole or _G.Auto_Kill_Ply or _G.Auto_Factory or _G.AutoSecondSea or _G.AutoBartilo or _G.Auto_DarkBoss or _G.AutoFarm or _G.Clip or _G.AutoElitehunter or _G.AutoThirdSea or _G.Auto_Bone == true then
                 pcall(function()
                     game:GetService("ReplicatedStorage").Remotes.CommE:FireServer("Ken",true)
                 end)
@@ -4062,6 +4062,18 @@ end)
                                 v.HumanoidRootPart.CanCollide = false
                                 v.Head.CanCollide = false
                                 v.HumanoidRootPart.CFrame = PosMonIron
+                                if v.Humanoid:FindFirstChild("Animator") then
+                                    v.Humanoid.Animator:Destroy()
+                                end
+                                sethiddenproperty(game:GetService("Players").LocalPlayer, "SimulationRadius", math.huge)
+                            end
+                        end
+                        if _G.Mini_Tusk and StartMagnetMini_Tusk then
+                            if (v.HumanoidRootPart.Position - PosMonMini_Tusk.Position).Magnitude <= 250 and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
+                                v.Humanoid:ChangeState(14)
+                                v.HumanoidRootPart.CanCollide = false
+                                v.Head.CanCollide = false
+                                v.HumanoidRootPart.CFrame = PosMonMini_Tusk
                                 if v.Humanoid:FindFirstChild("Animator") then
                                     v.Humanoid.Animator:Destroy()
                                 end
@@ -6501,7 +6513,7 @@ end)
 
 Main:AddToggleLeft("Boat Flying",_G.BoatFly,function(a)
     if a then
-    game:GetService("Workspace").Map["WaterBase-Plane"].Size = Vector3.new(1000,500,1000)
+    game:GetService("Workspace").Map["WaterBase-Plane"].Size = Vector3.new(1000,420,1000)
     else
     game:GetService("Workspace").Map["WaterBase-Plane"].Size = Vector3.new(1000,80,1000)
     end
@@ -8000,6 +8012,44 @@ end)
         end
     end)
     
+    Main:AddToggleLeft("Mini Tusk",_G.Mini_Tusk,function(a)
+        _G.Mini_Tusk = a
+        StopTween(_G.Mini_Tusk)
+        end)
+        
+        spawn(function()
+            while wait() do 
+                if _G.Mini_Tusk and World3 then
+                    pcall(function()
+                        if game:GetService("Workspace").Enemies:FindFirstChild("Mythological Pirate") then
+                            for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
+                                if v.Name == "Mythological Pirate" then
+                                    if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
+                                        repeat task.wait()
+                                            AutoHaki()
+                                            EquipWeapon(_G.SelectWeapon)
+                                            v.HumanoidRootPart.CanCollide = false
+                                            v.Humanoid.WalkSpeed = 0
+                                            v.Head.CanCollide = false 
+                                            StartMagnetMini_Tusk = true
+                                            PosMonMini_Tusk = v.HumanoidRootPart.CFrame
+                                            Tween(v.HumanoidRootPart.CFrame * CFrame.new(0,25,0))
+                                            game:GetService("VirtualUser"):CaptureController()
+                                            game:GetService("VirtualUser"):Button1Down(Vector2.new(1280,672))
+                                        until not _G.Iron or not v.Parent or v.Humanoid.Health <= 0
+                                    end
+                                end
+                            end
+                        else
+                            StartMagnetMini_Tusk = false
+                         Tween(-13368.1875, 488.188721, -6930.43457, 0.316854268, 7.56199299e-08, 0.948474228, 4.37376357e-08, 1, -9.43392919e-08, -0.948474228, 7.13758297e-08, 0.316854268)
+                                                                 
+                        end
+                   end)
+                end
+            end
+        end)
+
     Main:AddToggleLeft("Leather & Scrap Metal",nil,function(a)
     _G.Iron = a
     StopTween(_G.Iron)
