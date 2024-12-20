@@ -4070,6 +4070,7 @@ end)
                         end
                         if _G.Mini_Tusk and StartMagnetMini_Tusk then
                             if (v.HumanoidRootPart.Position - PosMonMini_Tusk.Position).Magnitude <= 250 and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
+                                v.Humanoid:ChangeState(14)
                                 v.HumanoidRootPart.CanCollide = false
                                 v.Head.CanCollide = false
                                 v.HumanoidRootPart.CFrame = PosMonMini_Tusk
@@ -8016,49 +8017,46 @@ end)
         StopTween(_G.Mini_Tusk)
         end)
         
+        spawn(function()
+            while wait() do 
+                if _G.Mini_Tusk and World3 then
+                    pcall(function()
+                        if game:GetService("Workspace").Enemies:FindFirstChild("Mythological Pirate") then
+                            for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
+                                if v.Name == "Mythological Pirate" then
+                                    if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
+                                        repeat task.wait()
+                                            AutoHaki()
+                                            EquipWeapon(_G.SelectWeapon)
+                                            v.HumanoidRootPart.CanCollide = false
+                                            v.Humanoid.WalkSpeed = 0
+                                            v.Head.CanCollide = false 
+                                            StartMagnetMini_Tusk = true
+                                            PosMonMini_Tusk = v.HumanoidRootPart.CFrame
+                                            Tween(v.HumanoidRootPart.CFrame * CFrame.new(0,25,0))
+                                        until not _G.Iron or not v.Parent or v.Humanoid.Health <= 0
+                                    end
+                                end
+                            end
+                        else
+                            StartMagnetMini_Tusk = false
+                            for i,v in pairs(game:GetService("ReplicatedStorage"):GetChildren()) do 
+                                if game:GetService("ReplicatedStorage"):FindFirstChild("Mythological Pirate") then
+                                         Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Mythological Pirate").HumanoidRootPart.CFrame * CFrame.new(5,25,7))
+                                        end
+                                    end
+                                end
+                                Tween(-13368.1875, 488.188721, -6930.43457, 0.316854268, 7.56199299e-08, 0.948474228, 4.37376357e-08, 1, -9.43392919e-08, -0.948474228, 7.13758297e-08, 0.316854268)
+                          end)
+                        end
+                    end
+                end)
     Main:AddToggleLeft("Leather & Scrap Metal",nil,function(a)
     _G.Iron = a
     StopTween(_G.Iron)
     end)
     
-    spawn(function()
-        while wait() do 
-            if _G.Mini_Tusk and World3 then
-                pcall(function()
-        if not game:GetService("Workspace").Enemies:FindFirstChild("Mythological Pirate") then
-            Tween(-13368.1875, 488.188721, -6930.43457, 0.316854268, 7.56199299e-08, 0.948474228, 4.37376357e-08, 1, -9.43392919e-08, -0.948474228, 7.13758297e-08, 0.316854268)
-
-                                  end
-                    if game:GetService("Workspace").Enemies:FindFirstChild("Mythological Pirate") then
-
-for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
-                            if v.Name == "Mythological Pirate" then
-                                if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
-
-                                    repeat task.wait()
-
-                                        AutoHaki()
-                                        EquipWeapon(_G.SelectWeapon)
-                                        v.HumanoidRootPart.CanCollide = false
-                                        v.Humanoid.WalkSpeed = 0
-                                        v.Head.CanCollide = false 
-                                        StartMagnetMini_Tusk = true
-                                        PosMonMini_Tusk = v.HumanoidRootPart.CFrame
-                                        Tween(v.HumanoidRootPart.CFrame * CFrame.new(0,40,0))
-                                    until not _G.Auto_Bone2 or not v.Parent or v.Humanoid.Health <= 0
-                                end
-                            end
-                        end
-                    else
-                        StartMagnetMini_Tusk = false
-                                          
-                        end
-
-               end)
-            end
-        end
-    end)
-
+    
     spawn(function()
         while wait() do 
             if _G.Iron and World1 then
