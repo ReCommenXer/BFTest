@@ -1,4 +1,4 @@
----------------w
+
 repeat wait() until game:IsLoaded()
 repeat wait() until game:GetService("Players")
 
@@ -10208,7 +10208,7 @@ Teleport:AddSeperatorLeft("Teleport World")
         pcall(function() 
             while wait() do
                 if _G.Auto_Dungeon then
-                    if game:GetService("Players")["LocalPlayer"].PlayerGui.Main.Timer.Visible == true then
+                    if game:GetService("Players").LocalPlayer.PlayerGui.Main.TopHUDList.RaidTimer.Visible == true then
                         for i,v in pairs(game:GetService("Workspace").Enemies:GetDescendants()) do
                             if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
                                 pcall(function()
@@ -10230,18 +10230,18 @@ Teleport:AddSeperatorLeft("Teleport World")
         pcall(function()
             while wait() do
                 if _G.Auto_Dungeon then
-                    local raidisland = workspace.Map.RaidMap
+                    local raidisland = workspace._WorldOrigin.Locations
                     if game:GetService("Players").LocalPlayer.PlayerGui.Main.TopHUDList.RaidTimer.Visible == true then
-                        if raidisland:FindFirstChild("RaidIsland5") then
-                            Tween(raidisland:FindFirstChild("RaidIsland5").WorldPivot*CFrame.new(0,80,100))
-                        elseif raidisland:FindFirstChild("RaidIsland4") then
-                            Tween(raidisland:FindFirstChild("RaidIsland4").WorldPivot*CFrame.new(0,80,100))
-                        elseif raidisland:FindFirstChild("RaidIsland3") then
-                            Tween(raidisland:FindFirstChild("RaidIsland3").WorldPivot*CFrame.new(0,80,100))
-                        elseif raidisland:FindFirstChild("RaidIsland2") then
-                            Tween(raidisland:FindFirstChild("RaidIsland2").WorldPivot*CFrame.new(0,80,100))
-                        elseif raidisland:FindFirstChild("RaidIsland1") then
-                            Tween(raidisland:FindFirstChild("RaidIsland1").WorldPivot*CFrame.new(0,80,100))
+                        if raidisland:FindFirstChild("Island 5") then
+                            Tween(raidisland:FindFirstChild("Island 5").CFrame * CFrame.new(0,80,100))
+                        elseif raidisland:FindFirstChild("Island 4") then
+                            Tween(raidisland:FindFirstChild("Island 4").CFrame * CFrame.new(0,80,100))
+                        elseif raidisland:FindFirstChild("Island 3") then
+                            Tween(raidisland:FindFirstChild("Island 3").CFrame * CFrame.new(0,80,100))
+                        elseif raidisland:FindFirstChild("Island 2") then
+                            Tween(raidisland:FindFirstChild("Island 2").CFrame * CFrame.new(0,80,100))
+                        elseif raidisland:FindFirstChild("Island 1") then
+                            Tween(raidisland:FindFirstChild("Island 1").CFrame * CFrame.new(0,80,100))
                         end
                     end
                 end
