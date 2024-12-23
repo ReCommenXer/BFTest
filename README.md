@@ -1,4 +1,4 @@
-
+----------------iii
 repeat wait() until game:IsLoaded()
 repeat wait() until game:GetService("Players")
 
@@ -3650,14 +3650,24 @@ Main:AddTextboxLeft("job id ","...",true,function(s)
         _G.Remove_Effect = value
     end)
     
+    local ReplicatedStorage = game:GetService("ReplicatedStorage")
+    local originalFX = nil
+    
     spawn(function()
         pcall(function()
             while wait() do
                 if _G.Remove_Effect then
                     if ReplicatedStorage:FindFirstChild("FX") then
-						ReplicatedStorage:FindFirstChild("FX").Archivable = false
+                        -- เก็บสำเนาของ FX ก่อน Destroy
+                        originalFX = ReplicatedStorage:FindFirstChild("FX"):Clone()
+                        ReplicatedStorage:FindFirstChild("FX"):Destroy()
                     end
-					ReplicatedStorage:FindFirstChild("FX").Archivable = true
+                else
+                    if not ReplicatedStorage:FindFirstChild("FX") and originalFX then
+                        -- คืนค่า FX กลับมา
+                        originalFX.Parent = ReplicatedStorage
+                        originalFX = nil
+                    end
                 end
             end
         end)
@@ -3745,7 +3755,7 @@ end)
                             sethiddenproperty(game:GetService("Players").LocalPlayer,"SimulationRadius",math.huge)
                         elseif _G.AutoFarm and StartMagnet and v.Name == NameMon and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 and (v.HumanoidRootPart.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 275 then
                             v.HumanoidRootPart.CFrame = PosMon
-                            v.Humanoid:ChangeState(14)
+                            v.Humanoid:ChangeState(11)
                             v.HumanoidRootPart.CanCollide = false
                             v.Head.CanCollide = false
                             if v.Humanoid:FindFirstChild("Animator") then
@@ -3755,9 +3765,9 @@ end)
                         end
                         if _G.AutoEctoplasm and StartEctoplasmMagnet then
                             if string.find(v.Name, "Ship") and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 and (v.HumanoidRootPart.Position - EctoplasmMon.Position).Magnitude <= 250 then
-                                v.HumanoidRootPart.Size = Vector3.new(50,50,50)
+                               
                                 v.HumanoidRootPart.CFrame = EctoplasmMon
-                                v.Humanoid:ChangeState(14)
+                                v.Humanoid:ChangeState(11)
                                 v.HumanoidRootPart.CanCollide = false
                                 v.Head.CanCollide = false
                                 if v.Humanoid:FindFirstChild("Animator") then
@@ -3768,8 +3778,8 @@ end)
                         end
                         if _G.AutoRengoku and StartRengokuMagnet then
                             if (v.Name == "Snow Lurker [Lv. 1375]" or v.Name == "Arctic Warrior [Lv. 1350]") and (v.HumanoidRootPart.Position - RengokuMon.Position).Magnitude <= 250 and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
-                                v.HumanoidRootPart.Size = Vector3.new(50,50,50)
-                                v.Humanoid:ChangeState(14)
+                               
+                                v.Humanoid:ChangeState(11)
                                 v.HumanoidRootPart.CanCollide = false
                                 v.Head.CanCollide = false
                                 v.HumanoidRootPart.CFrame = RengokuMon
@@ -3781,8 +3791,8 @@ end)
                         end
                         if _G.AutoMusketeerHat and StartMagnetMusketeerhat then
                             if v.Name == "Forest Pirate [Lv. 1825]" and (v.HumanoidRootPart.Position - MusketeerHatMon.Position).Magnitude <= 250 and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
-                                v.HumanoidRootPart.Size = Vector3.new(50,50,50)
-                                v.Humanoid:ChangeState(14)
+                               
+                                v.Humanoid:ChangeState(11)
                                 v.HumanoidRootPart.CanCollide = false
                                 v.Head.CanCollide = false
                                 v.HumanoidRootPart.CFrame = MusketeerHatMon
@@ -3794,8 +3804,8 @@ end)
                         end
                         if _G.Auto_EvoRace and StartEvoMagnet then
                             if v.Name == "Zombie [Lv. 950]" and (v.HumanoidRootPart.Position - PosMonEvo.Position).Magnitude <= 250 and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
-                                v.HumanoidRootPart.Size = Vector3.new(50,50,50)
-                                v.Humanoid:ChangeState(14)
+                               
+                                v.Humanoid:ChangeState(11)
                                 v.HumanoidRootPart.CanCollide = false
                                 v.Head.CanCollide = false
                                 v.HumanoidRootPart.CFrame = PosMonEvo
@@ -3807,8 +3817,8 @@ end)
                         end
                         if _G.AutoBartilo and AutoBartiloBring then
                             if v.Name == "Swan Pirate [Lv. 775]" and (v.HumanoidRootPart.Position - PosMonBarto.Position).Magnitude <= 250 and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
-                                v.HumanoidRootPart.Size = Vector3.new(50,50,50)
-                                v.Humanoid:ChangeState(14)
+                               
+                                v.Humanoid:ChangeState(11)
                                 v.HumanoidRootPart.CanCollide = false
                                 v.Head.CanCollide = false
                                 v.HumanoidRootPart.CFrame = PosMonBarto
@@ -3821,7 +3831,7 @@ end)
                         if _G.AutoFarmFruitMastery and StartMasteryFruitMagnet then
                             if v.Name == "Monkey [Lv. 14]" then
                                 if (v.HumanoidRootPart.Position - PosMonMasteryFruit.Position).Magnitude <= 250 and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
-                                    v.Humanoid:ChangeState(14)
+                                    v.Humanoid:ChangeState(11)
                                     v.HumanoidRootPart.CanCollide = false
                                     v.Head.CanCollide = false
                                     v.HumanoidRootPart.CFrame = PosMonMasteryFruit
@@ -3833,7 +3843,7 @@ end)
                             elseif v.Name == "Factory Staff [Lv. 800]" then
                                 if (v.HumanoidRootPart.Position - PosMonMasteryFruit.Position).Magnitude <= 250 and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
                                     v.HumanoidRootPart.Size = Vector3.new(1,1,1)
-                                    v.Humanoid:ChangeState(14)
+                                    v.Humanoid:ChangeState(11)
                                     v.HumanoidRootPart.CanCollide = false
                                     v.Head.CanCollide = false
                                     v.HumanoidRootPart.CFrame = PosMonMasteryFruit
@@ -3845,7 +3855,7 @@ end)
                             elseif v.Name == Mon then
                                 if (v.HumanoidRootPart.Position - PosMonMasteryFruit.Position).Magnitude <= 250 and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
                                     v.HumanoidRootPart.Size = Vector3.new(1,1,1)
-                                    v.Humanoid:ChangeState(14)
+                                    v.Humanoid:ChangeState(11)
                                     v.HumanoidRootPart.CanCollide = false
                                     v.Head.CanCollide = false
                                     v.HumanoidRootPart.CFrame = PosMonMasteryFruit
@@ -3860,7 +3870,7 @@ end)
                             if v.Name == "Monkey [Lv. 14]" then
                                 if (v.HumanoidRootPart.Position - PosMonMasteryGun.Position).Magnitude <= 250 and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
                                     v.HumanoidRootPart.Size = Vector3.new(2,2,2)
-                                    v.Humanoid:ChangeState(14)
+                                    v.Humanoid:ChangeState(11)
                                     v.HumanoidRootPart.CanCollide = false
                                     v.Head.CanCollide = false
                                     v.HumanoidRootPart.CFrame = PosMonMasteryGun
@@ -3872,7 +3882,7 @@ end)
                             elseif v.Name == "Factory Staff [Lv. 800]" then
                                 if (v.HumanoidRootPart.Position - PosMonMasteryGun.Position).Magnitude <= 250 and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
                                     v.HumanoidRootPart.Size = Vector3.new(2,2,2)
-                                    v.Humanoid:ChangeState(14)
+                                    v.Humanoid:ChangeState(11)
                                     v.HumanoidRootPart.CanCollide = false
                                     v.Head.CanCollide = false
                                     v.HumanoidRootPart.CFrame = PosMonMasteryGun
@@ -3884,7 +3894,7 @@ end)
                             elseif v.Name == Mon then
                                 if (v.HumanoidRootPart.Position - PosMonMasteryGun.Position).Magnitude <= 250 and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
                                     v.HumanoidRootPart.Size = Vector3.new(2,2,2)
-                                    v.Humanoid:ChangeState(14)
+                                    v.Humanoid:ChangeState(11)
                                     v.HumanoidRootPart.CanCollide = false
                                     v.Head.CanCollide = false
                                     v.HumanoidRootPart.CFrame = PosMonMasteryGun
@@ -3919,7 +3929,7 @@ end)
                         end
                         if _G.AutoFarmFruit and StartMagnetBoneMon2 then
                             if (v.HumanoidRootPart.Position - PosMonBone2.Position).Magnitude <= 200 and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
-                                v.Humanoid:ChangeState(14)
+                                v.Humanoid:ChangeState(11)
                                 v.HumanoidRootPart.CanCollide = false
                                 v.Head.CanCollide = false
                                 v.HumanoidRootPart.CFrame = PosMonBone2
@@ -3931,7 +3941,7 @@ end)
                         end
                         if _G.AutoDoughtBoss and MagnetDought then
                             if (v.HumanoidRootPart.Position - PosMonDoughtOpenDoor.Position).Magnitude <= 230 and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
-                                v.Humanoid:ChangeState(14)
+                                v.Humanoid:ChangeState(11)
                                 v.HumanoidRootPart.CanCollide = false
                                 v.Head.CanCollide = false
                                 v.HumanoidRootPart.CFrame = PosMonDoughtOpenDoor
@@ -3943,7 +3953,7 @@ end)
                         end
                         if _G.AutoDoughtBoss3 and MagnetDought3 then
                             if (v.HumanoidRootPart.Position - PosMonDoughtOpenDoor3.Position).Magnitude <= 230 and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
-                                v.Humanoid:ChangeState(14)
+                                v.Humanoid:ChangeState(11)
                                 v.HumanoidRootPart.CanCollide = false
                                 v.Head.CanCollide = false
                                 v.HumanoidRootPart.CFrame = PosMonDoughtOpenDoor3
@@ -3955,7 +3965,7 @@ end)
                         end
                         if _G.dv2_AutoMon and MagnetDought3 then
                             if (v.HumanoidRootPart.Position - PosMonDoughtOpenDoor3.Position).Magnitude <= 250 and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
-                                v.Humanoid:ChangeState(14)
+                                v.Humanoid:ChangeState(11)
                                 v.HumanoidRootPart.CanCollide = false
                                 v.Head.CanCollide = false
                                 v.HumanoidRootPart.CFrame = PosMonDoughtOpenDoor3
@@ -3967,7 +3977,7 @@ end)
                         end
                         if _G.God and StartMagnetdragon then
                             if (v.HumanoidRootPart.Position - PosMondragon.Position).Magnitude <= 250 and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
-                                v.Humanoid:ChangeState(14)
+                                v.Humanoid:ChangeState(11)
                                 v.HumanoidRootPart.CanCollide = false
                                 v.Head.CanCollide = false
                                 v.HumanoidRootPart.CFrame = PosMondragon
@@ -3979,8 +3989,8 @@ end)
                         end
                         if _G.human and StartMagnethuman then
                             if (v.HumanoidRootPart.Position - PosMondragon.Position).Magnitude <= 250 and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
-                                v.HumanoidRootPart.Size = Vector3.new(50,50,50)
-                                v.Humanoid:ChangeState(14)
+                               
+                                v.Humanoid:ChangeState(11)
                                 v.HumanoidRootPart.CanCollide = false
                                 v.Head.CanCollide = false
                                 v.HumanoidRootPart.CFrame = PosMonhuman
@@ -3992,8 +4002,8 @@ end)
                         end
                         if _G.Candy and StartMagnetCandy then
                             if (v.HumanoidRootPart.Position - PosMonCandy.Position).Magnitude <= 250 and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
-                                v.HumanoidRootPart.Size = Vector3.new(50,50,50)
-                                v.Humanoid:ChangeState(14)
+                               
+                                v.Humanoid:ChangeState(11)
                                 v.HumanoidRootPart.CanCollide = false
                                 v.Head.CanCollide = false
                                 v.HumanoidRootPart.CFrame = PosMonCandy
@@ -4005,8 +4015,8 @@ end)
                         end
                         if _G.My and StartMagnetMy then
                             if (v.HumanoidRootPart.Position - PosMonMy.Position).Magnitude <= 250 and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
-                                v.HumanoidRootPart.Size = Vector3.new(50,50,50)
-                                v.Humanoid:ChangeState(14)
+                               
+                                v.Humanoid:ChangeState(11)
                                 v.HumanoidRootPart.CanCollide = false
                                 v.Head.CanCollide = false
                                 v.HumanoidRootPart.CFrame = PosMonMy
@@ -4018,8 +4028,8 @@ end)
                         end
                         if _G.Ectoplasm and StartMagnetE then
                             if (v.HumanoidRootPart.Position - PosMonE.Position).Magnitude <= 250 and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
-                                v.HumanoidRootPart.Size = Vector3.new(50,50,50)
-                                v.Humanoid:ChangeState(14)
+                               
+                                v.Humanoid:ChangeState(11)
                                 v.HumanoidRootPart.CanCollide = false
                                 v.Head.CanCollide = false
                                 v.HumanoidRootPart.CFrame = PosMonE
@@ -4032,7 +4042,7 @@ end)
                         if _G.Heats and StartMagnetHeats then
                             if (v.HumanoidRootPart.Position - PosMonHeats.Position).Magnitude <= 300 and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
                                 v.HumanoidRootPart.Size = Vector3.new(1,1,1)
-                                v.Humanoid:ChangeState(14)
+                                v.Humanoid:ChangeState(11)
                                 v.HumanoidRootPart.CanCollide = false
                                 v.Head.CanCollide = false
                                 v.HumanoidRootPart.CFrame = PosMonHeats
@@ -4044,8 +4054,8 @@ end)
                         end
                         if _G.Fish and StartMaootPart.PositgnetFish then
                             if (v.HumanoidRion - PosMonFish.Position).Magnitude <= 250 and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
-                                v.HumanoidRootPart.Size = Vector3.new(50,50,50)
-                                v.Humanoid:ChangeState(14)
+                               
+                                v.Humanoid:ChangeState(11)
                                 v.HumanoidRootPart.CanCollide = false
                                 v.Head.CanCollide = false
                                 v.HumanoidRootPart.CFrame = PosMonFish
@@ -4057,8 +4067,8 @@ end)
                         end
                          if _G.Iron and StartMagnetIron then
                             if (v.HumanoidRootPart.Position - PosMonIron.Position).Magnitude <= 250 and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
-                                v.HumanoidRootPart.Size = Vector3.new(50,50,50)
-                                v.Humanoid:ChangeState(14)
+                               
+                                v.Humanoid:ChangeState(11)
                                 v.HumanoidRootPart.CanCollide = false
                                 v.Head.CanCollide = false
                                 v.HumanoidRootPart.CFrame = PosMonIron
@@ -4070,7 +4080,7 @@ end)
                         end
                         if _G.Mini_Tusk and StartMagnetMini_Tusk then
                             if (v.HumanoidRootPart.Position - PosMonMini_Tusk.Position).Magnitude <= 250 and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
-                                v.Humanoid:ChangeState(14)
+                                v.Humanoid:ChangeState(11)
                                 v.HumanoidRootPart.CanCollide = false
                                 v.Head.CanCollide = false
                                 v.HumanoidRootPart.CFrame = PosMonMini_Tusk
@@ -4082,8 +4092,8 @@ end)
                         end
                          if _G.Magma and StartMagnetMagma then
                             if (v.HumanoidRootPart.Position - PosMonMagma.Position).Magnitude <= 250 and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
-                                v.HumanoidRootPart.Size = Vector3.new(50,50,50)
-                                v.Humanoid:ChangeState(14)
+                               
+                                v.Humanoid:ChangeState(11)
                                 v.HumanoidRootPart.CanCollide = false
                                 v.Head.CanCollide = false
                                 v.HumanoidRootPart.CFrame = PosMonMagma
@@ -4095,8 +4105,8 @@ end)
                          end
                          if _G.ghoul and StartMagnetghoul then
                             if (v.HumanoidRootPart.Position - PosMonghoul.Position).Magnitude <= 250 and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
-                                v.HumanoidRootPart.Size = Vector3.new(50,50,50)
-                                v.Humanoid:ChangeState(14)
+                               
+                                v.Humanoid:ChangeState(11)
                                 v.HumanoidRootPart.CanCollide = false
                                 v.Head.CanCollide = false
                                 v.HumanoidRootPart.CFrame = PosMonghoul
@@ -4108,8 +4118,8 @@ end)
                          end
                     if _G.Cocoa and StartMagnetCocoa then
                             if (v.HumanoidRootPart.Position - PosMonCocoa.Position).Magnitude <= 300 and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
-                                v.HumanoidRootPart.Size = Vector3.new(50,50,50)
-                                v.Humanoid:ChangeState(14)
+                               
+                                v.Humanoid:ChangeState(11)
                                 v.HumanoidRootPart.CanCollide = false
                                 v.Head.CanCollide = false
                                 v.HumanoidRootPart.CFrame = PosMonCocoa
@@ -4121,8 +4131,8 @@ end)
                     end
                     if _G.dv and StartMagnetCocoa then
                             if (v.HumanoidRootPart.Position - PosMonCocoa.Position).Magnitude <= 300 and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
-                                v.HumanoidRootPart.Size = Vector3.new(50,50,50)
-                                v.Humanoid:ChangeState(14)
+                               
+                                v.Humanoid:ChangeState(11)
                                 v.HumanoidRootPart.CanCollide = false
                                 v.Head.CanCollide = false
                                 v.HumanoidRootPart.CFrame = PosMonCocoa
@@ -4134,8 +4144,7 @@ end)
                         end
                         if _G.dv2 and StartMagnetdv2 then
                             if (v.HumanoidRootPart.Position - PosMondv2.Position).Magnitude <= 250 and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
-                                v.HumanoidRootPart.Size = Vector3.new(60,60,60)
-                                v.Humanoid:ChangeState(14)
+                                v.Humanoid:ChangeState(11)
                                 v.HumanoidRootPart.CanCollide = false
                                 v.Head.CanCollide = false
                                 v.HumanoidRootPart.CFrame = PosMondv2
@@ -4147,8 +4156,7 @@ end)
                         end
                         if _G.AutoCandy and StartMagnetCandy then
                             if (v.HumanoidRootPart.Position - PosMonCandy.Position).Magnitude <= 250 and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
-                                v.HumanoidRootPart.Size = Vector3.new(50,50,50)
-                                v.Humanoid:ChangeState(14)
+                                v.Humanoid:ChangeState(11)
                                 v.HumanoidRootPart.CanCollide = false
                                 v.Head.CanCollide = false
                                 v.HumanoidRootPart.CFrame = PosMonCandy
@@ -6019,7 +6027,7 @@ Main:AddToggleLeft("Auto Farm",_G.AutoFarm,function(value)
                                                 EquipWeapon(_G.SelectWeapon)
                                                 Tween(v.HumanoidRootPart.CFrame * CFrame.new(5,10,7))
                                                 v.HumanoidRootPart.CFrame = OldCFrameThird
-                                                v.HumanoidRootPart.Size = Vector3.new(50,50,50)
+                                               
                                                 v.HumanoidRootPart.CanCollide = false
                                                 v.Humanoid.WalkSpeed = 0
                                                 game:GetService'VirtualUser':CaptureController()
@@ -8338,67 +8346,70 @@ local Douhtmon = Main:AddLabelLeft("รอทำเสร็จ")
         _G.AutoDoughtBoss = value
         StopTween(_G.AutoDoughtBoss)
     end)
-spawn(function()
-    while wait() do
-        if _G.AutoDoughtBoss then
-            pcall(function()
-                if game:GetService("Workspace").Enemies:FindFirstChild("Cake Prince") then
-                    for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
-                        if v.Name == "Cake Prince" then
-                            if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
+    spawn(function()
+        while wait() do
+            if _G.AutoDoughtBoss then
+                pcall(function()
+                    local workspace = game:GetService("Workspace")
+                    local replicatedStorage = game:GetService("ReplicatedStorage")
+    
+                    -- ตรวจสอบว่ามี Cake Prince หรือไม่
+                    local cakePrince = workspace.Enemies:FindFirstChild("Cake Prince")
+                    if cakePrince then
+                        for _, enemy in pairs(workspace.Enemies:GetChildren()) do
+                            if enemy.Name == "Cake Prince" and enemy:FindFirstChild("Humanoid") and enemy:FindFirstChild("HumanoidRootPart") and enemy.Humanoid.Health > 0 then
                                 repeat
                                     task.wait()
                                     AutoHaki()
                                     EquipWeapon(_G.SelectWeapon)
-                                    v.HumanoidRootPart.CanCollide = false
-                                    v.Humanoid.WalkSpeed = 0
-                                    Tween(v.HumanoidRootPart.CFrame * CFrame.new(0,-45,-40))
-                                until not _G.AutoDoughtBoss or not v.Parent or v.Humanoid.Health <= 0
+                                    enemy.HumanoidRootPart.CanCollide = false
+                                    enemy.Humanoid.WalkSpeed = 0
+                                    Tween(enemy.HumanoidRootPart.CFrame * CFrame.new(0, -45, -40))
+                                until not _G.AutoDoughtBoss or not enemy.Parent or enemy.Humanoid.Health <= 0
                             end
                         end
-                    end
-                else
-                    if game:GetService("ReplicatedStorage"):FindFirstChild("Cake Prince") then
-                        Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Cake Prince").HumanoidRootPart.CFrame * CFrame.new(0,-45,-40))
                     else
-                        if game:GetService("Workspace").Map.CakeLoaf.BigMirror.Other.Transparency == 1 then
-                            if game:GetService("Workspace").Enemies:FindFirstChild("Cookie Crafter") or game:GetService("Workspace").Enemies:FindFirstChild("Cake Guard") or game:GetService("Workspace").Enemies:FindFirstChild("Baking Staff") or game:GetService("Workspace").Enemies:FindFirstChild("Head Baker") then
-                                for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
-                                    if v.Name == "Cookie Crafter" or v.Name == "Cake Guard" or v.Name == "Baking Staff" or v.Name == "Head Baker" then
-                                        if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
+                        -- ตรวจสอบว่ามี Cake Prince ใน ReplicatedStorage หรือไม่
+                        local cakePrinceStorage = replicatedStorage:FindFirstChild("Cake Prince")
+                        if cakePrinceStorage then
+                            Tween(cakePrinceStorage.HumanoidRootPart.CFrame * CFrame.new(0, -45, -40))
+                        else
+                            -- หากเงื่อนไขตรง เปิด BigMirror และหา Cookie Crafter หรืออื่น ๆ
+                            local bigMirror = workspace.Map.CakeLoaf.BigMirror.Other
+                            if bigMirror.Transparency == 1 then
+                                for _, enemy in pairs(workspace.Enemies:GetChildren()) do
+                                    if enemy.Name == "Cookie Crafter" or enemy.Name == "Cake Guard" or enemy.Name == "Baking Staff" or enemy.Name == "Head Baker" then
+                                        if enemy:FindFirstChild("Humanoid") and enemy:FindFirstChild("HumanoidRootPart") and enemy.Humanoid.Health > 0 then
                                             repeat
                                                 task.wait()
-                                                
                                                 AutoHaki()
                                                 EquipWeapon(_G.SelectWeapon)
-                                                v.HumanoidRootPart.CanCollide = false
-                                                v.Humanoid.WalkSpeed = 0
-                                                v.Head.CanCollide = false 
+                                                enemy.HumanoidRootPart.CanCollide = false
+                                                enemy.Humanoid.WalkSpeed = 0
+                                                enemy.Head.CanCollide = false
                                                 MagnetDought = true
-                                                PosMonDoughtOpenDoor = v.HumanoidRootPart.CFrame
-                                                Tween(v.HumanoidRootPart.CFrame * CFrame.new(0,40,0))
-                                                game:GetService("VirtualUser"):CaptureController()
-                                                game:GetService("VirtualUser"):Button1Down(Vector2.new(1280,672))
-                                            until not _G.AutoDoughtBoss or not v.Parent or v.Humanoid.Health <= 0 or game:GetService("Workspace").Map.CakeLoaf.BigMirror.Other.Transparency == 0 or game:GetService("ReplicatedStorage"):FindFirstChild("Cake Prince [Lv. 2300] [Raid Boss]") or game:GetService("Workspace").Enemies:FindFirstChild("Cake Prince [Lv. 2300] [Raid Boss]")
-                                        
-end
+                                                PosMonDoughtOpenDoor = enemy.HumanoidRootPart.CFrame
+                                                Tween(enemy.HumanoidRootPart.CFrame * CFrame.new(0, 40, 0))
+                                                
+                                            until not _G.AutoDoughtBoss or not enemy.Parent or enemy.Humanoid.Health <= 0 or bigMirror.Transparency == 0 or replicatedStorage:FindFirstChild("Cake Prince [Lv. 2300] [Raid Boss]") or workspace.Enemies:FindFirstChild("Cake Prince [Lv. 2300] [Raid Boss]")
+                                        end
                                     end
                                 end
                             else
+                                -- ถ้า BigMirror ปิด
                                 MagnetDought = false
-                                Tween(-2079.6826171875, 227.9525909423828, -12321.923828125)
-                                if game:GetService("Workspace").Map.CakeLoaf.BigMirror.Other.Transparency == 0 then
+                                Tween(CFrame.new(-2079.6826, 227.9526, -12321.9238))
+                                if bigMirror.Transparency == 0 then
                                     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2151.82153, 149.315704, -12404.9053)
                                 end
                             end
                         end
                     end
-                end
-            end)
+                end)
+            end
         end
-    end
-end)
-
+    end)
+    
 Main:AddToggleLeft("Auto Spawn Katakuri",nil,function(a)
 _G.Auto_Open_Dough_Dungeon = a
     end)
@@ -8433,7 +8444,7 @@ Main:AddToggleLeft("Auto Hallow Scythe",_G.AutoFarmBossHallow,function(value)
                                 repeat task.wait()
                                     EquipWeapon(_G.SelectWeapon)
                                     AutoHaki()
-                                    v.HumanoidRootPart.Size = Vector3.new(50,50,50)
+                                   
                                     Tween(v.HumanoidRootPart.CFrame*CFrame.new(5,10,7))
                                     game:GetService("VirtualUser"):CaptureController()
                                     game:GetService("VirtualUser"):Button1Down(Vector2.new(1280, 670))
@@ -8529,7 +8540,7 @@ end)
                                         AutoHaki()
                                         EquipWeapon(_G.SelectWeapon)
                                         v.HumanoidRootPart.CanCollide = false
-                                        v.HumanoidRootPart.Size = Vector3.new(50,50,50)
+                                       
                                         Tween(v.HumanoidRootPart.CFrame * CFrame.new(5,15,7))
                                         game:GetService("VirtualUser"):CaptureController()
                                         game:GetService("VirtualUser"):Button1Down(Vector2.new(1280, 670))
@@ -8672,7 +8683,7 @@ end)
                                         EquipWeapon(_G.SelectWeapon)
                                         v.HumanoidRootPart.CanCollide = false
                                         v.Humanoid.WalkSpeed = 0
-                                        v.HumanoidRootPart.Size = Vector3.new(50,50,50)
+                                       
                                         Tween(v.HumanoidRootPart.CFrame * CFrame.new(0,40,0))
                                         game:GetService("VirtualUser"):CaptureController()
                                         game:GetService("VirtualUser"):Button1Down(Vector2.new(1280,672))
@@ -9004,7 +9015,7 @@ v.HumanoidRootPart.CanCollide = false
                 if Auto_Quest_Yama_2 and v:FindFirstChild("HazeESP") and (v.HumanoidRootPart.Position - PosMonsEsp.Position).magnitude <= 300 then
                     v.HumanoidRootPart.CFrame = PosMonsEsp
                     v.HumanoidRootPart.CanCollide = false
-                    v.HumanoidRootPart.Size = Vector3.new(50,50,50)
+                   
                     if not v.HumanoidRootPart:FindFirstChild("BodyVelocity") then
                         local vc = Instance.new("BodyVelocity", v.HumanoidRootPart)
                         vc.MaxForce = Vector3.new(1, 1, 1) * math.huge
@@ -9033,7 +9044,7 @@ v.HumanoidRootPart.CanCollide = false
                                     game:GetService'VirtualUser':CaptureController()
                                     game:GetService'VirtualUser':Button1Down(Vector2.new(1280, 672))
                                 
-                                v.HumanoidRootPart.Size = Vector3.new(60,60,60)
+                                
                                 v.Humanoid.JumpPower = 0
                                 v.Humanoid.WalkSpeed = 0
                                 v.HumanoidRootPart.CanCollide = false
@@ -9079,7 +9090,7 @@ v.HumanoidRootPart.CanCollide = false
                                                 game:GetService'VirtualUser':CaptureController()
                                                 game:GetService'VirtualUser':Button1Down(Vector2.new(1280, 672))
                                            
-                                            v.HumanoidRootPart.Size = Vector3.new(60,60,60)
+                                            
                                             v.Humanoid.JumpPower = 0
                                             v.Humanoid.WalkSpeed = 0
                                             v.HumanoidRootPart.CanCollide = false
@@ -9196,7 +9207,7 @@ AutoHaki()
                                         EquipWeapon(_G.SelectWeapon)
                                         v.HumanoidRootPart.CanCollide = false
                                         v.Humanoid.WalkSpeed = 0
-                                        v.HumanoidRootPart.Size = Vector3.new(50,50,50)
+                                       
                                         Tween(v.HumanoidRootPart.CFrame * CFrame.new(0,40,0))
                                         game:GetService("VirtualUser"):CaptureController()
                                         game:GetService("VirtualUser"):Button1Down(Vector2.new(1280,672))
@@ -9220,7 +9231,7 @@ AutoHaki()
                                         EquipWeapon(_G.SelectWeapon)
                                         v.HumanoidRootPart.CanCollide = false
                                         v.Humanoid.WalkSpeed = 0
-                                        v.HumanoidRootPart.Size = Vector3.new(50,50,50)
+                                       
                                         Tween(v.HumanoidRootPart.CFrame * CFrame.new(0,40,0))
                                         game:GetService("VirtualUser"):CaptureController()
                                         game:GetService("VirtualUser"):Button1Down(Vector2.new(1280,672))
@@ -9390,7 +9401,7 @@ Main:AddSeperatorLeft("Observation")
                                         v.Humanoid.WalkSpeed = 0
                                         v.HumanoidRootPart.CFrame = PosMonSaber
                                         Tween(v.HumanoidRootPart.CFrame * CFrame.new(5,10,7))
-                                        v.HumanoidRootPart.Size = Vector3.new(50,50,50)
+                                       
                                         game:GetService("VirtualUser"):CaptureController()
                                         game:GetService("VirtualUser"):Button1Down(Vector2.new(1280,672))
                                         sethiddenproperty(game.Players.LocalPlayer,"SimulationRadius",math.huge)
@@ -9496,7 +9507,7 @@ Main:AddSeperatorLeft("Observation")
                                             pcall(function()
                                                 EquipWeapon(_G.SelectWeapon)
                                                 AutoHaki()
-                                                v.HumanoidRootPart.Size = Vector3.new(50,50,50)
+                                               
                                                 Tween(v.HumanoidRootPart.CFrame * CFrame.new(5,10,7))
                                                 v.HumanoidRootPart.CanCollide = false
                                                 game:GetService'VirtualUser':CaptureController()
@@ -9530,12 +9541,11 @@ Main:AddSeperatorLeft("Observation")
                                                 EquipWeapon(_G.SelectWeapon)
                                                 AutoHaki()
                                                 v.HumanoidRootPart.CanCollide = false
-                                                v.HumanoidRootPart.Size = Vector3.new(50,50,50)
+                                               
                                                 Tween(v.HumanoidRootPart.CFrame * CFrame.new(5,10,7))
                                                 v.HumanoidRootPart.CanCollide = false
                                                 v.HumanoidRootPart.CFrame = OldCFrameElephant
-                                                game:GetService("VirtualUser"):CaptureController()
-                                                game:GetService("VirtualUser"):Button1Down(Vector2.new(1280, 672))
+                                                
                                                 sethiddenproperty(game:GetService("Players").LocalPlayer,"SimulationRadius",math.huge)
                                             end)
                                         until _G.AutoMusketeerHat == false or v.Humanoid.Health <= 0 or not v.Parent or game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false
@@ -9584,7 +9594,7 @@ Main:AddSeperatorLeft("Observation")
                                         Tween(v.HumanoidRootPart.CFrame * CFrame.new(5,10,7))
                                         v.HumanoidRootPart.CanCollide = false
                                         v.HumanoidRootPart.CFrame = OldCFrameRainbow
-                                        v.HumanoidRootPart.Size = Vector3.new(50,50,50)
+                                       
                                         game:GetService("VirtualUser"):CaptureController()
                                         game:GetService("VirtualUser"):Button1Down(Vector2.new(1280, 672))
                                         sethiddenproperty(game:GetService("Players").LocalPlayer,"SimulationRadius",math.huge)
@@ -9604,7 +9614,7 @@ Main:AddSeperatorLeft("Observation")
                                         Tween(v.HumanoidRootPart.CFrame * CFrame.new(5,10,7))
                                         v.HumanoidRootPart.CanCollide = false
                                         v.HumanoidRootPart.CFrame = OldCFrameRainbow
-                                        v.HumanoidRootPart.Size = Vector3.new(50,50,50)
+                                       
                                         game:GetService("VirtualUser"):CaptureController()
                                         game:GetService("VirtualUser"):Button1Down(Vector2.new(1280, 672))
                                         sethiddenproperty(game:GetService("Players").LocalPlayer,"SimulationRadius",math.huge)
@@ -9623,7 +9633,7 @@ Main:AddSeperatorLeft("Observation")
                                         EquipWeapon(_G.SelectWeapon)
                                         Tween(v.HumanoidRootPart.CFrame * CFrame.new(5,10,7))
                                         v.HumanoidRootPart.CanCollide = false
-                                        v.HumanoidRootPart.Size = Vector3.new(50,50,50)
+                                       
                                         v.HumanoidRootPart.CFrame = OldCFrameRainbow
                                         game:GetService("VirtualUser"):CaptureController()
                                         game:GetService("VirtualUser"):Button1Down(Vector2.new(1280, 672))
@@ -9643,7 +9653,7 @@ Main:AddSeperatorLeft("Observation")
                                         EquipWeapon(_G.SelectWeapon)
                                         Tween(v.HumanoidRootPart.CFrame * CFrame.new(5,10,7))
                                         v.HumanoidRootPart.CanCollide = false
-                                        v.HumanoidRootPart.Size = Vector3.new(50,50,50)
+                                       
                                         v.HumanoidRootPart.CFrame = OldCFrameRainbow
                                         game:GetService("VirtualUser"):CaptureController()
                                         game:GetService("VirtualUser"):Button1Down(Vector2.new(1280, 672))
@@ -9663,7 +9673,7 @@ Main:AddSeperatorLeft("Observation")
                                         EquipWeapon(_G.SelectWeapon)
                                         Tween(v.HumanoidRootPart.CFrame * CFrame.new(5,10,7))
                                         v.HumanoidRootPart.CanCollide = false
-                                        v.HumanoidRootPart.Size = Vector3.new(50,50,50)
+                                       
                                         v.HumanoidRootPart.CFrame = OldCFrameRainbow
                                         game:GetService("VirtualUser"):CaptureController()
                                         game:GetService("VirtualUser"):Button1Down(Vector2.new(1280, 672))
@@ -9818,7 +9828,7 @@ Main:AddSeperatorLeft("Observation")
                                                     EquipWeapon(_G.SelectWeapon)
                                                     Tween(v.HumanoidRootPart.CFrame * CFrame.new(5,10,7))
                                                     v.HumanoidRootPart.CanCollide = false
-                                                    v.HumanoidRootPart.Size = Vector3.new(50,50,50)
+                                                   
                                                     game:GetService("VirtualUser"):CaptureController()
                                                     game:GetService("VirtualUser"):Button1Down(Vector2.new(1280, 672))
                                                     PosMonEvo = v.HumanoidRootPart.CFrame
@@ -9863,7 +9873,7 @@ Main:AddSeperatorLeft("Observation")
                                                 AutoHaki()
                                                 v.HumanoidRootPart.Transparency = 1
                                                 v.HumanoidRootPart.CanCollide = false
-                                                v.HumanoidRootPart.Size = Vector3.new(50,50,50)
+                                               
                                                 Tween(v.HumanoidRootPart.CFrame * CFrame.new(5,10,7))													
                                                 PosMonBarto =  v.HumanoidRootPart.CFrame
                                                 game:GetService'VirtualUser':CaptureController()
@@ -9894,7 +9904,7 @@ Main:AddSeperatorLeft("Observation")
                                         AutoHaki()
                                         v.HumanoidRootPart.Transparency = 1
                                         v.HumanoidRootPart.CanCollide = false
-                                        v.HumanoidRootPart.Size = Vector3.new(50,50,50)
+                                       
                                         v.HumanoidRootPart.CFrame = OldCFrameBartlio
                                         Tween(v.HumanoidRootPart.CFrame * CFrame.new(5,10,7))
                                         game:GetService'VirtualUser':CaptureController()
@@ -10117,13 +10127,13 @@ Teleport:AddSeperatorLeft("Teleport World")
                 elseif _G.SelectIsland == "Great Tree" then
                     Tween(CFrame.new(2681.2736816406, 1682.8092041016, -7190.9853515625))
                 elseif _G.SelectIsland == "Castle On The Sea" then
-                    Tween(CFrame.new(-5074.45556640625, 314.5155334472656, -2991.054443359375))
+                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(-12471.169921875, 374.94024658203, -7551.677734375))
                 elseif _G.SelectIsland == "MiniSky" then
                     Tween(CFrame.new(-260.65557861328, 49325.8046875, -35253.5703125))
                 elseif _G.SelectIsland == "Port Town" then
                     Tween(CFrame.new(-290.7376708984375, 6.729952812194824, 5343.5537109375))
                 elseif _G.SelectIsland == "Hydra Island" then
-                    Tween(CFrame.new(5228.8842773438, 604.23400878906, 345.0400390625))
+                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(-5072.08984375, 314.5412902832, -3151.1098632812))
                 elseif _G.SelectIsland == "Floating Turtle" then
                     Tween(CFrame.new(-13274.528320313, 531.82073974609, -7579.22265625))
                 elseif _G.SelectIsland == "Mansion" then
