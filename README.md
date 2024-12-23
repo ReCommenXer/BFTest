@@ -1,4 +1,4 @@
-----------------iii
+
 repeat wait() until game:IsLoaded()
 repeat wait() until game:GetService("Players")
 
@@ -3664,7 +3664,6 @@ Main:AddTextboxLeft("job id ","...",true,function(s)
                     end
                 else
                     if not ReplicatedStorage:FindFirstChild("FX") and originalFX then
-                        -- คืนค่า FX กลับมา
                         originalFX.Parent = ReplicatedStorage
                         originalFX = nil
                     end
@@ -10127,13 +10126,13 @@ Teleport:AddSeperatorLeft("Teleport World")
                 elseif _G.SelectIsland == "Great Tree" then
                     Tween(CFrame.new(2681.2736816406, 1682.8092041016, -7190.9853515625))
                 elseif _G.SelectIsland == "Castle On The Sea" then
-                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(-12471.169921875, 374.94024658203, -7551.677734375))
+                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(-5072.08984375, 314.5412902832, -3151.1098632812))
                 elseif _G.SelectIsland == "MiniSky" then
                     Tween(CFrame.new(-260.65557861328, 49325.8046875, -35253.5703125))
                 elseif _G.SelectIsland == "Port Town" then
                     Tween(CFrame.new(-290.7376708984375, 6.729952812194824, 5343.5537109375))
                 elseif _G.SelectIsland == "Hydra Island" then
-                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(-5072.08984375, 314.5412902832, -3151.1098632812))
+                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(5741.869140625, 611.94750976562, -282.61154174805))
                 elseif _G.SelectIsland == "Floating Turtle" then
                     Tween(CFrame.new(-13274.528320313, 531.82073974609, -7579.22265625))
                 elseif _G.SelectIsland == "Mansion" then
@@ -10162,7 +10161,7 @@ Teleport:AddSeperatorLeft("Teleport World")
         pcall(function()
             while wait() do
                 if game:GetService("Players").LocalPlayer.PlayerGui.Main.TopHUDList.RaidTimer.Value == true then
-                    TimeRaid:Set(game:GetService("Players").LocalPlayer.PlayerGui.Main.TopHUDList.RaidTimer.Text)
+                    TimeRaid:Set(game:GetService("Players").LocalPlayer.PlayerGui.Main.TopHUDList.RaidTimer.Value)
                 else
                     TimeRaid:Set("Wait.")
                     Wait(.2)
