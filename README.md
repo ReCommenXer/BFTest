@@ -1,4 +1,3 @@
-------------------------aaaaaaaaaaaaa
 
 repeat wait() until game:IsLoaded()
 repeat wait() until game:GetService("Players")
@@ -6319,7 +6318,7 @@ game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("CommF
                     end
             end)
         end)
-    
+    end
     
     
     
