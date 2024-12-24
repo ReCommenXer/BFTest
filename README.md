@@ -1,4 +1,3 @@
------------------aaaaaaaaaaaaa
 
 repeat wait() until game:IsLoaded()
 repeat wait() until game:GetService("Players")
@@ -10228,20 +10227,54 @@ Teleport:AddSeperatorLeft("Teleport World")
                     local raidisland = workspace._WorldOrigin.Locations
                     if game:GetService("Players").LocalPlayer.PlayerGui.Main.TopHUDList.RaidTimer.Visible == true then
                         if raidisland:FindFirstChild("Island 5") then
-                            Tween(raidisland:FindFirstChild("Island 5").CFrame * CFrame.new(0,80,100))
+                            Tween(raidisland:FindFirstChild("Island 5").CFrame * CFrame.new(0,70,100))
                         elseif raidisland:FindFirstChild("Island 4") then
-                            Tween(raidisland:FindFirstChild("Island 4").CFrame * CFrame.new(0,80,100))
+                            Tween(raidisland:FindFirstChild("Island 4").CFrame * CFrame.new(0,70,100))
                         elseif raidisland:FindFirstChild("Island 3") then
-                            Tween(raidisland:FindFirstChild("Island 3").CFrame * CFrame.new(0,80,100))
+                            Tween(raidisland:FindFirstChild("Island 3").CFrame * CFrame.new(0,70,100))
                         elseif raidisland:FindFirstChild("Island 2") then
-                            Tween(raidisland:FindFirstChild("Island 2").CFrame * CFrame.new(0,80,100))
+                            Tween(raidisland:FindFirstChild("Island 2").CFrame * CFrame.new(0,70,100))
                         elseif raidisland:FindFirstChild("Island 1") then
-                            Tween(raidisland:FindFirstChild("Island 1").CFrame * CFrame.new(0,80,100))
+                            Tween(raidisland:FindFirstChild("Island 1").CFrame * CFrame.new(0,70,100))
                         end
                     end
                 end
             end
         end)
+    end)
+
+    spawn(function()
+        pcall(function()
+            while wait() do
+                if _G.Auto_Dungeon then
+                    local raidisland = workspace._WorldOrigin.Locations
+                    if not game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Special Microchip") or not game:GetService("Players").LocalPlayer.Character:FindFirstChild("Special Microchip") then
+                        if not raidisland:FindFirstChild("Island 1") then
+                            game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("RaidsNpc", "Select", _G.SelectChip)
+                        end
+                    end
+                end
+            end
+        end)
+    end)
+
+    spawn(function()
+        while wait(.1) do
+            pcall(function()
+                if _G.Auto_Dungeon then
+                    local raidisland = workspace._WorldOrigin.Locations
+                    if game:GetService("Players").LocalPlayer.PlayerGui.Main.TopHUDList.RaidTimer.Visible == false then
+                        if not raidisland:FindFirstChild("Island 1") and game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Special Microchip") or game:GetService("Players").LocalPlayer.Character:FindFirstChild("Special Microchip") then
+                            if World2 then
+                                fireclickdetector(game:GetService("Workspace").Map.CircleIsland.RaidSummon2.Button.Main.ClickDetector)
+                            elseif World3 then
+                                fireclickdetector(game:GetService("Workspace").Map["Boat Castle"].RaidSummon2.Button.Main.ClickDetector)
+                            end
+                        end
+                    end
+                end
+            end)
+        end
     end)
     
     Teleport:AddToggleRight("Auto Awakener",_G.Auto_Awakener,function(value)
@@ -10327,8 +10360,9 @@ Teleport:AddSeperatorLeft("Teleport World")
         pcall(function()
             while wait() do
                 if _G.AutoBuyChip then
+                    local raidisland = workspace._WorldOrigin.Locations
                     if not game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Special Microchip") or not game:GetService("Players").LocalPlayer.Character:FindFirstChild("Special Microchip") then
-                        if not workspace.Map.RaidMap:FindFirstChild("RaidIsland1") then
+                        if not raidisland:FindFirstChild("Island 1") then
                             game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("RaidsNpc", "Select", _G.SelectChip)
                         end
                     end
@@ -10349,8 +10383,9 @@ Teleport:AddSeperatorLeft("Teleport World")
         while wait(.1) do
             pcall(function()
                 if _G.Auto_StartRaid then
-                    if game:GetService("Players")["LocalPlayer"].PlayerGui.Main.Timer.Visible == false then
-                        if not workspace.Map.RaidMap:FindFirstChild("RaidIsland1") and game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Special Microchip") or game:GetService("Players").LocalPlayer.Character:FindFirstChild("Special Microchip") then
+                    local raidisland = workspace._WorldOrigin.Locations
+                    if game:GetService("Players").LocalPlayer.PlayerGui.Main.TopHUDList.RaidTimer.Visible == false then
+                        if not raidisland:FindFirstChild("Island 1") and game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Special Microchip") or game:GetService("Players").LocalPlayer.Character:FindFirstChild("Special Microchip") then
                             if World2 then
                                 fireclickdetector(game:GetService("Workspace").Map.CircleIsland.RaidSummon2.Button.Main.ClickDetector)
                             elseif World3 then
