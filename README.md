@@ -1,3 +1,4 @@
+-----------------aaaaaaaaaaaaa
 
 repeat wait() until game:IsLoaded()
 repeat wait() until game:GetService("Players")
@@ -3839,7 +3840,7 @@ end)
                                     end
                                     sethiddenproperty(game:GetService("Players").LocalPlayer, "SimulationRadius", math.huge)
                                 end
-                            elseif v.Name == "Factory Staff [Lv. 800]" then
+                            elseif v.Name == "Factory Staff" then
                                 if (v.HumanoidRootPart.Position - PosMonMasteryFruit.Position).Magnitude <= 250 and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
                                     v.HumanoidRootPart.Size = Vector3.new(1,1,1)
                                     v.Humanoid:ChangeState(11)
@@ -3878,7 +3879,7 @@ end)
                                     end
                                     sethiddenproperty(game:GetService("Players").LocalPlayer, "SimulationRadius", math.huge)
                                 end
-                            elseif v.Name == "Factory Staff [Lv. 800]" then
+                            elseif v.Name == "Factory Staff" then
                                 if (v.HumanoidRootPart.Position - PosMonMasteryGun.Position).Magnitude <= 250 and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
                                     v.HumanoidRootPart.Size = Vector3.new(2,2,2)
                                     v.Humanoid:ChangeState(11)
@@ -6685,7 +6686,7 @@ end)
                                         v.Head.CanCollide = false 
                                         StartMagnethuman = true
                                         PosMonhuman = v.HumanoidRootPart.CFrame
-                                        Tween(v.HumanoidRootPart.CFrame * CFrame.new(5,25,7))
+                                        Tween(v.HumanoidRootPart.CFrame * CFrame.new(0,30,0))
                                         game:GetService("VirtualUser"):CaptureController()
                                         game:GetService("VirtualUser"):Button1Down(Vector2.new(1280,672))
                                     until not _G.human or not v.Parent or v.Humanoid.Health <= 0
@@ -6729,7 +6730,7 @@ end)
                                         v.Head.CanCollide = false 
                                         StartMagnetghoul = true
                                         PosMonghoul = v.HumanoidRootPart.CFrame
-                                        Tween(v.HumanoidRootPart.CFrame * CFrame.new(5,25,7))
+                                        Tween(v.HumanoidRootPart.CFrame * CFrame.new(0,30,0))
                                         game:GetService("VirtualUser"):CaptureController()
                                         game:GetService("VirtualUser"):Button1Down(Vector2.new(1280,672))
                                     until not _G.ghoul or not v.Parent or v.Humanoid.Health <= 0
@@ -7787,9 +7788,7 @@ end)
                                         v.Head.CanCollide = false 
                                         StartMagnetMy = true
                                         PosMonMy = v.HumanoidRootPart.CFrame
-                                        Tween(v.HumanoidRootPart.CFrame * CFrame.new(5,25,7))
-                                        game:GetService("VirtualUser"):CaptureController()
-                                        game:GetService("VirtualUser"):Button1Down(Vector2.new(1280,672))
+                                        Tween(v.HumanoidRootPart.CFrame * CFrame.new(0,30,0))
                                     until not _G.My or not v.Parent or v.Humanoid.Health <= 0
                                 end
                             end
@@ -7798,9 +7797,9 @@ end)
                         StartMagnetMy = false
                         for i,v in pairs(game:GetService("ReplicatedStorage"):GetChildren()) do 
                            if game:GetService("ReplicatedStorage"):FindFirstChild("Water Fighter [Lv. 1450]") then
-                                    Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Water Fighter [Lv. 1450]").HumanoidRootPart.CFrame * CFrame.new(5,25,7))
+                                    Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Water Fighter [Lv. 1450]").HumanoidRootPart.CFrame * CFrame.new(0,30,0))
                                 elseif game:GetService("ReplicatedStorage"):FindFirstChild("Sea Soldier [Lv. 1425]") then
-                                    Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Sea Soldier [Lv. 1425]").HumanoidRootPart.CFrame * CFrame.new(5,25,7))
+                                    Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Sea Soldier [Lv. 1425]").HumanoidRootPart.CFrame * CFrame.new(0,30,0))
                             end
                         end
                     end
@@ -7818,9 +7817,9 @@ end)
         while wait() do 
             if _G.Fish and World1 then
                 pcall(function()
-                    if game:GetService("Workspace").Enemies:FindFirstChild("Fishman Warrior [Lv. 375]") or game:GetService("Workspace").Enemies:FindFirstChild("Fishman Commando [Lv. 400]") then
+                    if game:GetService("Workspace").Enemies:FindFirstChild("Fishman Warrior") or game:GetService("Workspace").Enemies:FindFirstChild("Fishman Commando") then
                         for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
-                            if v.Name == "Fishman Warrior [Lv. 375]" or v.Name == "Fishman Commando [Lv. 400]" then
+                            if v.Name == "Fishman Warrior" or v.Name == "Fishman Commando" then
                                 if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
                                     repeat task.wait()
                                         AutoHaki()
@@ -7830,7 +7829,7 @@ end)
                                         v.Head.CanCollide = false 
                                         StartMagnetFish = true
                                         PosMonFish = v.HumanoidRootPart.CFrame
-                                        Tween(v.HumanoidRootPart.CFrame * CFrame.new(5,25,7))
+                                        Tween(v.HumanoidRootPart.CFrame * CFrame.new(0,30,0))
                                         game:GetService("VirtualUser"):CaptureController()
                                         game:GetService("VirtualUser"):Button1Down(Vector2.new(1280,672))
                                     until not _G.Fish or not v.Parent or v.Humanoid.Health <= 0
@@ -7840,10 +7839,10 @@ end)
                     else
                         StartMagnetFish = false
                         for i,v in pairs(game:GetService("ReplicatedStorage"):GetChildren()) do 
-                           if game:GetService("ReplicatedStorage"):FindFirstChild("Fishman Warrior [Lv. 375]") then
-                                    Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Fishman Warrior [Lv. 375]").HumanoidRootPart.CFrame * CFrame.new(5,25,7))
-                                elseif game:GetService("ReplicatedStorage"):FindFirstChild("Fishman Commando [Lv. 400]") then
-                                    Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Fishman Commando [Lv. 400]").HumanoidRootPart.CFrame * CFrame.new(5,25,7))
+                           if game:GetService("ReplicatedStorage"):FindFirstChild("Fishman Warrior") then
+                                    Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Fishman Warrior").HumanoidRootPart.CFrame * CFrame.new(0,30,0))
+                                elseif game:GetService("ReplicatedStorage"):FindFirstChild("Fishman Commando") then
+                                    Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Fishman Commando").HumanoidRootPart.CFrame * CFrame.new(0,30,0))
                             end
                         end
                     end
@@ -7856,9 +7855,9 @@ end)
         while wait() do 
             if _G.Fish and World3 then
                 pcall(function()
-                    if game:GetService("Workspace").Enemies:FindFirstChild("Fishman Raider [Lv. 1775]") or game:GetService("Workspace").Enemies:FindFirstChild("Fishman Captain [Lv. 1800]") then
+                    if game:GetService("Workspace").Enemies:FindFirstChild("Fishman Raider") or game:GetService("Workspace").Enemies:FindFirstChild("Fishman Captain") then
                         for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
-                            if v.Name == "Fishman Raider [Lv. 1775]" or v.Name == "Fishman Captain [Lv. 1800]" then
+                            if v.Name == "Fishman Raider" or v.Name == "Fishman Captain" then
                                 if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
                                     repeat task.wait()
                                         AutoHaki()
@@ -7868,9 +7867,7 @@ end)
                                         v.Head.CanCollide = false 
                                         StartMagnetFish = true
                                         PosMonFish = v.HumanoidRootPart.CFrame
-                                        Tween(v.HumanoidRootPart.CFrame * CFrame.new(5,25,7))
-                                        game:GetService("VirtualUser"):CaptureController()
-                                        game:GetService("VirtualUser"):Button1Down(Vector2.new(1280,672))
+                                        Tween(v.HumanoidRootPart.CFrame * CFrame.new(0,30,0))
                                     until not _G.Fish or not v.Parent or v.Humanoid.Health <= 0
                                 end
                             end
@@ -7878,10 +7875,10 @@ end)
                     else
                         StartMagnetFish = false
                         for i,v in pairs(game:GetService("ReplicatedStorage"):GetChildren()) do 
-                           if game:GetService("ReplicatedStorage"):FindFirstChild("Fishman Raider [Lv. 1775]") then
-                                    Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Fishman Raider [Lv. 1775]").HumanoidRootPart.CFrame * CFrame.new(5,25,7))
-                                elseif game:GetService("ReplicatedStorage"):FindFirstChild("Fishman Captain [Lv. 1800]") then
-                                    Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Fishman Captain [Lv. 1800]").HumanoidRootPart.CFrame * CFrame.new(5,25,7))
+                           if game:GetService("ReplicatedStorage"):FindFirstChild("Fishman Raider") then
+                                    Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Fishman Raider").HumanoidRootPart.CFrame * CFrame.new(0,30,0))
+                                elseif game:GetService("ReplicatedStorage"):FindFirstChild("Fishman Captain") then
+                                    Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Fishman Captain").HumanoidRootPart.CFrame * CFrame.new(0,30,0))
                             end
                         end
                     end
@@ -7901,9 +7898,9 @@ end)
         while wait() do 
             if _G.Cocoa and World3 then
                 pcall(function()
-                    if game:GetService("Workspace").Enemies:FindFirstChild("Cocoa Warrior [Lv. 2300]") or game:GetService("Workspace").Enemies:FindFirstChild("Chocolate Bar Battler [Lv. 2325]") then
+                    if game:GetService("Workspace").Enemies:FindFirstChild("Cocoa Warrior") or game:GetService("Workspace").Enemies:FindFirstChild("Chocolate Bar Battler") then
                         for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
-                            if v.Name == "Cocoa Warrior [Lv. 2300]" or v.Name == "Chocolate Bar Battler [Lv. 2325]" then
+                            if v.Name == "Cocoa Warrior" or v.Name == "Chocolate Bar Battler" then
                                 if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
                                     repeat task.wait()
                                         AutoHaki()
@@ -7913,9 +7910,7 @@ end)
                                         v.Head.CanCollide = false 
                                         StartMagnetCocoa = true
                                         PosMonCocoa = v.HumanoidRootPart.CFrame
-                                        Tween(v.HumanoidRootPart.CFrame * CFrame.new(5,25,7))
-                                        game:GetService("VirtualUser"):CaptureController()
-                                        game:GetService("VirtualUser"):Button1Down(Vector2.new(1280,672))
+                                        Tween(v.HumanoidRootPart.CFrame * CFrame.new(0,30,0))
                                     until not _G.Cocoa or not v.Parent or v.Humanoid.Health <= 0
                                 end
                             end
@@ -7923,10 +7918,10 @@ end)
                     else
                         StartMagnetCocoa = false
                         for i,v in pairs(game:GetService("ReplicatedStorage"):GetChildren()) do 
-                           if game:GetService("ReplicatedStorage"):FindFirstChild("Cocoa Warrior [Lv. 2300]") then
-                                    Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Cocoa Warrior [Lv. 2300]").HumanoidRootPart.CFrame * CFrame.new(5,25,7))
-                                elseif game:GetService("ReplicatedStorage"):FindFirstChild("Chocolate Bar Battler [Lv. 2325]") then
-                                    Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Chocolate Bar Battler [Lv. 2325]").HumanoidRootPart.CFrame * CFrame.new(5,25,7))
+                           if game:GetService("ReplicatedStorage"):FindFirstChild("Cocoa Warrior") then
+                                    Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Cocoa Warrior").HumanoidRootPart.CFrame * CFrame.new(0,30,0))
+                                elseif game:GetService("ReplicatedStorage"):FindFirstChild("Chocolate Bar Battler") then
+                                    Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Chocolate Bar Battler").HumanoidRootPart.CFrame * CFrame.new(0,30,0))
                             end
                         end
                     end
@@ -7945,9 +7940,9 @@ end)
         while wait() do 
             if _G.Magma and World1 then
                 pcall(function()
-                    if game:GetService("Workspace").Enemies:FindFirstChild("Military Soldier [Lv. 300]") or game:GetService("Workspace").Enemies:FindFirstChild("Military Spy [Lv. 325]") then
+                    if game:GetService("Workspace").Enemies:FindFirstChild("Military Soldier") or game:GetService("Workspace").Enemies:FindFirstChild("Military Spy") then
                         for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
-                            if v.Name == "Military Soldier [Lv. 300]" or v.Name == "Military Spy [Lv. 325]" then
+                            if v.Name == "Military Soldier" or v.Name == "Military Spy" then
                                 if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
                                     repeat task.wait()
                                         AutoHaki()
@@ -7957,7 +7952,7 @@ end)
                                         v.Head.CanCollide = false 
                                         StartMagnetMagma = true
                                         PosMonMagma = v.HumanoidRootPart.CFrame
-                                        Tween(v.HumanoidRootPart.CFrame * CFrame.new(5,25,7))
+                                        Tween(v.HumanoidRootPart.CFrame * CFrame.new(0,30,0))
                                         game:GetService("VirtualUser"):CaptureController()
                                         game:GetService("VirtualUser"):Button1Down(Vector2.new(1280,672))
                                     until not _G.Magma or not v.Parent or v.Humanoid.Health <= 0
@@ -7967,10 +7962,10 @@ end)
                     else
                         StartMagnetMagma = false
                         for i,v in pairs(game:GetService("ReplicatedStorage"):GetChildren()) do 
-                           if game:GetService("ReplicatedStorage"):FindFirstChild("Military Soldier [Lv. 300]") then
-                                    Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Military Soldier [Lv. 300]").HumanoidRootPart.CFrame * CFrame.new(5,25,7))
-                                elseif game:GetService("ReplicatedStorage"):FindFirstChild("Military Spy [Lv. 325]") then
-                                    Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Military Spy [Lv. 325]").HumanoidRootPart.CFrame * CFrame.new(5,25,7))
+                           if game:GetService("ReplicatedStorage"):FindFirstChild("Military Soldier") then
+                                    Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Military Soldier").HumanoidRootPart.CFrame * CFrame.new(0,30,0))
+                                elseif game:GetService("ReplicatedStorage"):FindFirstChild("Military Spy") then
+                                    Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Military Spy").HumanoidRootPart.CFrame * CFrame.new(0,30,0))
                             end
                         end
                     end
@@ -7984,9 +7979,9 @@ end)
         while wait() do 
             if _G.Magma and World2 then
                 pcall(function()
-                    if game:GetService("Workspace").Enemies:FindFirstChild("Magma Ninja [Lv. 1175]") or game:GetService("Workspace").Enemies:FindFirstChild("Lava Pirate [Lv. 1200]") then
+                    if game:GetService("Workspace").Enemies:FindFirstChild("Magma Ninja") or game:GetService("Workspace").Enemies:FindFirstChild("Lava Pirate") then
                         for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
-                            if v.Name == "Magma Ninja [Lv. 1175]" or v.Name == "Lava Pirate [Lv. 1200]" then
+                            if v.Name == "Magma Ninja" or v.Name == "Lava Pirate" then
                                 if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
                                     repeat task.wait()
                                         AutoHaki()
@@ -7996,7 +7991,7 @@ end)
                                         v.Head.CanCollide = false 
                                         StartMagnetMagma = true
                                         PosMonMagma = v.HumanoidRootPart.CFrame
-                                        Tween(v.HumanoidRootPart.CFrame * CFrame.new(5,25,7))
+                                        Tween(v.HumanoidRootPart.CFrame * CFrame.new(0,30,0))
                                         game:GetService("VirtualUser"):CaptureController()
                                         game:GetService("VirtualUser"):Button1Down(Vector2.new(1280,672))
                                     until not _G.Magma or not v.Parent or v.Humanoid.Health <= 0
@@ -8006,10 +8001,10 @@ end)
                     else
                         StartMagnetMagma = false
                         for i,v in pairs(game:GetService("ReplicatedStorage"):GetChildren()) do 
-                           if game:GetService("ReplicatedStorage"):FindFirstChild("Magma Ninja [Lv. 1175]") then
-                                    Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Magma Ninja [Lv. 1175]").HumanoidRootPart.CFrame * CFrame.new(5,25,7))
-                                elseif game:GetService("ReplicatedStorage"):FindFirstChild("Lava Pirate [Lv. 1200]") then
-                                    Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Lava Pirate [Lv. 1200]").HumanoidRootPart.CFrame * CFrame.new(5,25,7))
+                           if game:GetService("ReplicatedStorage"):FindFirstChild("Magma Ninja") then
+                                    Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Magma Ninja").HumanoidRootPart.CFrame * CFrame.new(0,30,0))
+                                elseif game:GetService("ReplicatedStorage"):FindFirstChild("Lava Pirate") then
+                                    Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Lava Pirate").HumanoidRootPart.CFrame * CFrame.new(0,30,0))
                             end
                         end
                     end
@@ -8040,8 +8035,8 @@ end)
                                             v.Head.CanCollide = false 
                                             StartMagnetMini_Tusk = true
                                             PosMonMini_Tusk = v.HumanoidRootPart.CFrame
-                                            Tween(v.HumanoidRootPart.CFrame * CFrame.new(0,25,0))
-                                        until not _G.Iron or not v.Parent or v.Humanoid.Health <= 0
+                                            Tween(v.HumanoidRootPart.CFrame * CFrame.new(0,30,0))
+                                        until not _G.Mini_Tusk or not v.Parent or v.Humanoid.Health <= 0
                                     end
                                 end
                             end
@@ -8049,7 +8044,7 @@ end)
                             StartMagnetMini_Tusk = false
                             for i,v in pairs(game:GetService("ReplicatedStorage"):GetChildren()) do 
                                 if game:GetService("ReplicatedStorage"):FindFirstChild("Mythological Pirate") then
-                                         Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Mythological Pirate").HumanoidRootPart.CFrame * CFrame.new(5,25,7))
+                                         Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Mythological Pirate").HumanoidRootPart.CFrame * CFrame.new(0,30,0))
                                         end
                                     end
                                 end
@@ -8058,6 +8053,7 @@ end)
                         end
                     end
                 end)
+
     Main:AddToggleLeft("Leather & Scrap Metal",nil,function(a)
     _G.Iron = a
     StopTween(_G.Iron)
@@ -8068,9 +8064,9 @@ end)
         while wait() do 
             if _G.Iron and World1 then
                 pcall(function()
-                    if game:GetService("Workspace").Enemies:FindFirstChild("Brute [Lv. 45]") or game:GetService("Workspace").Enemies:FindFirstChild("Pirate [Lv. 35]") then
+                    if game:GetService("Workspace").Enemies:FindFirstChild("Brute") or game:GetService("Workspace").Enemies:FindFirstChild("Pirate") then
                         for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
-                            if v.Name == "Brute [Lv. 45]" or v.Name == "Pirate [Lv. 35]" then
+                            if v.Name == "Brute" or v.Name == "Pirate" then
                                 if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
                                     repeat task.wait()
                                         AutoHaki()
@@ -8080,7 +8076,7 @@ end)
                                         v.Head.CanCollide = false 
                                         StartMagnetIron = true
                                         PosMonIron = v.HumanoidRootPart.CFrame
-                                        Tween(v.HumanoidRootPart.CFrame * CFrame.new(5,25,7))
+                                        Tween(v.HumanoidRootPart.CFrame * CFrame.new(0,30,0))
                                         game:GetService("VirtualUser"):CaptureController()
                                         game:GetService("VirtualUser"):Button1Down(Vector2.new(1280,672))
                                     until not _G.Iron or not v.Parent or v.Humanoid.Health <= 0
@@ -8090,10 +8086,10 @@ end)
                     else
                         StartMagnetIron = false
                         for i,v in pairs(game:GetService("ReplicatedStorage"):GetChildren()) do 
-                           if game:GetService("ReplicatedStorage"):FindFirstChild("Brute [Lv. 45]") then
-                                    Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Brute [Lv. 45]").HumanoidRootPart.CFrame * CFrame.new(5,25,7))
-                                elseif game:GetService("ReplicatedStorage"):FindFirstChild("Pirate [Lv. 35]") then
-                                    Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Pirate [Lv. 35]").HumanoidRootPart.CFrame * CFrame.new(5,25,7))
+                           if game:GetService("ReplicatedStorage"):FindFirstChild("Brute") then
+                                    Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Brute").HumanoidRootPart.CFrame * CFrame.new(0,30,0))
+                                elseif game:GetService("ReplicatedStorage"):FindFirstChild("Pirate") then
+                                    Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Pirate").HumanoidRootPart.CFrame * CFrame.new(0,30,0))
                             end
                         end
                     end
@@ -8112,9 +8108,9 @@ end)
         while wait() do 
             if _G.Ectoplasm and World2 then
                 pcall(function()
-                    if game:GetService("Workspace").Enemies:FindFirstChild("Ship Deckhand [Lv. 1250]") or game:GetService("Workspace").Enemies:FindFirstChild("Ship Engineer [Lv. 1275]") or game:GetService("Workspace").Enemies:FindFirstChild("Ship Steward [Lv. 1300]") or game:GetService("Workspace").Enemies:FindFirstChild("Ship Officer [Lv. 1325]") then
+                    if game:GetService("Workspace").Enemies:FindFirstChild("Ship Deckhand") or game:GetService("Workspace").Enemies:FindFirstChild("Ship Engineer") or game:GetService("Workspace").Enemies:FindFirstChild("Ship Steward") or game:GetService("Workspace").Enemies:FindFirstChild("Ship Officer") then
                         for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
-                            if v.Name == "Ship Deckhand [Lv. 1250]" or v.Name == "Ship Engineer [Lv. 1275]" or v.Name == "Ship Steward [Lv. 1300]" or v.Name == "Ship Officer [Lv. 1325]" then
+                            if v.Name == "Ship Deckhand" or v.Name == "Ship Engineer" or v.Name == "Ship Steward" or v.Name == "Ship Officer" then
                                 if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
                                     repeat task.wait()
                                         AutoHaki()
@@ -8124,9 +8120,7 @@ end)
                                         v.Head.CanCollide = false 
                                         StartMagnetE = true
                                         PosMonE = v.HumanoidRootPart.CFrame
-                                        Tween(v.HumanoidRootPart.CFrame * CFrame.new(5,25,7))
-                                        game:GetService("VirtualUser"):CaptureController()
-                                        game:GetService("VirtualUser"):Button1Down(Vector2.new(1280,672))
+                                        Tween(v.HumanoidRootPart.CFrame * CFrame.new(0,30,0))
                                     until not _G.Ectoplasm or not v.Parent or v.Humanoid.Health <= 0
                                 end
                             end
@@ -8134,14 +8128,14 @@ end)
                     else
                         StartMagnetE = false
                         for i,v in pairs(game:GetService("ReplicatedStorage"):GetChildren()) do 
-                           if game:GetService("ReplicatedStorage"):FindFirstChild("Ship Deckhand [Lv. 1250]") then
-                                    Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Ship Deckhand [Lv. 1250]").HumanoidRootPart.CFrame * CFrame.new(5,25,7))
-                                elseif game:GetService("ReplicatedStorage"):FindFirstChild("Ship Engineer [Lv. 1275]") then
-                                    Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Ship Engineer [Lv. 1275]").HumanoidRootPart.CFrame * CFrame.new(5,25,7))
-                                    elseif game:GetService("ReplicatedStorage"):FindFirstChild("Ship Steward [Lv. 1300]") then
-                                    Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Ship Steward [Lv. 1300]").HumanoidRootPart.CFrame * CFrame.new(5,25,7))
-                                    elseif game:GetService("ReplicatedStorage"):FindFirstChild("Ship Officer [Lv. 1325]") then
-                                    Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Ship Officer [Lv. 1325]").HumanoidRootPart.CFrame * CFrame.new(5,25,7))
+                           if game:GetService("ReplicatedStorage"):FindFirstChild("Ship Deckhand") then
+                                    Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Ship Deckhand").HumanoidRootPart.CFrame * CFrame.new(0,30,0))
+                                elseif game:GetService("ReplicatedStorage"):FindFirstChild("Ship Engineer") then
+                                    Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Ship Engineer").HumanoidRootPart.CFrame * CFrame.new(0,30,0))
+                                    elseif game:GetService("ReplicatedStorage"):FindFirstChild("Ship Steward") then
+                                    Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Ship Steward").HumanoidRootPart.CFrame * CFrame.new(0,30,0))
+                                    elseif game:GetService("ReplicatedStorage"):FindFirstChild("Ship Officer") then
+                                    Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Ship Officer").HumanoidRootPart.CFrame * CFrame.new(0,30,0))
                                     
                             end
                         end
@@ -8164,9 +8158,9 @@ end)
         while wait() do 
             if _G.Yeti and World1 then
                 pcall(function()
-                    if game:GetService("Workspace").Enemies:FindFirstChild("Yeti [Lv. 110] [Boss]") then
+                    if game:GetService("Workspace").Enemies:FindFirstChild("Yeti") then
                         for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
-                            if v.Name == "Yeti [Lv. 110] [Boss]" then
+                            if v.Name == "Yeti" then
                                 if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
                                     repeat task.wait()
                                         AutoHaki()
@@ -8176,7 +8170,7 @@ end)
                                         v.Head.CanCollide = false 
                                         StartMagnetYeti = true
                                         PosMonYeti = v.HumanoidRootPart.CFrame
-                                        Tween(v.HumanoidRootPart.CFrame * CFrame.new(5,25,7))
+                                        Tween(v.HumanoidRootPart.CFrame * CFrame.new(0,30,0))
                                         game:GetService("VirtualUser"):CaptureController()
                                         game:GetService("VirtualUser"):Button1Down(Vector2.new(1280,672))
                                     until not _G.Yeti or not v.Parent or v.Humanoid.Health <= 0
@@ -8186,8 +8180,8 @@ end)
                     else
                         StartMagnetYeti = false
                         for i,v in pairs(game:GetService("ReplicatedStorage"):GetChildren()) do 
-                           if game:GetService("ReplicatedStorage"):FindFirstChild("Yeti [Lv. 110] [Boss]") then
-                                    Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Yeti [Lv. 110] [Boss]").HumanoidRootPart.CFrame * CFrame.new(0,30,0))
+                           if game:GetService("ReplicatedStorage"):FindFirstChild("Yeti") then
+                                    Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Yeti").HumanoidRootPart.CFrame * CFrame.new(0,30,0))
                             end
                         end
                     end
@@ -8205,9 +8199,9 @@ end)
         while wait() do 
             if _G.AutoRedioactive and World2 then
                 pcall(function()
-                    if game:GetService("Workspace").Enemies:FindFirstChild("Factory Staff [Lv. 800]") then
+                    if game:GetService("Workspace").Enemies:FindFirstChild("Factory Staff") then
                         for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
-                            if v.Name == "Factory Staff [Lv. 800]" then
+                            if v.Name == "Factory Staff" then
                                 if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
                                     repeat task.wait()
                                         AutoHaki()
@@ -8217,7 +8211,7 @@ end)
                                         v.Head.CanCollide = false 
                                         StartMagnetYeti = true
                                         PosMonYeti = v.HumanoidRootPart.CFrame
-                                        Tween(v.HumanoidRootPart.CFrame * CFrame.new(5,25,7))
+                                        Tween(v.HumanoidRootPart.CFrame * CFrame.new(0,30,0))
                                         game:GetService("VirtualUser"):CaptureController()
                                         game:GetService("VirtualUser"):Button1Down(Vector2.new(1280,672))
                                     until not _G.AutoRedioactive or not v.Parent or v.Humanoid.Health <= 0
@@ -8227,8 +8221,8 @@ end)
                     else
                         StartMagnetYeti = false
                         for i,v in pairs(game:GetService("ReplicatedStorage"):GetChildren()) do 
-                           if game:GetService("ReplicatedStorage"):FindFirstChild("Factory Staff [Lv. 800]") then
-                                    Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Factory Staff [Lv. 800]").HumanoidRootPart.CFrame * CFrame.new(0,30,0))
+                           if game:GetService("ReplicatedStorage"):FindFirstChild("Factory Staff") then
+                                    Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Factory Staff").HumanoidRootPart.CFrame * CFrame.new(0,30,0))
                             end
                         end
                     end
@@ -8363,7 +8357,7 @@ local Douhtmon = Main:AddLabelLeft("รอทำเสร็จ")
                                     EquipWeapon(_G.SelectWeapon)
                                     enemy.HumanoidRootPart.CanCollide = false
                                     enemy.Humanoid.WalkSpeed = 0
-                                    Tween(enemy.HumanoidRootPart.CFrame * CFrame.new(0, -45, -40))
+                                    Tween(enemy.HumanoidRootPart.CFrame * CFrame.new(0, -35, 0))
                                 until not _G.AutoDoughtBoss or not enemy.Parent or enemy.Humanoid.Health <= 0
                             end
                         end
@@ -8392,10 +8386,11 @@ local Douhtmon = Main:AddLabelLeft("รอทำเสร็จ")
                                                 
                                             until not _G.AutoDoughtBoss or not enemy.Parent or enemy.Humanoid.Health <= 0 or bigMirror.Transparency == 0 or replicatedStorage:FindFirstChild("Cake Prince [Lv. 2300] [Raid Boss]") or workspace.Enemies:FindFirstChild("Cake Prince [Lv. 2300] [Raid Boss]")
                                         end
+                                    else
+                                        Tween(CFrame.new(-2079.6826, 227.9526, -12321.9238))
                                     end
                                 end
                             else
-                                -- ถ้า BigMirror ปิด
                                 MagnetDought = false
                                 Tween(CFrame.new(-2079.6826, 227.9526, -12321.9238))
                                 if bigMirror.Transparency == 0 then
