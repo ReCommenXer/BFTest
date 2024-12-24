@@ -1,3 +1,4 @@
+------------------------aaaaaaaaaaaaa
 
 repeat wait() until game:IsLoaded()
 repeat wait() until game:GetService("Players")
@@ -3121,7 +3122,7 @@ end
                 local inf = Instance.new("ParticleEmitter")
                 inf.Acceleration = Vector3.new(0,0,0)
                 inf.Archivable = true
-                inf.Drag = 20
+                inf.Drag = 50
                 inf.EmissionDirection = Enum.NormalId.Top
                 inf.Enabled = true
                 inf.Lifetime = NumberRange.new(0.2,0.2)
