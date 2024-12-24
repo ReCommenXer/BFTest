@@ -1,4 +1,3 @@
----------------aaaa
 
 repeat wait() until game:IsLoaded()
 repeat wait() until game:GetService("Players")
@@ -6289,41 +6288,36 @@ game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("CommF
             end
             end
         end)
-      
-      
-      
-    spawn(function()
-            while wait() do
-                if _G.AutoMysticIsland2 then
-                    pcall(function()
-                            er(CFrame.new(game:GetService("Workspace").Boats.MarineBrigade.VehicleSeat.Position))
-                                             game:service('VirtualInputManager'):SendKeyEvent(true, "W", false, game)
-
-                    end)
-            end
-        end
-    end)
-    
-      
+   
        
-       Main:AddToggleLeft("Auto Find Mystic Island [beta]",_G.AutoMysticIsland21,function(value)
+       Main:AddToggleLeft("Auto Find Npc Mystic Island",_G.AutoFindMysticIsland,function(value)
             _G.AutoMysticIsland21 = value
             StopTween()               
         end)
      
       
-    spawn(function()
-            while wait() do
-                if _G.AutoMysticIsland21 then
-                    pcall(function()
-         game:service('VirtualInputManager'):SendKeyEvent(true, "W", false, game)
-         game:service('VirtualInputManager'):SendKeyEvent(true, "D", false, game)
-
-end)
-            end
-        end
-    end)
-    end
+        spawn(function()
+            pcall(function()
+                while wait() do
+                    if _G.AutoFindMysticIsland then
+                            repeat
+                                wait()
+                            until game:GetService("Workspace").Map:FindFirstChild("MysticIsland")
+                            if game:GetService("Workspace").Map:FindFirstChild("MysticIsland") then
+                                AllNPCS = getnilinstances()
+                                for r, v in pairs(game:GetService("Workspace").NPCs:GetChildren()) do
+                                    table.insert(AllNPCS, v)
+                                end
+                                for r, v in pairs(AllNPCS) do
+                                    if v.Name == "Advanced Fruit Dealer" then
+                                        Tween(v.HumanoidRootPart.CFrame)
+                                    end
+                                end
+                            end
+                        end
+                    end
+            end)
+        end)
     
     
     
