@@ -1,3 +1,4 @@
+----------------eeee
 
 repeat wait() until game:IsLoaded()
 repeat wait() until game:GetService("Players")
@@ -8324,39 +8325,25 @@ end)
 
  Main:AddSeperatorLeft("Katakuri")
         	 
- local Douhtmon = Main:AddLabelLeft("มอนสเตอร์ที่ฆ่าในเกาะ Katakuri: 0")
+ local Douhtmon = Main:AddLabelLeft("Wait")
 
- local module = require(game:GetService("ReplicatedStorage"):WaitForChild("ModuleName"))
-
-task.spawn(function()
-    while wait(1) do
+ spawn(function()
+    while true do
         pcall(function()
-            local value = module.CakePrinceSpawnerValue
-            if value and type(value) == "string" then
-                local len = string.len(value)
-                local index = nil
-                if len == 88 then
-                    index = 39
-                elseif len == 87 then
-                    index = 40
-                elseif len == 86 then
-                    index = 41
-                end
-                
-                if index then
-                    local number = tonumber(string.sub(value, index, 41))
-                    if number then
-                        Douhtmon:Set("Kill Mon"..(number - 500))
-                    end
-                else
-                    Douhtmon:Set("Boss Is Spawn")
-                end
+            local cakeStatus = game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("CakePrinceSpawner")
+            if string.len(cakeStatus) == 88 then
+                Douhtmon:Set("NeedkillMon : " .. string.sub(cakeStatus, 39, 41))
+            elseif string.len(cakeStatus) == 87 then
+                Douhtmon:Set("NeedkillMon : " .. string.sub(cakeStatus, 39, 40))
+            elseif string.len(cakeStatus) == 86 then
+                Douhtmon:Set("NeedkillMon : " .. string.sub(cakeStatus, 39, 39))
+            else
+                Douhtmon:Set("BossIsSpawn..")
             end
         end)
+        wait(1)
     end
 end)
-
-
 
 
 
