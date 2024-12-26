@@ -1,4 +1,3 @@
-----------------aaaa
 
 repeat wait() until game:IsLoaded()
 repeat wait() until game:GetService("Players")
@@ -8327,7 +8326,37 @@ end)
         	 
  local Douhtmon = Main:AddLabelLeft("มอนสเตอร์ที่ฆ่าในเกาะ Katakuri: 0")
 
- 
+ local module = require(game:GetService("ReplicatedStorage"):WaitForChild("ModuleName"))
+
+task.spawn(function()
+    while wait(1) do
+        pcall(function()
+            local value = module.CakePrinceSpawnerValue
+            if value and type(value) == "string" then
+                local len = string.len(value)
+                local index = nil
+                if len == 88 then
+                    index = 39
+                elseif len == 87 then
+                    index = 40
+                elseif len == 86 then
+                    index = 41
+                end
+                
+                if index then
+                    local number = tonumber(string.sub(value, index, 41))
+                    if number then
+                        Douhtmon:Set("Kill Mon"..(number - 500))
+                    end
+                else
+                    Douhtmon:Set("Boss Is Spawn")
+                end
+            end
+        end)
+    end
+end)
+
+
 
 
 
