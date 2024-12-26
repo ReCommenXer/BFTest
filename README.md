@@ -1,3 +1,4 @@
+-----------------aad
 
 repeat wait() until game:IsLoaded()
 repeat wait() until game:GetService("Players")
@@ -3375,6 +3376,18 @@ end
         end
     end
 
+    function TweenSit(Pos)
+        Distance = (Pos.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
+        pcall(function() tween = game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart,TweenInfo.new(Distance/250, Enum.EasingStyle.Linear),{CFrame = Pos}) end)
+        tween:Play()
+        if Distance <= 250 then
+            tween:Cancel()
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Pos
+        end
+        if _G.StopTween == true then
+            tween:Cancel()
+            _G.Clip = false
+    end
 
     
     function TP0(Pos)
@@ -6276,7 +6289,7 @@ spawn(function()
         _G.AutoMysticIsland2 = value
         StopTween() -- หยุด Tween ก่อนเริ่มใหม่
         if _G.AutoMysticIsland2 then
-            local targetCFrame = CFrame.new(2185.516845703125, 5.371269226074219, -6283.82958984375)
+            local targetCFrame = CFrame.new(-9531.89453, 7.62317133, -8376.20898, 0.928960204, -3.178102e-09, -0.370179564, 1.17543275e-09, 1, -5.63556712e-09, 0.370179564, 4.80009632e-09, 0.928960204)
             Tween(targetCFrame) -- Tween ไปยังจุดเป้าหมาย
     
             -- รอจนกว่าตำแหน่งผู้เล่นจะอยู่ใกล้กับเป้าหมาย
@@ -6435,7 +6448,7 @@ spawn(function()
    if _G.Auto_Sea_Event then
       for i,v in pairs(game.Workspace.Enemies:GetChildren()) do    
            if v.Name == "Shark" or v.Name == "Piranha" or v.Name == "Terrorshark" then
-	     game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Sit = false
+	            game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Sit = false
 								repeat wait()
                                                                 AutoHaki()
 								EquipWeapon(_G.SelectWeapon)
@@ -6464,33 +6477,28 @@ Main:AddToggleLeft("Auto Dirvve Bost",_G.Auto_Walk_Bost,function(a)
    pcall(function()
     if _G.Auto_Walk_Bost then
       if not game:GetService("Workspace").Boats:FindFirstChild(_G.SelectBoat) then
-     repeat wait()
-
-     print("Spawn Bost")
-
-     ew(CFrame.new(-16208.0654, 10.4592094, 404.354523, -0.0460886136, 1.71953063e-09, -0.998937368, -6.43779785e-08, 1, 4.69160799e-09, 0.998937368, 6.45257998e-08, -0.0460886136))
-      if (Vector3.new(-16208.0654, 10.4592094, 404.354523, -0.0460886136, 1.71953063e-09, -0.998937368, -6.43779785e-08, 1, 4.69160799e-09, 0.998937368, 6.45257998e-08, -0.0460886136) - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 0.1 or not game:GetService("Workspace").Boats:FindFirstChild(_G.SelectBoat) then
+        repeat wait()
+         TweenSit(CFrame.new(-16208.0654, 10.4592094, 404.354523, -0.0460886136, 1.71953063e-09, -0.998937368, -6.43779785e-08, 1, 4.69160799e-09, 0.998937368, 6.45257998e-08, -0.0460886136))
+             if (Vector3.new(-16208.0654, 10.4592094, 404.354523, -0.0460886136, 1.71953063e-09, -0.998937368, -6.43779785e-08, 1, 4.69160799e-09, 0.998937368, 6.45257998e-08, -0.0460886136) - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 0.1 or not game:GetService("Workspace").Boats:FindFirstChild(_G.SelectBoat) then
                     game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BuyBoat",_G.SelectBoat)
- end
+            end
 
-until game:GetService("Workspace").Boats:FindFirstChild(_G.SelectBoat) or _G.Auto_Walk_Bost == false
-  
-end
-if game:GetService("Workspace").Boats:FindFirstChild(_G.SelectBoat) then
+        until game:GetService("Workspace").Boats:FindFirstChild(_G.SelectBoat) or _G.Auto_Walk_Bost == false
+    elseif game:GetService("Workspace").Boats:FindFirstChild(_G.SelectBoat) then
    
          repeat wait()
-ew(CFrame.new(-44311.5039, 17.4374886, 5763.37646, 0.0975984931, 0, -0.995225847, 0, 1, 0, 0.995225847, 0, 0.0975984931))
-       if (Vector3.new(-44311.5039, 17.4374886, 5763.37646, 0.0975984931, 0, -0.995225847, 0, 1, 0, 0.995225847, 0, 0.0975984931) - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 10 then
+            TweenSit(CFrame.new(-44311.5039, 17.4374886, 5763.37646, 0.0975984931, 0, -0.995225847, 0, 1, 0, 0.995225847, 0, 0.0975984931))
+         if (Vector3.new(-44311.5039, 17.4374886, 5763.37646, 0.0975984931, 0, -0.995225847, 0, 1, 0, 0.995225847, 0, 0.0975984931) - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 10 then
                   game:GetService("Workspace").Boats[_G.SelectBoat].VehicleSeat.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 
-else
+           else
 
          game:GetService("VirtualInputManager"):SendKeyEvent(true,"W",false,game)
          game:GetService("VirtualInputManager"):SendKeyEvent(true,"A",false,game)
         end
          until not game:GetService("Workspace").Boats:FindFirstChild(_G.SelectBoat) or _G.Auto_Walk_Bost == false or game.Workspace.Enemies:FindFirstChild("Shark") or game.Workspace.Enemies:FindFirstChild("Piranha") or game.Workspace.Enemies:FindFirstChild("Terrorshark")
 
-        
+        end
         end
          
          
@@ -10076,7 +10084,8 @@ Teleport:AddSeperatorLeft("Teleport World")
             "Ice Cream Island",
             "Peanut Island",
             "Cake Island",
-            "Cocoa Island"
+            "Cocoa Island",
+            "North Pole"
             },function(value)
             _G.SelectIsland = value
         end)
@@ -10178,6 +10187,8 @@ Teleport:AddSeperatorLeft("Teleport World")
                     Tween(CFrame.new(-1884.7747802734375, 19.327526092529297, -11666.8974609375))
                 elseif _G.SelectIsland == "Cocoa Island" then
                     Tween(CFrame.new(380.12860107421875, 126.59191131591797, -12725.7119140625))
+                elseif _G.SelectIsland == "North Pole" then
+                    Tween(CFrame.new(-1095.06934, 64.7162552, -14520.2695, 0.951785564, 1.55784488e-08, 0.306764215, -5.39329559e-09, 1, -3.40495667e-08, -0.306764215, 3.07534158e-08, 0.951785564))
                 end
             until not _G.TeleportIsland
         end
@@ -11752,7 +11763,7 @@ end
     
     
     Misc:AddSeperatorRight("Credit")
-    Misc:AddLabelRight("Ui : ball naja#3764")น+
+    Misc:AddLabelRight("Ui : ball naja#3764")
     Misc:AddLabelRight("Dev : ball naja#3764")
         Setting:AddSeperatorLeft("Beta function")
 
