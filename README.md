@@ -11752,7 +11752,7 @@ end
     
     
     Misc:AddSeperatorRight("Credit")
-    Misc:AddLabelRight("Ui : ball naja#3764")
+    Misc:AddLabelRight("Ui : ball naja#3764")น+
     Misc:AddLabelRight("Dev : ball naja#3764")
         Setting:AddSeperatorLeft("Beta function")
 
@@ -11760,4 +11760,18 @@ end
  Setting:AddSeperatorRight("Dev Function")
     Setting:AddButtonLeft("Copy CFrame",function()
         setclipboard(tostring(game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame))
+end)
+
+Setting:AddButtonLeft("Dex Mobile",function()
+    --[[
+	WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
+]]
+loadstring(game:HttpGet("https://raw.githubusercontent.com/realredz/DEX-Explorer/refs/heads/main/Mobile.lua"))()
+end)
+
+Setting:AddButtonLeft("RemoteSpy",function()
+   --[[
+	WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
+]]
+loadstring(game:HttpGet("https://raw.githubusercontent.com/realredz/SimpleSpy/refs/heads/main/Mobile.lua"))()
 end)
