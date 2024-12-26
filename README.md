@@ -1,3 +1,4 @@
+---------------xxxxx
 
 repeat wait() until game:IsLoaded()
 repeat wait() until game:GetService("Players")
@@ -7538,7 +7539,6 @@ end)
                                                     Tween(v.HumanoidRootPart.CFrame * CFrame.new(0,15,0))
                                                     v.Humanoid.WalkSpeed = 0
                                                     v.HumanoidRootPart.CanCollide = false
-                                                    Click()
 								local args = {
 									[1] = v.HumanoidRootPart.Position,
 									[2] = v.HumanoidRootPart
@@ -8325,7 +8325,31 @@ end)
 
  Main:AddSeperatorLeft("Katakuri")
         	 
-local Douhtmon = Main:AddLabelLeft("รอทำเสร็จ")
+local Douhtmon = Main:AddLabelLeft("")
+-- สคริปต์สำหรับนับจำนวนมอนสเตอร์ที่ถูกฆ่าในเกาะ Katakuri
+local player = game.Players.LocalPlayer
+local killsFolder = player:FindFirstChild("Stats") or Instance.new("Folder", player)
+killsFolder.Name = "Stats"
+
+local katakuriKills = killsFolder:FindFirstChild("KatakuriKills") or Instance.new("IntValue", killsFolder)
+katakuriKills.Name = "KatakuriKills"
+katakuriKills.Value = 0
+
+-- ฟังก์ชันที่เรียกเมื่อผู้เล่นฆ่ามอนสเตอร์
+local function onMonsterKilled(monster)
+    -- ตรวจสอบว่ามอนสเตอร์อยู่ในเกาะ Katakuri
+    if monster:IsDescendantOf(workspace.KatakuriIsland.Monsters) then
+        katakuriKills.Value += 1
+        Douhtmon:Set("มอนสเตอร์ที่ฆ่าในเกาะ Katakuri:", katakuriKills.Value)
+    end
+end
+
+-- กำหนด Listener สำหรับการฆ่ามอนสเตอร์
+workspace.Monsters.ChildRemoved:Connect(function(child)
+    if child:IsA("Model") and child:FindFirstChild("Humanoid") and child.Humanoid.Health <= 0 then
+        onMonsterKilled(child)
+    end
+end)
 
 
 
