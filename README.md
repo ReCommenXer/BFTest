@@ -1,3 +1,4 @@
+-----aa
 
 repeat wait() until game:IsLoaded()
 repeat wait() until game:GetService("Players")
@@ -6272,22 +6273,47 @@ spawn(function()
         end
     end)
         
-   Main:AddToggleLeft("Auto Find Mystic Island",_G.AutoMysticIsland2,function(value)
-            _G.AutoMysticIsland2 = value
-            StopTween()
-            if _G.AutoMysticIsland2 == true then
-             Tween(CFrame.new(2185.516845703125, 5.371269226074219, -6283.82958984375))
-             if (Vector3.new(2185.516845703125, 5.371269226074219, -6283.82958984375) - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 30 then
+    Main:AddToggleLeft("Auto Find Mystic Island", _G.AutoMysticIsland2, function(value)
+        _G.AutoMysticIsland2 = value
+        StopTween() -- หยุด Tween ก่อนเริ่มใหม่
+        if _G.AutoMysticIsland2 then
+            local targetCFrame = CFrame.new(2185.516845703125, 5.371269226074219, -6283.82958984375)
+            Tween(targetCFrame) -- Tween ไปยังจุดเป้าหมาย
+    
+            -- รอจนกว่าตำแหน่งผู้เล่นจะอยู่ใกล้กับเป้าหมาย
+            repeat
+                task.wait()
+            until (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - targetCFrame.Position).Magnitude <= 30
+    
+            -- ซื้อเรือ
             local args = {
-             [1] = "BuyBoat",
-            [2] = "MarineBrigade"
-             }
-game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("CommF_"):InvokeServer(unpack(args))
-            game:GetService("Workspace").Boats.MarineBrigade.VehicleSeat.MaxSpeed = 300
-            
+                [1] = "BuyBoat",
+                [2] = "MarineBrigade"
+            }
+            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("CommF_"):InvokeServer(unpack(args))
+    
+            -- ตั้งค่าเรือให้เร็วขึ้น
+            local boat = game:GetService("Workspace").Boats:FindFirstChild("MarineBrigade")
+            if boat then
+                boat.VehicleSeat.MaxSpeed = 350
+    
+                -- นั่งเรือ
+                local seat = boat:FindFirstChild("VehicleSeat")
+                if seat then
+                    seat:Sit(game.Players.LocalPlayer.Character.Humanoid) -- ให้ผู้เล่นนั่งบนเรือ
+    
+                    -- ขับเรือไปข้างหน้า
+                    task.spawn(function()
+                        while _G.AutoMysticIsland2 and seat and seat.Occupant do
+                            seat.Throttle = 1 -- เดินหน้า
+                            task.wait()
+                        end
+                    end)
+                end
             end
-            end
-        end)
+        end
+    end)
+    
    
        
        Main:AddToggleLeft("Auto Find Npc Mystic Island",_G.AutoFindMysticIsland,function(value)
@@ -8337,7 +8363,7 @@ end)
             elseif string.len(cakeStatus) == 86 then
                 Douhtmon:Set("NeedkillMon : " .. string.sub(cakeStatus, 39, 39))
             else
-                Douhtmon:Set("BossIsSpawn..")
+                Douhtmon:Set("Boss Is Spawn")
             end
         end)
         wait(1)
