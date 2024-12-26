@@ -1,4 +1,3 @@
------aa
 
 repeat wait() until game:IsLoaded()
 repeat wait() until game:GetService("Players")
@@ -11759,7 +11758,6 @@ end
 
 
  Setting:AddSeperatorRight("Dev Function")
-    Setting:AddTextboxRight("key dev","",true,function(value)
-_G.GetFunction = value
-
+    Setting:AddButtonLeft("Copy CFrame",function()
+        setclipboard(tostring(game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame))
 end)
