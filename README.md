@@ -1,3 +1,4 @@
+----------------aaaa
 
 repeat wait() until game:IsLoaded()
 repeat wait() until game:GetService("Players")
@@ -8325,31 +8326,7 @@ end)
  Main:AddSeperatorLeft("Katakuri")
         	 
  local Douhtmon = Main:AddLabelLeft("มอนสเตอร์ที่ฆ่าในเกาะ Katakuri: 0")
- -- สคริปต์สำหรับนับจำนวนมอนสเตอร์ที่ถูกฆ่าในเกาะ Katakuri
- local player = game.Players.LocalPlayer
- local killsFolder = player:FindFirstChild("Stats") or Instance.new("Folder", player)
- killsFolder.Name = "Stats"
- 
- local katakuriKills = killsFolder:FindFirstChild("KatakuriKills") or Instance.new("IntValue", killsFolder)
- katakuriKills.Name = "KatakuriKills"
- katakuriKills.Value = 0
- 
- -- ฟังก์ชันที่เรียกเมื่อผู้เล่นฆ่ามอนสเตอร์
- local function onMonsterKilled(monster)
-     -- ตรวจสอบว่ามอนสเตอร์อยู่ในเกาะ Katakuri
-     if monster:IsDescendantOf(workspace:WaitForChild("KatakuriIsland"):WaitForChild("Monsters")) then
-         katakuriKills.Value += 1
-         -- อัปเดตข้อความใน Douhtmon
-         Douhtmon:Set("มอนสเตอร์ที่ฆ่าในเกาะ Katakuri: " .. katakuriKills.Value)
-     end
- end
- 
- -- กำหนด Listener สำหรับการฆ่ามอนสเตอร์
- workspace:WaitForChild("Monsters").ChildRemoved:Connect(function(child)
-     if child:IsA("Model") and child:FindFirstChild("Humanoid") and child.Humanoid.Health <= 0 then
-         onMonsterKilled(child)
-     end
- end)
+
  
 
 
