@@ -6470,6 +6470,8 @@ end
 
 Main:AddToggleLeft("Auto Dirvve Bost",_G.Auto_Walk_Bost,function(a)
  _G.Auto_Walk_Bost = a
+ local virtualInput = game:GetService("VirtualInputManager")
+ virtualInput:SendKeyEvent(false, "W", false, game)
  end)
 
  spawn(function()
@@ -6485,10 +6487,10 @@ Main:AddToggleLeft("Auto Dirvve Bost",_G.Auto_Walk_Bost,function(a)
                     repeat
                         wait()
                         -- Tween to the designated position
-                        TweenSit(CFrame.new(-16208.0654, 10.4592094, 404.354523))
+                        TweenSit(CFrame.new(-9531.89453, 7.62317133, -8376.20898, 0.928960204, -3.178102e-09, -0.370179564, 1.17543275e-09, 1, -5.63556712e-09, 0.370179564, 4.80009632e-09, 0.928960204))
 
                         -- Check proximity to target and attempt to buy boat
-                        if (Vector3.new(-16208.0654, 10.4592094, 404.354523) - humanoidRootPart.Position).Magnitude <= 0.1 then
+                        if (Vector3.new(-9531.89453, 7.62317133, -8376.20898, 0.928960204, -3.178102e-09, -0.370179564, 1.17543275e-09, 1, -5.63556712e-09, 0.370179564, 4.80009632e-09, 0.928960204) - humanoidRootPart.Position).Magnitude <= 0.1 then
                             game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BuyBoat", _G.SelectBoat)
                         end
                     until boats:FindFirstChild(_G.SelectBoat) or not _G.Auto_Walk_Bost
@@ -6496,18 +6498,11 @@ Main:AddToggleLeft("Auto Dirvve Bost",_G.Auto_Walk_Bost,function(a)
 
                 -- If the boat exists, bring it to the target position first
                 if boats:FindFirstChild(_G.SelectBoat) then
-                    boats[_G.SelectBoat].PrimaryPart.CFrame = CFrame.new(-44311.5039, 17.4374886, 5763.37646)
-
-                    -- Tween the player to the boat after moving it
-                    TweenSit(boats[_G.SelectBoat].PrimaryPart.CFrame)
-
+                    TweenSit(boats[_G.SelectBoat].VehicleSea.CFrame)
                     wait(0.5) -- Small delay to ensure the player reaches the boat
-
                     -- Simulate pressing "W" to move the boat
                     local virtualInput = game:GetService("VirtualInputManager")
                     virtualInput:SendKeyEvent(true, "W", false, game)
-                    wait(0.1)
-                    virtualInput:SendKeyEvent(false, "W", false, game)
                 end
             end
         end)
