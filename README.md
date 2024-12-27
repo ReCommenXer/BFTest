@@ -1,3 +1,4 @@
+-------------------------www
 
 repeat wait() until game:IsLoaded()
 repeat wait() until game:GetService("Players")
@@ -6482,23 +6483,30 @@ Main:AddToggleLeft("Auto Dirvve Bost",_G.Auto_Walk_Bost,function(a)
                 local player = game:GetService("Players").LocalPlayer
                 local humanoidRootPart = player.Character.HumanoidRootPart
 
-                -- Check if the selected boat exists
-                if not boats:FindFirstChild(_G.SelectBoat) then
+                -- Check if any boat owned by the player exists
+                local ownedBoat = nil
+                for _, boat in pairs(boats:GetChildren()) do
+                    if boat:FindFirstChild("Owner") and boat.Owner.Value == player.Name then
+                        ownedBoat = boat
+                        break
+                    end
+                end
+
+                if not ownedBoat then
+                    -- If no boat is owned, attempt to buy the selected boat
                     repeat
                         wait()
                         -- Tween to the designated position
-                        TweenSit(CFrame.new(-9531.89453, 7.62317133, -8376.20898, 0.928960204, -3.178102e-09, -0.370179564, 1.17543275e-09, 1, -5.63556712e-09, 0.370179564, 4.80009632e-09, 0.928960204))
+                        TweenSit(CFrame.new(-9531.89453, 7.62317133, -8376.20898))
 
                         -- Check proximity to target and attempt to buy boat
-                        if (Vector3.new(-9531.89453, 7.62317133, -8376.20898, 0.928960204, -3.178102e-09, -0.370179564, 1.17543275e-09, 1, -5.63556712e-09, 0.370179564, 4.80009632e-09, 0.928960204) - humanoidRootPart.Position).Magnitude <= 0.1 then
+                        if (Vector3.new(-9531.89453, 7.62317133, -8376.20898) - humanoidRootPart.Position).Magnitude <= 0.1 then
                             game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BuyBoat", _G.SelectBoat)
                         end
                     until boats:FindFirstChild(_G.SelectBoat) or not _G.Auto_Walk_Bost
-                end
-
-                -- If the boat exists, bring it to the target position first
-                if boats:FindFirstChild(_G.SelectBoat) then
-                    TweenSit(boats[_G.SelectBoat].VehicleSea.CFrame)
+                else
+                    -- If a boat owned by the player exists
+                    TweenSit(ownedBoat.VehicleSea.CFrame)
                     wait(0.5) -- Small delay to ensure the player reaches the boat
                     -- Simulate pressing "W" to move the boat
                     local virtualInput = game:GetService("VirtualInputManager")
