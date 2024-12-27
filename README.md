@@ -1,3 +1,4 @@
+----------------------------rtrtr
 
 repeat wait() until game:IsLoaded()
 repeat wait() until game:GetService("Players")
@@ -6484,46 +6485,70 @@ Main:AddToggleLeft("Auto Dirvve Bost",_G.Auto_Walk_Bost,function(a)
 
                 -- Check if any boat owned by the player exists
                 local ownedBoat = nil
+                local playerName = player.Name
+                print("Player Name:", playerName)
+
+                -- Search for the player's owned boat
                 for _, boat in pairs(boats:GetChildren()) do
-                    if boat:FindFirstChild("Owner") and boat.Owner.Value == player.Name then
-                        ownedBoat = boat
-                        break
+                    if boat:FindFirstChild("Owner") then
+                        print("Boat:", boat.Name, "Owner:", boat.Owner.Value, "Type:", typeof(boat.Owner.Value))
+                        if tostring(boat.Owner.Value) == playerName then
+                            ownedBoat = boat
+                            break
+                        end
                     end
                 end
 
+                -- If no boat found, attempt to buy a boat
                 if not ownedBoat then
-                    -- If no boat is owned, attempt to buy the selected boat
-                    repeat
-                        wait()
-                        -- Tween to the designated position
-                        TweenSit(CFrame.new(-9531.89453, 7.62317133, -8376.20898))
+                    print("No boat owned by the player. Attempting to buy a boat...")
+                    local result = game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BuyBoat", _G.SelectBoat)
+                    print("BuyBoat Result:", result)
 
-                        -- Check proximity to target and attempt to buy boat
-                        if (Vector3.new(-9531.89453, 7.62317133, -8376.20898) - humanoidRootPart.Position).Magnitude <= 5 then
-                            game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BuyBoat", _G.SelectBoat)
+                    -- Retry to find the boat after purchasing
+                    local maxRetries = 5
+                    local retries = 0
+                    local boatFound = false
+                    while retries < maxRetries and not boatFound do
+                        wait(1)
+                        print("Retrying to find owned boat...")
+                        for _, boat in pairs(boats:GetChildren()) do
+                            if boat:FindFirstChild("Owner") then
+                                print("Boat:", boat.Name, "Owner:", boat.Owner.Value)
+                                if tostring(boat.Owner.Value) == playerName then
+                                    ownedBoat = boat
+                                    boatFound = true
+                                    break
+                                end
+                            end
                         end
-                    until boats:FindFirstChild(_G.SelectBoat) or not _G.Auto_Walk_Bost
-                else
-                    -- If a boat owned by the player exists
+                        retries = retries + 1
+                    end
+                end
+
+                -- After trying to buy a boat, check if we found one
+                if ownedBoat then
+                    print("Owned Boat Found:", ownedBoat.Name)
+
+                    -- Check if the boat has a VehicleSeat and sit on it
                     if ownedBoat:FindFirstChild("VehicleSeat") then
                         local boatPosition = ownedBoat.VehicleSeat.CFrame
-                        print("Boat Position:", boatPosition)
-                        local distance = (boatPosition - humanoidRootPart.Position).Magnitude
-                        print("Distance to Boat:", distance)
-                        if distance <= 100 then
-                            print("Calling TweenSit to:", ownedBoat.VehicleSeat.CFrame)
-                            TweenSit(ownedBoat.VehicleSeat.CFrame)
-                        else
-                            print("Boat is too far away")
-                        end
+                        print("VehicleSeat Position:", boatPosition)
+                        TweenSit(boatPosition)  -- Function to make the player sit
+                        ownedBoat.VehicleSeat.MaxSpeed = 350
+                        local virtualInput = game:GetService("VirtualInputManager")
+                        virtualInput:SendKeyEvent(true, "W", false, game)
                     else
-                        print("VehicleSeat not found on the boat")
+                        print("VehicleSeat not found in the boat:", ownedBoat.Name)
                     end
+                else
+                    print("No owned boat found after retrying.")
                 end
             end
         end)
     end
 end)
+
 
 
 Main:AddSeperatorLeft("Boat")
@@ -6546,7 +6571,7 @@ Main:AddButtonLeft("Refresh Boat",function()
   end
 end)
 
-_G.Speed = 250
+_G.Speed = 350
 Main:AddSliderLeft("Selected Speed Boat",1,500,_G.Speed,function(value)
     _G.Speed = value
 end)
@@ -6559,7 +6584,7 @@ spawn(function()
  while wait() do
   pcall(function()
  if _G.USB then
-  game:GetService("Workspace").Boats:FindFirstChild(_G.SelectB).VehicleSeatt.MaxSpeed = _G.Speed
+  game:GetService("Workspace").Boats:FindFirstChild(_G.SelectB).VehicleSeat.MaxSpeed = _G.Speed
 end
 end)
 end
@@ -6575,7 +6600,7 @@ Main:AddToggleLeft("Boat Flying",_G.BoatFly,function(a)
 end)
          
 Main:AddButtonLeft("Bring Boat",function()
-         game:GetService("Workspace").Boats:FindFirstChild(_G.SelectB).VehicleSeatt.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+         game:GetService("Workspace").Boats:FindFirstChild(_G.SelectB).VehicleSeat.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 end)
 Main:AddSeperatorLeft("Race V4")
 
