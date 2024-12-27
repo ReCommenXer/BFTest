@@ -1,4 +1,3 @@
--------------------------www
 
 repeat wait() until game:IsLoaded()
 repeat wait() until game:GetService("Players")
@@ -6308,10 +6307,10 @@ spawn(function()
             -- ตั้งค่าเรือให้เร็วขึ้น
             local boat = game:GetService("Workspace").Boats:FindFirstChild("MarineBrigade")
             if boat then
-                boat.VehicleSeat.MaxSpeed = 350
+                boat.VehicleSeatt.MaxSpeed = 350
     
                 -- นั่งเรือ
-                local seat = boat:FindFirstChild("VehicleSeat")
+                local seat = boat:FindFirstChild("VehicleSeatt")
                 if seat then
                     seat:Sit(game.Players.LocalPlayer.Character.Humanoid) -- ให้ผู้เล่นนั่งบนเรือ
     
@@ -6500,17 +6499,26 @@ Main:AddToggleLeft("Auto Dirvve Bost",_G.Auto_Walk_Bost,function(a)
                         TweenSit(CFrame.new(-9531.89453, 7.62317133, -8376.20898))
 
                         -- Check proximity to target and attempt to buy boat
-                        if (Vector3.new(-9531.89453, 7.62317133, -8376.20898) - humanoidRootPart.Position).Magnitude <= 0.1 then
+                        if (Vector3.new(-9531.89453, 7.62317133, -8376.20898) - humanoidRootPart.Position).Magnitude <= 5 then
                             game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BuyBoat", _G.SelectBoat)
                         end
                     until boats:FindFirstChild(_G.SelectBoat) or not _G.Auto_Walk_Bost
                 else
                     -- If a boat owned by the player exists
-                    TweenSit(ownedBoat.VehicleSea.CFrame)
-                    wait(0.5) -- Small delay to ensure the player reaches the boat
-                    -- Simulate pressing "W" to move the boat
-                    local virtualInput = game:GetService("VirtualInputManager")
-                    virtualInput:SendKeyEvent(true, "W", false, game)
+                    if ownedBoat:FindFirstChild("VehicleSeat") then
+                        local boatPosition = ownedBoat.VehicleSeat.CFrame
+                        print("Boat Position:", boatPosition)
+                        local distance = (boatPosition - humanoidRootPart.Position).Magnitude
+                        print("Distance to Boat:", distance)
+                        if distance <= 100 then
+                            print("Calling TweenSit to:", ownedBoat.VehicleSeat.CFrame)
+                            TweenSit(ownedBoat.VehicleSeat.CFrame)
+                        else
+                            print("Boat is too far away")
+                        end
+                    else
+                        print("VehicleSeat not found on the boat")
+                    end
                 end
             end
         end)
@@ -6551,7 +6559,7 @@ spawn(function()
  while wait() do
   pcall(function()
  if _G.USB then
-  game:GetService("Workspace").Boats:FindFirstChild(_G.SelectB).VehicleSeat.MaxSpeed = _G.Speed
+  game:GetService("Workspace").Boats:FindFirstChild(_G.SelectB).VehicleSeatt.MaxSpeed = _G.Speed
 end
 end)
 end
@@ -6567,7 +6575,7 @@ Main:AddToggleLeft("Boat Flying",_G.BoatFly,function(a)
 end)
          
 Main:AddButtonLeft("Bring Boat",function()
-         game:GetService("Workspace").Boats:FindFirstChild(_G.SelectB).VehicleSeat.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+         game:GetService("Workspace").Boats:FindFirstChild(_G.SelectB).VehicleSeatt.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 end)
 Main:AddSeperatorLeft("Race V4")
 
