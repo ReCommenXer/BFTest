@@ -1,4 +1,4 @@
-
+----------------------------rtrtr
 
 repeat wait() until game:IsLoaded()
 repeat wait() until game:GetService("Players")
@@ -3779,9 +3779,10 @@ _G.GunAttack = true
                     game:GetService("ReplicatedStorage").Modules.Net:FindFirstChild("RE/ShootGunEvent"):FireServer(unpack(randomArgs))
                 end
             end)
-            wait(0.1)
+            task.wait(0) -- ใช้ task.wait เพื่อประสิทธิภาพที่ดีกว่า wait()
         end
     end)
+    
     
 
     _G.BringMon = true
