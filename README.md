@@ -1,4 +1,4 @@
-----------------------------rtrtr
+
 
 repeat wait() until game:IsLoaded()
 repeat wait() until game:GetService("Players")
@@ -10276,7 +10276,7 @@ Teleport:AddSeperatorLeft("Teleport World")
         pcall(function()
             while wait() do
                 if game:GetService("Players").LocalPlayer.PlayerGui.Main.TopHUDList.RaidTimer.Visible == true then
-                    TimeRaid:Set(game:GetService("Players").LocalPlayer.PlayerGui.Main.TopHUDList.RaidTimer.Value)
+                    TimeRaid:Set(game:GetService("Players").LocalPlayer.PlayerGui.Main.TopHUDList.RaidTimer.Text)
                 else
                     TimeRaid:Set("Wait.")
                     Wait(.2)
