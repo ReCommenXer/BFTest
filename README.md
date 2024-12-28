@@ -8498,9 +8498,11 @@ end)
                             -- หากเงื่อนไขตรง เปิด BigMirror และหา Cookie Crafter หรืออื่น ๆ
                             local bigMirror = workspace.Map.CakeLoaf.BigMirror.Other
                             if bigMirror.Transparency == 1 then
+                                local foundEnemy = false
                                 for _, enemy in pairs(workspace.Enemies:GetChildren()) do
                                     if enemy.Name == "Cookie Crafter" or enemy.Name == "Cake Guard" or enemy.Name == "Baking Staff" or enemy.Name == "Head Baker" then
                                         if enemy:FindFirstChild("Humanoid") and enemy:FindFirstChild("HumanoidRootPart") and enemy.Humanoid.Health > 0 then
+                                            foundEnemy = true
                                             repeat
                                                 task.wait()
                                                 AutoHaki()
@@ -8511,16 +8513,17 @@ end)
                                                 MagnetDought = true
                                                 PosMonDoughtOpenDoor = enemy.HumanoidRootPart.CFrame
                                                 Tween(enemy.HumanoidRootPart.CFrame * CFrame.new(0, 40, 0))
-                                                
                                             until not _G.AutoDoughtBoss or not enemy.Parent or enemy.Humanoid.Health <= 0 or bigMirror.Transparency == 0 or replicatedStorage:FindFirstChild("Cake Prince [Lv. 2300] [Raid Boss]") or workspace.Enemies:FindFirstChild("Cake Prince [Lv. 2300] [Raid Boss]")
                                         end
-                                    else
-                                        Tween(CFrame.new(-2079.6826, 227.9526, -12321.9238))
                                     end
+                                end
+    
+                                -- หากไม่มีมอนที่ตรงเงื่อนไข
+                                if not foundEnemy then
+                                    Tween(CFrame.new(-2079.6826, 227.9526, -12321.9238))
                                 end
                             else
                                 MagnetDought = false
-                                Tween(CFrame.new(-2079.6826, 227.9526, -12321.9238))
                                 if bigMirror.Transparency == 0 then
                                     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2151.82153, 149.315704, -12404.9053)
                                 end
@@ -8531,20 +8534,6 @@ end)
             end
         end
     end)
-    
-Main:AddToggleLeft("Auto Spawn Katakuri",nil,function(a)
-_G.Auto_Open_Dough_Dungeon = a
-    end)
-
-		spawn(function()
-  while wait(1) do 
-   pcall(function()
-  if _G.Auto_Open_Dough_Dungeon then
-      game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("CakePrinceSpawner")
-end
-end)
-end
-end)
 
 Main:AddSeperatorLeft("Hallow Scythe")
 Main:AddToggleLeft("Auto Hallow Scythe",_G.AutoFarmBossHallow,function(value)
@@ -10250,7 +10239,7 @@ Teleport:AddSeperatorLeft("Teleport World")
                 elseif _G.SelectIsland == "Great Tree" then
                     Tween(CFrame.new(2681.2736816406, 1682.8092041016, -7190.9853515625))
                 elseif _G.SelectIsland == "Castle On The Sea" then
-                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(-5072.08984375, 314.5412902832, -3151.1098632812))
+                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(-5072.1875, 314.53302, -2984.28711, -0.284700871, 3.76435949e-08, 0.958616436, 8.0240568e-08, 1, -1.54379105e-08, -0.958616436, 7.25247418e-08, -0.284700871))
                 elseif _G.SelectIsland == "MiniSky" then
                     Tween(CFrame.new(-260.65557861328, 49325.8046875, -35253.5703125))
                 elseif _G.SelectIsland == "Port Town" then
@@ -10260,7 +10249,7 @@ Teleport:AddSeperatorLeft("Teleport World")
                 elseif _G.SelectIsland == "Floating Turtle" then
                     Tween(CFrame.new(-13274.528320313, 531.82073974609, -7579.22265625))
                 elseif _G.SelectIsland == "Mansion" then
-                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(-12471.169921875, 374.94024658203, -7551.677734375))
+                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(-12550.1133, 337.185822, -7509.18311, 0.999812901, 3.70209925e-08, -0.019343419, -3.77426304e-08, 1, -3.69415432e-08, 0.019343419, 3.76647051e-08, 0.999812901))
                 elseif _G.SelectIsland == "Haunted Castle" then
                     Tween(CFrame.new(-9515.3720703125, 164.00624084473, 5786.0610351562))
                 elseif _G.SelectIsland == "Ice Cream Island" then
