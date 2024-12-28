@@ -1,3 +1,4 @@
+------aaa
 
 
 repeat wait() until game:IsLoaded()
@@ -6565,12 +6566,11 @@ Main:AddToggleLeft("Auto Dirvve Bost",_G.Auto_Walk_Bost,function(a)
                 local boats = game:GetService("Workspace").Boats
                 local player = game:GetService("Players").LocalPlayer
                 local humanoidRootPart = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
-                local destination = CFrame.new(-16208.0654, 10.4592094, 404.354523) -- กำหนดตำแหน่งปลายทาง
+                local destination = CFrame.new(-9533.85938, 7.56481552, -8375.44531, 0.962026298, 5.02222548e-08, -0.272956669, -7.66087567e-08, 1, -8.60114113e-08, 0.272956669, 1.03656113e-07, 0.962026298)
 
                 if humanoidRootPart then
                     local ownedBoat = nil
                     local playerName = player.Name
-                    print("Player Name:", playerName)
 
                     -- ตรวจสอบว่ามีเรือที่เป็นของผู้เล่นหรือไม่
                     for _, boat in pairs(boats:GetChildren()) do
@@ -6582,7 +6582,6 @@ Main:AddToggleLeft("Auto Dirvve Bost",_G.Auto_Walk_Bost,function(a)
 
                     -- ถ้าไม่มีเรือ ให้ Tween ไปยังตำแหน่งที่กำหนด
                     if not ownedBoat then
-                        print("No boat found. Tweening to buy location...")
                         TweenSit(destination)
 
                         -- รอจนกระทั่งถึงตำแหน่งที่กำหนด
@@ -6590,30 +6589,21 @@ Main:AddToggleLeft("Auto Dirvve Bost",_G.Auto_Walk_Bost,function(a)
                             wait()
                         end
 
-                        print("Reached destination. Attempting to buy...")
                         if _G.SelectBoat then
-                            local result = game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BuyBoat", _G.SelectBoat)
-                            print("BuyBoat Result:", result)
-                        else
-                            print("SelectBoat not defined.")
+                            game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BuyBoat", _G.SelectBoat)
                         end
                     end
 
                     -- ถ้ามีเรือและ VehicleSeat อยู่ ให้ทำการ Tween ไปยังเรือ
                     if ownedBoat and ownedBoat:FindFirstChild("VehicleSeat") then
                         local boatPosition = ownedBoat.VehicleSeat.CFrame
-                        print("VehicleSeat Position:", boatPosition)
                         TweenSit(boatPosition)
                         ownedBoat.VehicleSeat.MaxSpeed = 350
 
                         -- จำลองการกดปุ่ม W
                         local virtualInput = game:GetService("VirtualInputManager")
                         virtualInput:SendKeyEvent(true, "W", false, game)
-                    else
-                        print("VehicleSeat not found or boat not owned.")
                     end
-                else
-                    print("HumanoidRootPart not found in player character.")
                 end
             end
         end)
