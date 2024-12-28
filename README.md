@@ -1,4 +1,4 @@
-----------------------------rtrtr
+
 
 repeat wait() until game:IsLoaded()
 repeat wait() until game:GetService("Players")
@@ -3745,6 +3745,44 @@ spawn(function()
         end)
     end
 end)
+
+_G.GunAttack = true
+     Main:AddToggleRight("Gun Attack",_G.GunAttack,function(a)
+ _G.GunAttack = a
+    end) 
+    spawn(function()
+        while true do
+            pcall(function()
+                if _G.GunAttack then
+                    for _, enemy in pairs(workspace.Enemies:GetChildren()) do
+                        if enemy:FindFirstChild("HumanoidRootPart") and enemy:FindFirstChildOfClass("Accessory") then
+                            local args = {
+                                [1] = enemy.HumanoidRootPart.Position,
+                                [2] = {
+                                    [1] = enemy:FindFirstChildOfClass("Accessory").Handle
+                                }
+                            }
+    
+                            game:GetService("ReplicatedStorage").Modules.Net:FindFirstChild("RE/ShootGunEvent"):FireServer(unpack(args))
+                        end
+                    end
+    
+                    local randomPosition = Vector3.new(
+                        math.random(-2000, 2000),
+                        math.random(50, 150),
+                        math.random(-2000, 2000)
+                    )
+                    local randomArgs = {
+                        [1] = randomPosition,
+                        [2] = {}
+                    }
+                    game:GetService("ReplicatedStorage").Modules.Net:FindFirstChild("RE/ShootGunEvent"):FireServer(unpack(randomArgs))
+                end
+            end)
+            wait(0.1)
+        end
+    end)
+    
 
     _G.BringMon = true
     Main:AddToggleRight("BringMon",_G.BringMon,function(value)
