@@ -1,3 +1,4 @@
+---a
 
 
 repeat wait() until game:IsLoaded()
@@ -11738,9 +11739,13 @@ for i, e in pairs(l:GetChildren()) do
 end
 
     end)
-    
-    Misc:AddButtonRight("Unlock FPS",function()
-        setfpscap(120)
+    Select_Farme_Rate = 120
+    Misc:AddSliderRight("Select Farme Rate",0,240,Select_Farme_Rate,function(a)
+        Select_Farme_Rate = A
+    end)
+
+    Misc:AddToggleRight("Unlock FPS",Unlock_FPS,function()
+        setfpscap(Select_Farme_Rate)
     end)
     
     Misc:AddButtonRight("Max Zoom",function()
