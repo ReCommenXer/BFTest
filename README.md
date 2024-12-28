@@ -1,4 +1,3 @@
----a
 
 
 repeat wait() until game:IsLoaded()
@@ -3194,95 +3193,139 @@ end
         end
     end
     
+    local flying = false  -- สถานะการบินเริ่มต้นเป็น false
+
+    -- ฟังก์ชันเริ่มการบิน
     function fly()
-        local mouse=game:GetService("Players").LocalPlayer:GetMouse''
-        localplayer=game:GetService("Players").LocalPlayer
-        game:GetService("Players").LocalPlayer.Character:WaitForChild("HumanoidRootPart")
-        local torso = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
-        local speedSET=25
-        local keys={a=false,d=false,w=false,s=false}
-        local e1
-        local e2
+        local userInputService = game:GetService("UserInputService")
+        local mouse = game:GetService("Players").LocalPlayer:GetMouse()
+        local localPlayer = game:GetService("Players").LocalPlayer
+        local torso = localPlayer.Character:WaitForChild("HumanoidRootPart")
+        local speedSET = 25
+        local keys = {a = false, d = false, w = false, s = false}
+        local speed = 0
+    
         local function start()
-            local pos = Instance.new("BodyPosition",torso)
-            local gyro = Instance.new("BodyGyro",torso)
-            pos.Name="EPIXPOS"
+            local pos = Instance.new("BodyPosition", torso)
+            local gyro = Instance.new("BodyGyro", torso)
+            pos.Name = "EPIXPOS"
             pos.maxForce = Vector3.new(math.huge, math.huge, math.huge)
             pos.position = torso.Position
             gyro.maxTorque = Vector3.new(9e9, 9e9, 9e9)
             gyro.CFrame = torso.CFrame
+    
             repeat
-                    wait()
-                    localplayer.Character.Humanoid.PlatformStand=true
-                    local new=gyro.CFrame - gyro.CFrame.p + pos.position
-                    if not keys.w and not keys.s and not keys.a and not keys.d then
-                    speed=1
-                    end
-                    if keys.w then
+                wait()
+                localPlayer.Character.Humanoid.PlatformStand = true
+                local new = gyro.CFrame - gyro.CFrame.p + pos.position
+    
+                if not keys.w and not keys.s and not keys.a and not keys.d then
+                    speed = 1
+                end
+    
+                if keys.w then
                     new = new + workspace.CurrentCamera.CoordinateFrame.lookVector * speed
-                    speed=speed+speedSET
-                    end
-                    if keys.s then
+                    speed = speed + speedSET
+                end
+                if keys.s then
                     new = new - workspace.CurrentCamera.CoordinateFrame.lookVector * speed
-                    speed=speed+speedSET
-                    end
-                    if keys.d then
-                    new = new * CFrame.new(speed,0,0)
-                    speed=speed+speedSET
-                    end
-                    if keys.a then
-                    new = new * CFrame.new(-speed,0,0)
-                    speed=speed+speedSET
-                    end
-                    if speed>speedSET then
-                    speed=speedSET
-                    end
-                    pos.position=new.p
-                    if keys.w then
-                    gyro.CFrame = workspace.CurrentCamera.CoordinateFrame*CFrame.Angles(-math.rad(speed*15),0,0)
-                    elseif keys.s then
-                    gyro.CFrame = workspace.CurrentCamera.CoordinateFrame*CFrame.Angles(math.rad(speed*15),0,0)
-                    else
+                    speed = speed + speedSET
+                end
+                if keys.d then
+                    new = new * CFrame.new(speed, 0, 0)
+                    speed = speed + speedSET
+                end
+                if keys.a then
+                    new = new * CFrame.new(-speed, 0, 0)
+                    speed = speed + speedSET
+                end
+                if speed > speedSET then
+                    speed = speedSET
+                end
+                pos.position = new.p
+    
+                if keys.w then
+                    gyro.CFrame = workspace.CurrentCamera.CoordinateFrame * CFrame.Angles(-math.rad(speed * 15), 0, 0)
+                elseif keys.s then
+                    gyro.CFrame = workspace.CurrentCamera.CoordinateFrame * CFrame.Angles(math.rad(speed * 15), 0, 0)
+                else
                     gyro.CFrame = workspace.CurrentCamera.CoordinateFrame
-                    end
-            until not Fly
-            if gyro then 
-                    gyro:Destroy() 
+                end
+            until not flying
+    
+            if gyro then
+                gyro:Destroy()
             end
-            if pos then 
-                    pos:Destroy() 
+            if pos then
+                pos:Destroy()
             end
-            flying=false
-            localplayer.Character.Humanoid.PlatformStand=false
-            speed=0
+            flying = false
+            localPlayer.Character.Humanoid.PlatformStand = false
+            speed = 0
         end
-        e1=mouse.KeyDown:connect(function(key)
-            if not torso or not torso.Parent then 
-                    flying=false e1:disconnect() e2:disconnect() return 
+    
+        local function onInputBegan(input, gameProcessed)
+            if gameProcessed then return end
+    
+            if input.UserInputType == Enum.UserInputType.Keyboard then
+                if input.KeyCode == Enum.KeyCode.W then
+                    keys.w = true
+                elseif input.KeyCode == Enum.KeyCode.S then
+                    keys.s = true
+                elseif input.KeyCode == Enum.KeyCode.A then
+                    keys.a = true
+                elseif input.KeyCode == Enum.KeyCode.D then
+                    keys.d = true
+                elseif input.KeyCode == Enum.KeyCode.Space then
+                    -- ปิดการบินเมื่อกดปุ่ม Space
+                    if flying then
+                        unFly()  -- เรียกฟังก์ชัน unFly เพื่อหยุดการบิน
+                    end
+                end
+            elseif input.UserInputType == Enum.UserInputType.Touch then
+                -- เพิ่มการตรวจจับการสัมผัสหน้าจอ (เช่น swipe)
+                local touchPos = input.Position
+                if touchPos.X < game:GetService("Players").LocalPlayer.PlayerGui.AbsoluteSize.X / 2 then
+                    keys.a = true
+                else
+                    keys.d = true
+                end
             end
-            if key=="w" then
-                keys.w=true
-            elseif key=="s" then
-                keys.s=true
-            elseif key=="a" then
-                keys.a=true
-            elseif key=="d" then
-                keys.d=true
+        end
+    
+        local function onInputEnded(input)
+            if input.UserInputType == Enum.UserInputType.Keyboard then
+                if input.KeyCode == Enum.KeyCode.W then
+                    keys.w = false
+                elseif input.KeyCode == Enum.KeyCode.S then
+                    keys.s = false
+                elseif input.KeyCode == Enum.KeyCode.A then
+                    keys.a = false
+                elseif input.KeyCode == Enum.KeyCode.D then
+                    keys.d = false
+                end
+            elseif input.UserInputType == Enum.UserInputType.Touch then
+                -- ปล่อยสัมผัสเมื่อปล่อยนิ้ว
+                keys.a = false
+                keys.d = false
             end
-        end)
-        e2=mouse.KeyUp:connect(function(key)
-            if key=="w" then
-                keys.w=false
-            elseif key=="s" then
-                keys.s=false
-            elseif key=="a" then
-                keys.a=false
-            elseif key=="d" then
-                keys.d=false
-            end
-        end)
+        end
+    
+        userInputService.InputBegan:Connect(onInputBegan)
+        userInputService.InputEnded:Connect(onInputEnded)
+    
+        -- เริ่มการบินเมื่อฟังก์ชัน fly() ถูกเรียกใช้
+        flying = true
         start()
     end
+    
+    -- ฟังก์ชันสำหรับหยุดการบิน (unFly)
+    function unFly()
+        flying = false  -- เปลี่ยนสถานะการบินเป็น false
+        local localPlayer = game:GetService("Players").LocalPlayer
+        localPlayer.Character.Humanoid.PlatformStand = false  -- ปลดล็อกการควบคุมจากการบิน
+    end
+    
     
 
     local isAttacking = false -- ตัวแปรใช้ตรวจสอบสถานะการโจมตี
@@ -10365,20 +10408,7 @@ Teleport:AddSeperatorLeft("Teleport World")
         end)
     end)
 
-    spawn(function()
-        pcall(function()
-            while wait() do
-                if _G.Auto_Dungeon then
-                    local raidisland = workspace._WorldOrigin.Locations
-                    if not game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Special Microchip") or not game:GetService("Players").LocalPlayer.Character:FindFirstChild("Special Microchip") then
-                        if not raidisland:FindFirstChild("Island 1") then
-                            game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("RaidsNpc", "Select", _G.SelectChip)
-                        end
-                    end
-                end
-            end
-        end)
-    end)
+
 
     spawn(function()
         while wait(.1) do
@@ -10474,6 +10504,21 @@ Teleport:AddSeperatorLeft("Teleport World")
         end
     end)
     
+    spawn(function()
+        pcall(function()
+            while wait() do
+                if _G.Auto_Dungeon then
+                    local raidisland = workspace._WorldOrigin.Locations
+                    if not game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Special Microchip") or not game:GetService("Players").LocalPlayer.Character:FindFirstChild("Special Microchip") then
+                        if not raidisland:FindFirstChild("Island 1") then
+                            game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("RaidsNpc", "Select", _G.SelectChip)
+                        end
+                    end
+                end
+            end
+        end)
+    end)
+
     Teleport:AddToggleRight("Auto Buy Chip",_G.AutoBuyChip,function(value)
         _G.AutoBuyChip = value
     end)
@@ -11161,20 +11206,28 @@ end)
     Misc:AddSeperatorLeft("Codes")
     
     local x2Code = {
-        "3BVISITS",
-        "UPD16",
-        "FUDD10",
-        "BIGNEWS",
-        "THEGREATACE",
-        "SUB2GAMERROBOT_EXP1",
-        "StrawHatMaine",
-        "Sub2OfficialNoobie",
-        "SUB2NOOBMASTER123",
-        "Sub2Daigrock",
-        "Axiore",
-        "TantaiGaming",
-        "STRAWHATMAINE"
+        "KITT_RESET",          -- ใช้สำหรับรีเซ็ตสถิติ
+        "Sub2UncleKizaru",     -- ใช้สำหรับรีเซ็ตสถิติ
+        "SUB2GAMERROBOT_RESET1", -- ใช้สำหรับรีเซ็ตสถิติ
+        "Sub2OfficialNoobie",  -- รับโบนัส XP 2 เท่า
+        "Axiore",              -- รับโบนัส XP 2 เท่า
+        "Bluxxy",              -- รับโบนัส XP 2 เท่า
+        "Enyu_is_Pro",         -- รับโบนัส XP 2 เท่า
+        "JCWK",                -- รับโบนัส XP 2 เท่า
+        "KittGaming",          -- รับโบนัส XP 2 เท่า
+        "Magicbus",            -- รับโบนัส XP 2 เท่า
+        "Starcodeheo",         -- รับโบนัส XP 2 เท่า
+        "StrawHatMaine",       -- รับโบนัส XP 2 เท่า
+        "Sub2CaptainMaui",     -- รับโบนัส XP 2 เท่า
+        "Sub2Daigrock",        -- รับโบนัส XP 2 เท่า
+        "Sub2Fer999",          -- รับโบนัส XP 2 เท่า
+        "Sub2NoobMaster123",   -- รับโบนัส XP 2 เท่า
+        "TantaiGaming",        -- รับโบนัส XP 2 เท่า
+        "TheGreatAce",         -- รับโบนัส XP 2 เท่า
+        "3BVISITS",            -- รับโบนัส XP 2 เท่า
+        "UPD16"                -- รับโบนัส XP 2 เท่า
     }
+    
     
     Misc:AddButtonLeft("Redeem All Codes",function()
         function RedeemCode(value)
@@ -11185,7 +11238,7 @@ end)
         end
     end)
     
-    Misc:AddDropdownLeft("Selected Codes",{"1MLIKES_RESET","THIRDSEA","SUB2GAMERROBOT_RESET1","SUB2UNCLEKIZARU"},function(value)
+    Misc:AddDropdownLeft("Selected Codes",x2Code,function(value)
         _G.CodeSelect = value
     end)
     
@@ -11219,76 +11272,133 @@ end)
     
 
 
-Misc:AddToggleLeft("Full Bright Mode", _G.RTXMode, function(value)
-    _G.RTXMode = value
-	   local a = game.Lighting
-local c = game.Lighting:FindFirstChildOfClass("ColorCorrectionEffect")
-local e = game.Lighting:FindFirstChildOfClass("BloomEffect")
-
-local OldAmbient = a.Ambient
-local OldBrightness = a.Brightness
-local OldColorShift_Top = a.ColorShift_Top
-local OldBrightnessc = c and c.Brightness or 0
-local OldContrastc = c and c.Contrast or 0
-local OldTintColorc = c and c.TintColor or Color3.new(1, 1, 1)
-local OldTintColore = e and e.TintColor or Color3.new(1, 1, 1)
-    if not _G.RTXMode then
-        -- Restore original settings
-        a.Ambient = OldAmbient
-        a.Brightness = OldBrightness
-        a.ColorShift_Top = OldColorShift_Top
-        if c then
-            c.Contrast = OldContrastc
-            c.Brightness = OldBrightnessc
-            c.TintColor = OldTintColorc
+    Misc:AddToggleLeft("Full Bright Mode", _G.RTXMode, function(value)
+        _G.RTXMode = value
+        local lighting = game:GetService("Lighting")
+        local player = game:GetService("Players").LocalPlayer
+        local humanoidRootPart = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
+    
+        -- บันทึกค่าเดิม
+        local oldSettings = {
+            Ambient = lighting.Ambient,
+            Brightness = lighting.Brightness,
+            ColorShift_Top = lighting.ColorShift_Top,
+            ColorCorrection = lighting:FindFirstChildOfClass("ColorCorrectionEffect"),
+            BloomEffect = lighting:FindFirstChildOfClass("BloomEffect"),
+            FogEnd = lighting.FogEnd
+        }
+        
+        if oldSettings.ColorCorrection then
+            oldSettings.ColorCorrectionSettings = {
+                Brightness = oldSettings.ColorCorrection.Brightness,
+                Contrast = oldSettings.ColorCorrection.Contrast,
+                TintColor = oldSettings.ColorCorrection.TintColor
+            }
         end
-        if e then
-            e.TintColor = OldTintColore
+    
+        if oldSettings.BloomEffect then
+            oldSettings.BloomEffectSettings = {
+                TintColor = oldSettings.BloomEffect.TintColor
+            }
         end
-        game.Lighting.FogEnd = 2500
-        local pointLight = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart:FindFirstChild("PointLight")
-        if pointLight then
-            pointLight:Destroy()
+    
+        -- ปิด Full Bright Mode
+        if not _G.RTXMode then
+            lighting.Ambient = oldSettings.Ambient
+            lighting.Brightness = oldSettings.Brightness
+            lighting.ColorShift_Top = oldSettings.ColorShift_Top
+            lighting.FogEnd = oldSettings.FogEnd
+    
+            if oldSettings.ColorCorrection then
+                oldSettings.ColorCorrection.Brightness = oldSettings.ColorCorrectionSettings.Brightness
+                oldSettings.ColorCorrection.Contrast = oldSettings.ColorCorrectionSettings.Contrast
+                oldSettings.ColorCorrection.TintColor = oldSettings.ColorCorrectionSettings.TintColor
+            end
+    
+            if oldSettings.BloomEffect then
+                oldSettings.BloomEffect.TintColor = oldSettings.BloomEffectSettings.TintColor
+            end
+    
+            -- ลบ PointLight
+            if humanoidRootPart then
+                local pointLight = humanoidRootPart:FindFirstChild("PointLight")
+                if pointLight then
+                    pointLight:Destroy()
+                end
+            end
+            return
         end
-        return
-    end
-
-    while _G.RTXMode do
-        wait()
-        a.Ambient = Color3.fromRGB(255, 255, 255)
-        a.Brightness = 1
-		a.OutdoorAmblient = Color3.fromRGB(255, 255, 255)
-        a.ColorShift_Bottom = Color3.fromRGB(255, 255, 255)
-        a.ColorShift_Top = Color3.fromRGB(255, 255, 255)
-        game.Lighting.FogEnd = 0
-    end
-end)
-
-     
+    
+        -- เปิด Full Bright Mode
+        while _G.RTXMode do
+            wait()
+            lighting.Ambient = Color3.fromRGB(255, 255, 255)
+            lighting.Brightness = 2
+            lighting.OutdoorAmbient = Color3.fromRGB(255, 255, 255)
+            lighting.ColorShift_Bottom = Color3.fromRGB(255, 255, 255)
+            lighting.ColorShift_Top = Color3.fromRGB(255, 255, 255)
+            lighting.FogEnd = 1e6 -- ทำให้หมอกหายไป
+    
+            -- เพิ่ม PointLight ถ้ายังไม่มี
+            if humanoidRootPart and not humanoidRootPart:FindFirstChild("PointLight") then
+                local pointLight = Instance.new("PointLight", humanoidRootPart)
+                pointLight.Brightness = 2
+                pointLight.Range = 100
+                pointLight.Color = Color3.fromRGB(255, 255, 255)
+            end
+        end
+    end)
+    
     Misc:AddToggleLeft("Remove Fog",RemoveFog,function(value)
         RemoveFog = value
     end)
     
 
-		 task.spawn(function()
-			while wait() do
-				pcall(function()
-					if RemoveFog then
-						game.Lighting.FogEnd = 0
-   	                                          game.Lighting.SeaTerrorCC:Destroy()
-						for i,v in pairs(game:GetService("Lighting").LightingLayers:GetChildren()) do 
-						    if v.Name == "Atmosphere" or v.Name == " MirageFog" or v.Name == "DarkFog" or v.Name == "PrehistoricFog" or v.Name == "KitsuneFog" then 
-						      v:Destroy()
+    local removedObjects = {} -- ตารางสำหรับเก็บอ็อบเจกต์ที่ถูกลบ
 
-						    end 
-					        end
-
-				end
-				end)
-			end
-		end)
-
-
+    task.spawn(function()
+        while wait() do
+            pcall(function()
+                if RemoveFog then
+                    -- ลบหมอก
+                    game.Lighting.FogEnd = 1e6
+    
+                    -- ลบ SeaTerrorCC ถ้ามี
+                    local seaTerror = game.Lighting:FindFirstChild("SeaTerrorCC")
+                    if seaTerror then
+                        removedObjects["SeaTerrorCC"] = seaTerror:Clone()
+                        seaTerror:Destroy()
+                    end
+    
+                    -- ลบ LightingLayers ที่ตรงกับเงื่อนไข
+                    for _, v in pairs(game:GetService("Lighting").LightingLayers:GetChildren()) do
+                        if v.Name == "Atmosphere" or v.Name == "MirageFog" or v.Name == "DarkFog" or v.Name == "PrehistoricFog" or v.Name == "KitsuneFog" then
+                            removedObjects[v.Name] = v:Clone()
+                            v:Destroy()
+                        end
+                    end
+                else
+                    -- คืนค่าหมอก
+                    game.Lighting.FogEnd = 2500 -- ตั้งค่า FogEnd ให้กลับมาปกติ
+    
+                    -- คืนค่า SeaTerrorCC ถ้าเคยลบ
+                    if not game.Lighting:FindFirstChild("SeaTerrorCC") and removedObjects["SeaTerrorCC"] then
+                        removedObjects["SeaTerrorCC"].Parent = game.Lighting
+                        removedObjects["SeaTerrorCC"] = nil
+                    end
+    
+                    -- คืนค่า LightingLayers ถ้าเคยลบ
+                    for name, obj in pairs(removedObjects) do
+                        if not game.Lighting.LightingLayers:FindFirstChild(name) then
+                            obj.Parent = game.Lighting.LightingLayers
+                            removedObjects[name] = nil
+                        end
+                    end
+                end
+            end)
+        end
+    end)
+    
     
     Misc:AddSeperatorRight("Screen Shot Kaitan")
     
@@ -11607,6 +11717,8 @@ end)
             pcall(function()
                 if Fly then
                     fly()
+                else
+                    unFly()
                 end
             end)
         end
@@ -11739,14 +11851,18 @@ for i, e in pairs(l:GetChildren()) do
 end
 
     end)
-    Select_Farme_Rate = 120
-    Misc:AddSliderRight("Select Farme Rate",0,240,Select_Farme_Rate,function(a)
-        Select_Farme_Rate = A
-    end)
+    local Select_Farme_Rate = 120
 
-    Misc:AddToggleRight("Unlock FPS",Unlock_FPS,function()
-        setfpscap(Select_Farme_Rate)
+    -- สร้าง slider เพื่อให้ผู้ใช้เลือกค่า Select_Farme_Rate
+    Misc:AddSliderRight("Select Farme Rate", 0, 240, Select_Farme_Rate, function(a)
+        Select_Farme_Rate = a  -- ใช้ตัวแปร a แทนค่า Select_Farme_Rate
     end)
+    
+    -- สร้าง toggle เพื่อเปิด/ปิดการตั้งค่า FPS cap
+    Misc:AddToggleRight("Unlock FPS", Unlock_FPS, function()
+        setfpscap(Select_Farme_Rate)  -- ตั้งค่าความเร็วเฟรมตามค่า Select_Farme_Rate
+    end)
+    
     
     Misc:AddButtonRight("Max Zoom",function()
     game.Players.LocalPlayer.CameraMaxZoomDistance = 100000
