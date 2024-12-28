@@ -1,4 +1,3 @@
-------aaa
 
 
 repeat wait() until game:IsLoaded()
@@ -6599,6 +6598,8 @@ Main:AddToggleLeft("Auto Dirvve Bost",_G.Auto_Walk_Bost,function(a)
                         local boatPosition = ownedBoat.VehicleSeat.CFrame
                         TweenSit(boatPosition)
                         ownedBoat.VehicleSeat.MaxSpeed = 350
+                        game:GetService("Workspace").Map["WaterBase-Plane"].Size = Vector3.new(1000,470,1000)
+
 
                         -- จำลองการกดปุ่ม W
                         local virtualInput = game:GetService("VirtualInputManager")
@@ -6655,7 +6656,7 @@ end)
 
 Main:AddToggleLeft("Boat Flying",_G.BoatFly,function(a)
     if a then
-    game:GetService("Workspace").Map["WaterBase-Plane"].Size = Vector3.new(1000,420,1000)
+    game:GetService("Workspace").Map["WaterBase-Plane"].Size = Vector3.new(1000,470,1000)
     else
     game:GetService("Workspace").Map["WaterBase-Plane"].Size = Vector3.new(1000,80,1000)
     end
@@ -11854,7 +11855,9 @@ end
     
     -- สร้าง toggle เพื่อเปิด/ปิดการตั้งค่า FPS cap
     Misc:AddToggleRight("Unlock FPS", Unlock_FPS, function()
+       while Unlock_FPS do
         setfpscap(Select_Farme_Rate)  -- ตั้งค่าความเร็วเฟรมตามค่า Select_Farme_Rate
+       end
     end)
     
     
