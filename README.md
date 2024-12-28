@@ -1,3 +1,4 @@
+----s
 
 
 repeat wait() until game:IsLoaded()
@@ -10343,47 +10344,62 @@ Teleport:AddSeperatorLeft("Teleport World")
     end)
     
     spawn(function()
-        pcall(function() 
-            while wait() do
-                if _G.KillAura then
-                        for i,v in pairs(game:GetService("Workspace").Enemies:GetDescendants()) do
-                            if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
-                                pcall(function()
-                                    repeat wait()
-                                        sethiddenproperty(game:GetService("Players").LocalPlayer,"SimulationRadius",math.huge)
-                                        v.Humanoid.Health = 0
-                                        v.HumanoidRootPart.CanCollide = false
-                                    until not _G.KillAura or not v.Parent or v.Humanoid.Health <= 0
-                                end)
-                            
-                        end
+        while wait() do
+            if _G.KillAura then
+                for _, enemy in pairs(game:GetService("Workspace").Enemies:GetDescendants()) do
+                    if enemy:FindFirstChild("Humanoid") and enemy:FindFirstChild("HumanoidRootPart") and enemy.Humanoid.Health > 0 then
+                        pcall(function()
+                            while _G.KillAura and enemy.Parent and enemy.Humanoid.Health > 0 do
+                                wait()
+                                -- ตั้งค่าคุณสมบัติ SimulationRadius (ถ้าจำเป็น)
+                                if sethiddenproperty then
+                                    pcall(function()
+                                        sethiddenproperty(game:GetService("Players").LocalPlayer, "SimulationRadius", math.huge)
+                                    end)
+                                end
+                                -- ลดค่าชีวิตของศัตรู
+                                enemy.Humanoid.Health = 0
+                            end
+                        end)
                     end
                 end
             end
-        end)
+        end
     end)
     
+    
     spawn(function()
-        pcall(function() 
-            while wait() do
-                if _G.Auto_Dungeon then
-                    if game:GetService("Players").LocalPlayer.PlayerGui.Main.TopHUDList.RaidTimer.Visible == true then
-                        for i,v in pairs(game:GetService("Workspace").Enemies:GetDescendants()) do
-                            if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
-                                pcall(function()
-                                    repeat wait()
-                                        sethiddenproperty(game:GetService("Players").LocalPlayer,"SimulationRadius",math.huge)
-                                        v.Humanoid.Health = 0
-                                        v.HumanoidRootPart.CanCollide = false
-                                    until not _G.Auto_Dungeon or not v.Parent or v.Humanoid.Health <= 0
-                                end)
-                            end
+        while wait() do
+            if _G.Auto_Dungeon then
+                local raidTimer = game:GetService("Players").LocalPlayer.PlayerGui.Main.TopHUDList.RaidTimer
+                if raidTimer.Visible == true then
+                    for _, enemy in pairs(game:GetService("Workspace").Enemies:GetDescendants()) do
+                        if enemy:FindFirstChild("Humanoid") and enemy:FindFirstChild("HumanoidRootPart") and enemy.Humanoid.Health > 0 then
+                            pcall(function()
+                                while _G.Auto_Dungeon and enemy.Parent and enemy.Humanoid.Health > 0 do
+                                    wait(0.1) -- ลดระยะเวลาการรอเพื่อให้คำสั่งถูกดำเนินการถี่ขึ้น
+                                    
+                                    -- ตั้งค่าคุณสมบัติ SimulationRadius (ถ้าจำเป็น)
+                                    if sethiddenproperty then
+                                        pcall(function()
+                                            sethiddenproperty(game:GetService("Players").LocalPlayer, "SimulationRadius", math.huge)
+                                        end)
+                                    end
+    
+                                    -- ลดค่าชีวิตของศัตรู
+                                    enemy.Humanoid.Health = 0
+                                    
+                                    -- ปิดการชนของ HumanoidRootPart
+                                    enemy.HumanoidRootPart.CanCollide = false
+                                end
+                            end)
                         end
                     end
                 end
             end
-        end)
+        end
     end)
+    
     
     spawn(function()
         pcall(function()
@@ -11851,7 +11867,7 @@ for i, e in pairs(l:GetChildren()) do
 end
 
     end)
-    local Select_Farme_Rate = 120
+    local Select_Farme_Rate = 60
 
     -- สร้าง slider เพื่อให้ผู้ใช้เลือกค่า Select_Farme_Rate
     Misc:AddSliderRight("Select Farme Rate", 0, 240, Select_Farme_Rate, function(a)
