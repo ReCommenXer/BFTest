@@ -1,4 +1,3 @@
----------ghgg
 
 
 repeat wait() until game:IsLoaded()
@@ -3800,18 +3799,23 @@ _G.GunAttack = true
             pcall(function()
                 if _G.GunAttack then
                     for _, enemy in pairs(workspace.Enemies:GetChildren()) do
-                        if enemy:FindFirstChild("HumanoidRootPart") and enemy:FindFirstChildOfClass("Accessory") then
-                            local args = {
-                                [1] = enemy.HumanoidRootPart.Position,
-                                [2] = {
-                                    [1] = enemy:FindFirstChildOfClass("Accessory").Handle
-                                }
-                            }
+                        -- ตรวจสอบว่าศัตรูมี HumanoidRootPart หรือส่วนประกอบอื่นที่จำเป็น
+                        if enemy:FindFirstChild("HumanoidRootPart") then
+                            local targetPart = enemy:FindFirstChildOfClass("Accessory") and enemy:FindFirstChildOfClass("Accessory").Handle
+                                or enemy:FindFirstChild("HumanoidRootPart") -- ใช้ HumanoidRootPart เป็นตัวสำรอง
     
-                            game:GetService("ReplicatedStorage").Modules.Net:FindFirstChild("RE/ShootGunEvent"):FireServer(unpack(args))
+                            if targetPart then
+                                local args = {
+                                    [1] = enemy.HumanoidRootPart.Position,
+                                    [2] = { targetPart }
+                                }
+    
+                                game:GetService("ReplicatedStorage").Modules.Net:FindFirstChild("RE/ShootGunEvent"):FireServer(unpack(args))
+                            end
                         end
                     end
     
+                    -- ยิงแบบสุ่มตำแหน่ง (เพิ่มเติมถ้าจำเป็น)
                     local randomPosition = Vector3.new(
                         math.random(-2000, 2000),
                         math.random(50, 150),
@@ -3824,9 +3828,10 @@ _G.GunAttack = true
                     game:GetService("ReplicatedStorage").Modules.Net:FindFirstChild("RE/ShootGunEvent"):FireServer(unpack(randomArgs))
                 end
             end)
-            task.wait(0) -- ใช้ task.wait เพื่อประสิทธิภาพที่ดีกว่า wait()
+            task.wait(0.1) -- ลดความถี่การวนลูปเพื่อไม่ให้ใช้ทรัพยากรมากเกินไป
         end
     end)
+    
     
     
 
@@ -11856,10 +11861,12 @@ end
     
     -- สร้าง toggle เพื่อเปิด/ปิดการตั้งค่า FPS cap
     Misc:AddToggleRight("Unlock FPS", Unlock_FPS, function()
-       while Unlock_FPS do
-        setfpscap(Select_Farme_Rate)  -- ตั้งค่าความเร็วเฟรมตามค่า Select_Farme_Rate
-       end
+        while Unlock_FPS do
+            setfpscap(Select_Farme_Rate) -- ตั้งค่าความเร็วเฟรมตามค่า Select_Farme_Rate
+            task.wait(1) -- รอ 1 วินาทีเพื่อไม่ให้ลูปทำงานหนักเกินไป
+        end
     end)
+    
     
     
     Misc:AddButtonRight("Max Zoom",function()
