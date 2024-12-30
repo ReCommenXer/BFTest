@@ -11578,7 +11578,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/realredz/SimpleSpy/re
 end)
 
 Sea:AddSeperatorLeft("Prehistoric Island")
-local Pic = Main:AddLabelLeft("")
+local Pic = Sea:AddLabelLeft("")
     
 function Pi()
 if game:GetService("Workspace").Map:FindFirstChild("PrehistoricIsland") then
@@ -11611,7 +11611,7 @@ spawn(function()
 end)
 
 Sea:AddSeperatorLeft("Mystic Island")
-local Mrc = Main:AddLabelLeft("")
+local Mrc = Sea:AddLabelLeft("")
     
 function Mr()
 if game:GetService("Workspace").Map:FindFirstChild("MysticIsland") then
