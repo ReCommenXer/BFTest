@@ -3683,26 +3683,25 @@ Main:AddTextboxLeft("job id ","...",true,function(s)
     Main:AddSeperatorRight("Setting")
 
  
-  WeaponList = {}
+  WeaponList = {"Melee","Sword","Gun","Blox Fruit"}
     
-    for i,v in pairs(game:GetService("Players").LocalPlayer.Backpack:GetChildren()) do  
-        if v:IsA("Tool") then
-            table.insert(WeaponList ,v.Name)
-        end
-    end
-    
-    local SelectWeapona = Main:AddDropdownRight("Select Weapon",WeaponList,function(value)
-        _G.SelectWeapon = value
+Main:AddDropdownRight("Select Weapon",WeaponList,function(value)
+        _G.Select_Weapon = value
     end)
     
-    Main:AddButtonRight("Reset Weapon",function()
-        SelectWeapona:Clear()
-        for i,v in pairs(game:GetService("Players").LocalPlayer.Backpack:GetChildren()) do  
-            SelectWeapona:Add(v.Name)
-        end
-    end)
-    
-    
+spawn(function()
+	while wait(1) do
+		pcall(function()
+			for i,v in pairs(game:GetService("Players").LocalPlayer.Backpack:GetChildren()) do
+				if v.ToolTip == _G.Select_Weapon then
+					_G.SelectWeapon = v.Name
+					break
+				end
+			end
+		end)
+	end
+end)
+
     
     Main:AddToggleRight("Remove Effect",_G.Remove_Effect,function(value)
         _G.Remove_Effect = value
