@@ -1,4 +1,3 @@
-----------asas
 
 
 repeat wait() until game:IsLoaded()
@@ -3815,8 +3814,8 @@ _G.GunAttack = true
                         end
     
                         -- ตรวจสอบว่าเป็นเรือและมีชิ้นส่วน Plane.037
-                        if enemy:FindFirstChild("Body") and enemy.Body:FindFirstChild("Plane.037") then
-                            local shipPart = enemy.Body:FindFirstChild("Plane.037")
+                        if enemy:FindFirstChild("Engine") then
+                            local shipPart = enemy:FindFirstChild("Engine")
                             local shipCFrame = shipPart.CFrame -- ใช้ CFrame ของชิ้นส่วนเรือ
                             local shipArgs = {
                                 [1] = shipCFrame,
@@ -6571,6 +6570,7 @@ end
 Main:AddToggleLeft("Auto Dirvve Bost",_G.Auto_Walk_Bost,function(a)
  _G.Auto_Walk_Bost = a
  local virtualInput = game:GetService("VirtualInputManager")
+ game:GetService("Workspace").Map["WaterBase-Plane"].Size = Vector3.new(1000,80,1000)
  virtualInput:SendKeyEvent(false, "W", false, game)
  end)
 
