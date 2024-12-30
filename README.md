@@ -1,3 +1,4 @@
+---------------iuii
 
 
 repeat wait() until game:IsLoaded()
@@ -10376,10 +10377,6 @@ end
     
    Teleport:AddSeperatorLeft("Fruit Spawn")
    
-   
-
-    
-    
     Teleport:AddToggleLeft("View Fruit Spawn",false,function(value)
         rryio = value
         local tr = game:GetService("Players").LocalPlayer.Character.Humanoid
@@ -10541,7 +10538,7 @@ spawn(function()
                 for i,v in pairs(FruitList) do
                 for x,y in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
                     if string.find(y.Name, "Fruit") then
-                        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("StoreFruit",v,game.Players.LocalPlayer.Backpack:FindFirstChild(y.Name)
+                        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("StoreFruit",v,game.Players.LocalPlayer.Backpack:FindFirstChild(y.Name))
                     end
                 end
                 end
