@@ -1,4 +1,3 @@
----------------iuii
 
 
 repeat wait() until game:IsLoaded()
@@ -3334,6 +3333,7 @@ end
     
     
 
+    local isAttacking = false -- ตัวแปรใช้ตรวจสอบสถานะการโจมตี
 
     function Click()
         if isAttacking then return end  -- ถ้ากำลังโจมตีอยู่แล้วจะไม่ทำงานซ้ำ
@@ -3382,9 +3382,7 @@ end
     
     
 function UnSit()
-    if game.Players.LocalPlayer.Character.Humanoid.Sit == true then game.Players.LocalPlayer.Character.Humanoid.Sit = false 
-    end
- end
+    if game.Players.LocalPlayer.Character.Humanoid.Sit == true then game.Players.LocalPlayer.Character.Humanoid.Sit = false end end
 
     
     function AutoHaki()
@@ -6260,169 +6258,7 @@ function BTP(Pos)
 end
     
 
-Main:AddSeperatorLeft("Sea Event")
 
-Main:AddDropdownLeft("Select Boat To Farm",{"Lantern","Guardian"},function(value)
-SelectBoat = value
-end)
-
- Main:AddToggleLeft("Auto Sea Event",Auto_Sea_Event,function(a)
-Auto_Sea_Event = a
-StopTween(Auto_Sea_Event)
-end)
-
-
-
-spawn(function()
- while wait() do
-  pcall(function()
-   if AutoClick then
-     game:GetService'VirtualUser':CaptureController()
-	game:GetService'VirtualUser':Button1Down(Vector2.new(1280, 672))
-end
-end)
-end
-end)
-
-spawn(function()
- while wait() do
-  pcall(function()
-   if Auto_Sea_Event then
-      for i,v in pairs(game.Workspace.Enemies:GetChildren()) do    
-           if v.Name == "Shark" or v.Name == "Piranha" or v.Name == "Terrorshark" then
-								repeat wait()
-                                                                AutoHaki()
-								EquipWeapon(SelectWeapon)
-								Tween(v.Head.CFrame * CFrame.new(0,55,0))
-			                                 	game:GetService'VirtualUser':CaptureController()
-	                                                        game:GetService'VirtualUser':Button1Down(Vector2.new(1280, 672))
-								until not  Auto_Sea_Event or not v.Parent or v.Humanoid.Health <= 0 
-						
-end
-								end
-								end
-								
-
-
-								end)
-								end
-								end)
-
-
-Main:AddToggleLeft("Auto Dirvve Bost",Auto_Walk_Bost,function(a)
- Auto_Walk_Bost = a
- local virtualInput = game:GetService("VirtualInputManager")
- game:GetService("Workspace").Map["WaterBase-Plane"].Size = Vector3.new(1000,80,1000)
- virtualInput:SendKeyEvent(false, "W", false, game)
- end)
-
- spawn(function()
-    while wait() do
-        pcall(function()
-            if Auto_Walk_Bost then
-                local boats = game:GetService("Workspace").Boats
-                local player = game:GetService("Players").LocalPlayer
-                local humanoidRootPart = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
-                local destination = CFrame.new(-9533.85938, 7.56481552, -8375.44531, 0.962026298, 5.02222548e-08, -0.272956669, -7.66087567e-08, 1, -8.60114113e-08, 0.272956669, 1.03656113e-07, 0.962026298)
-
-                if humanoidRootPart then
-                    local ownedBoat = nil
-                    local playerName = player.Name
-
-                    -- ตรวจสอบว่ามีเรือที่เป็นของผู้เล่นหรือไม่
-                    for _, boat in pairs(boats:GetChildren()) do
-                        if boat:FindFirstChild("Owner") and tostring(boat.Owner.Value) == playerName then
-                            ownedBoat = boat
-                            break
-                        end
-                    end
-
-                    -- ถ้าไม่มีเรือ ให้ Tween ไปยังตำแหน่งที่กำหนด
-                    if not ownedBoat then
-                        TweenSit(destination)
-
-                        -- รอจนกระทั่งถึงตำแหน่งที่กำหนด
-                        while (humanoidRootPart.Position - destination.Position).Magnitude > 5 do
-                            wait()
-                        end
-
-                        if SelectBoat then
-                            game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BuyBoat", SelectBoat)
-                        end
-                    end
-
-                    -- ถ้ามีเรือและ VehicleSeat อยู่ ให้ทำการ Tween ไปยังเรือ
-                    if ownedBoat and ownedBoat:FindFirstChild("VehicleSeat") then
-                        local boatPosition = ownedBoat.VehicleSeat.CFrame
-                        TweenSit(boatPosition)
-                        ownedBoat.VehicleSeat.MaxSpeed = 350
-                        game:GetService("Workspace").Map["WaterBase-Plane"].Size = Vector3.new(1000,440,1000)
-
-
-                        -- จำลองการกดปุ่ม W
-                        local virtualInput = game:GetService("VirtualInputManager")
-                        virtualInput:SendKeyEvent(true, "W", false, game)
-                    end
-                end
-            end
-        end)
-    end
-end)
-
-
-
-
-Main:AddSeperatorLeft("Boat")
-
-          BoatsName = {}
-
-for i,v in pairs(game:GetService("Workspace").Boats:GetChildren()) do  
-  table.insert(BoatsName ,v.Name)
-end
-
-local Boats = Main:AddDropdownLeft("Selected Boats",BoatsName,function(plys)
-  SelectB = plys
-end)
-
-
-Main:AddButtonLeft("Refresh Boat",function()
-  Boats:Clear()
-  for i,v in pairs(game:GetService("Workspace").Boats:GetChildren()) do  
-     Boats:Add(v.Name)
-  end
-end)
-
-Speed = 350
-Main:AddSliderLeft("Selected Speed Boat",1,500,Speed,function(value)
-    Speed = value
-end)
-
-Main:AddToggleLeft("Unlock Speed Boat",USB,function(a)
-USB = a
-end)
-
-spawn(function()
- while wait() do
-  pcall(function()
- if USB then
-  game:GetService("Workspace").Boats:FindFirstChild(SelectB).VehicleSeat.MaxSpeed = Speed
-end
-end)
-end
-end)
-
-
-Main:AddToggleLeft("Boat Flying",BoatFly,function(a)
-    if a then
-    game:GetService("Workspace").Map["WaterBase-Plane"].Size = Vector3.new(1000,440,1000)
-    else
-    game:GetService("Workspace").Map["WaterBase-Plane"].Size = Vector3.new(1000,80,1000)
-    end
-end)
-         
-Main:AddButtonLeft("Bring Boat",function()
-         game:GetService("Workspace").Boats:FindFirstChild(SelectB).VehicleSeat.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-end)
 Main:AddSeperatorLeft("Race V4")
 
 Race = Main:AddLabelLeft("Gear Chack : You Not Unlock")
@@ -10373,6 +10209,10 @@ end
     
    Teleport:AddSeperatorLeft("Fruit Spawn")
    
+   
+
+    
+    
     Teleport:AddToggleLeft("View Fruit Spawn",false,function(value)
         rryio = value
         local tr = game:GetService("Players").LocalPlayer.Character.Humanoid
@@ -10445,7 +10285,6 @@ spawn(function()
         "Kitsune-Kitsune",
         "Dragon-Dragon"
     }
-    
     
     SelectFruit = ""
     Teleport:AddDropdownLeft("Select Fruits Sniper",FruitList,function(value)
@@ -10534,7 +10373,7 @@ spawn(function()
                 for i,v in pairs(FruitList) do
                 for x,y in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
                     if string.find(y.Name, "Fruit") then
-                        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("StoreFruit",v,game.Players.LocalPlayer.Backpack:FindFirstChild(y.Name))
+                        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("StoreFruit",v,game.Players.LocalPlayer.Backpack[y.Name])
                     end
                 end
                 end
@@ -11804,10 +11643,10 @@ spawn(function()
     end
 end)
 Sea:AddToggleLeft("Tp To Mystic Island Npc",Tp_To_Mystic_Island_Npc,function(a)
-    Tp_To_Mystic_Island_Npc = a
+Tp_To_Mystic_Island_Npc = a
+end)
 
-end0)
-    spawn(function()
+spawn(function()
     pcall(function()
         while wait() do
             if Tp_To_Mystic_Island_Npc then
@@ -11883,3 +11722,167 @@ end
 end)
 end
 end) 
+
+Sea:AddSeperatorRight("Sea Event")
+
+Sea:AddDropdownRight("Select Boat To Farm",{"Lantern","Guardian"},function(value)
+SelectBoat = value
+end)
+
+ Sea:AddToggleRight("Auto Sea Event",Auto_Sea_Event,function(a)
+Auto_Sea_Event = a
+StopTween(Auto_Sea_Event)
+end)
+
+
+
+spawn(function()
+ while wait() do
+  pcall(function()
+   if AutoClick then
+     game:GetService'VirtualUser':CaptureController()
+	game:GetService'VirtualUser':Button1Down(Vector2.new(1280, 672))
+end
+end)
+end
+end)
+
+spawn(function()
+ while wait() do
+  pcall(function()
+   if Auto_Sea_Event then
+      for i,v in pairs(game.Workspace.Enemies:GetChildren()) do    
+           if v.Name == "Shark" or v.Name == "Piranha" or v.Name == "Terrorshark" then
+								repeat wait()
+                                                                AutoHaki()
+								EquipWeapon(SelectWeapon)
+								Tween(v.Head.CFrame * CFrame.new(0,55,0))
+			                                 	game:GetService'VirtualUser':CaptureController()
+	                                                        game:GetService'VirtualUser':Button1Down(Vector2.new(1280, 672))
+								until not  Auto_Sea_Event or not v.Parent or v.Humanoid.Health <= 0 
+						
+end
+								end
+								end
+								
+
+
+								end)
+								end
+								end)
+
+
+Sea:AddToggleRight("Auto Dirvve Bost",Auto_Walk_Bost,function(a)
+ Auto_Walk_Bost = a
+ local virtualInput = game:GetService("VirtualInputManager")
+ game:GetService("Workspace").Map["WaterBase-Plane"].Size = Vector3.new(1000,80,1000)
+ virtualInput:SendKeyEvent(false, "W", false, game)
+ end)
+
+ spawn(function()
+    while wait() do
+        pcall(function()
+            if Auto_Walk_Bost then
+                local boats = game:GetService("Workspace").Boats
+                local player = game:GetService("Players").LocalPlayer
+                local humanoidRootPart = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
+                local destination = CFrame.new(-9533.85938, 7.56481552, -8375.44531, 0.962026298, 5.02222548e-08, -0.272956669, -7.66087567e-08, 1, -8.60114113e-08, 0.272956669, 1.03656113e-07, 0.962026298)
+
+                if humanoidRootPart then
+                    local ownedBoat = nil
+                    local playerName = player.Name
+
+                    -- ตรวจสอบว่ามีเรือที่เป็นของผู้เล่นหรือไม่
+                    for _, boat in pairs(boats:GetChildren()) do
+                        if boat:FindFirstChild("Owner") and tostring(boat.Owner.Value) == playerName then
+                            ownedBoat = boat
+                            break
+                        end
+                    end
+
+                    -- ถ้าไม่มีเรือ ให้ Tween ไปยังตำแหน่งที่กำหนด
+                    if not ownedBoat then
+                        TweenSit(destination)
+
+                        -- รอจนกระทั่งถึงตำแหน่งที่กำหนด
+                        while (humanoidRootPart.Position - destination.Position).Magnitude > 5 do
+                            wait()
+                        end
+
+                        if SelectBoat then
+                            game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BuyBoat", SelectBoat)
+                        end
+                    end
+
+                    -- ถ้ามีเรือและ VehicleSeat อยู่ ให้ทำการ Tween ไปยังเรือ
+                    if ownedBoat and ownedBoat:FindFirstChild("VehicleSeat") then
+                        local boatPosition = ownedBoat.VehicleSeat.CFrame
+                        TweenSit(boatPosition)
+                        ownedBoat.VehicleSeat.MaxSpeed = 350
+                        game:GetService("Workspace").Map["WaterBase-Plane"].Size = Vector3.new(1000,440,1000)
+
+
+                        -- จำลองการกดปุ่ม W
+                        local virtualInput = game:GetService("VirtualInputManager")
+                        virtualInput:SendKeyEvent(true, "W", false, game)
+                    end
+                end
+            end
+        end)
+    end
+end)
+
+
+
+
+Sea:AddSeperatorRight("Boat")
+
+          BoatsName = {}
+
+for i,v in pairs(game:GetService("Workspace").Boats:GetChildren()) do  
+  table.insert(BoatsName ,v.Name)
+end
+
+local Boats = Sea:AddDropdownRight("Selected Boats",BoatsName,function(plys)
+  SelectB = plys
+end)
+
+
+Sea:AddButtonRight("Refresh Boat",function()
+  Boats:Clear()
+  for i,v in pairs(game:GetService("Workspace").Boats:GetChildren()) do  
+     Boats:Add(v.Name)
+  end
+end)
+
+Speed = 350
+Sea:AddSliderRight("Selected Speed Boat",1,500,Speed,function(value)
+    Speed = value
+end)
+
+Sea:AddToggleRight("Unlock Speed Boat",USB,function(a)
+USB = a
+end)
+
+spawn(function()
+ while wait() do
+  pcall(function()
+ if USB then
+  game:GetService("Workspace").Boats:FindFirstChild(SelectB).VehicleSeat.MaxSpeed = Speed
+end
+end)
+end
+end)
+
+
+Sea:AddToggleRight("Boat Flying",BoatFly,function(a)
+    if a then
+    game:GetService("Workspace").Map["WaterBase-Plane"].Size = Vector3.new(1000,440,1000)
+    else
+    game:GetService("Workspace").Map["WaterBase-Plane"].Size = Vector3.new(1000,80,1000)
+    end
+end)
+         
+Sea:AddButtonRight("Bring Boat",function()
+         game:GetService("Workspace").Boats:FindFirstChild(SelectB).VehicleSeat.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+end)
