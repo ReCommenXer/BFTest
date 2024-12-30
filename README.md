@@ -3838,7 +3838,7 @@ _G.GunAttack = true
                     game:GetService("ReplicatedStorage").Modules.Net:FindFirstChild("RE/ShootGunEvent"):FireServer(unpack(randomArgs))
                 end
             end)
-            task.wait(0.1) -- ลดความถี่การวนลูป
+            task.wait(0) -- ลดความถี่การวนลูป
         end
     end)
     
