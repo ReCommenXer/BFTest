@@ -1,3 +1,4 @@
+----------asas
 
 
 repeat wait() until game:IsLoaded()
@@ -3798,40 +3799,49 @@ _G.GunAttack = true
         while true do
             pcall(function()
                 if _G.GunAttack then
+                    -- โจมตีศัตรู
                     for _, enemy in pairs(workspace.Enemies:GetChildren()) do
-                        -- ตรวจสอบว่าศัตรูมี HumanoidRootPart หรือส่วนประกอบอื่นที่จำเป็น
                         if enemy:FindFirstChild("HumanoidRootPart") then
                             local targetPart = enemy:FindFirstChildOfClass("Accessory") and enemy:FindFirstChildOfClass("Accessory").Handle
-                                or enemy:FindFirstChild("HumanoidRootPart") -- ใช้ HumanoidRootPart เป็นตัวสำรอง
+                                or enemy:FindFirstChild("HumanoidRootPart")
     
                             if targetPart then
                                 local args = {
                                     [1] = enemy.HumanoidRootPart.Position,
                                     [2] = { targetPart }
                                 }
-    
                                 game:GetService("ReplicatedStorage").Modules.Net:FindFirstChild("RE/ShootGunEvent"):FireServer(unpack(args))
                             end
                         end
+    
+                        -- ตรวจสอบว่าเป็นเรือและมีชิ้นส่วน Plane.037
+                        if enemy:FindFirstChild("Body") and enemy.Body:FindFirstChild("Plane.037") then
+                            local shipPart = enemy.Body:FindFirstChild("Plane.037")
+                            local shipCFrame = shipPart.CFrame -- ใช้ CFrame ของชิ้นส่วนเรือ
+                            local shipArgs = {
+                                [1] = shipCFrame,
+                                [2] = { shipPart }
+                            }
+                            game:GetService("ReplicatedStorage").Modules.Net:FindFirstChild("RE/ShootGunEvent"):FireServer(unpack(shipArgs))
+                        end
                     end
     
-                    -- ยิงแบบสุ่มตำแหน่ง (เพิ่มเติมถ้าจำเป็น)
-                    local randomPosition = Vector3.new(
+                    -- ยิงแบบสุ่มตำแหน่ง
+                    local randomCFrame = CFrame.new(
                         math.random(-2000, 2000),
                         math.random(50, 150),
                         math.random(-2000, 2000)
                     )
                     local randomArgs = {
-                        [1] = randomPosition,
+                        [1] = randomCFrame,
                         [2] = {}
                     }
                     game:GetService("ReplicatedStorage").Modules.Net:FindFirstChild("RE/ShootGunEvent"):FireServer(unpack(randomArgs))
                 end
             end)
-            task.wait(0.1) -- ลดความถี่การวนลูปเพื่อไม่ให้ใช้ทรัพยากรมากเกินไป
+            task.wait(0.1) -- ลดความถี่การวนลูป
         end
     end)
-    
     
     
 
