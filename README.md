@@ -37,10 +37,6 @@ if game:GetService("Players").LocalPlayer.PlayerGui.Main:FindFirstChild("ChooseT
 repeat wait() until game:GetService("Players").LocalPlayer
 repeat wait() until game:GetService("Players").LocalPlayer.PlayerGui
 repeat wait() until game:GetService("ReplicatedStorage").Effect.Container
-local openCloseUi = game.CoreGui.ScreenGui.ImageButton:FindFirstChild("Oped/CloseUi")
-if openCloseUi then 
-    openCloseUi:Destroy()
-end
 
 local RebornXerHub = Instance.new("ScreenGui")
 local Open = Instance.new("TextButton")
