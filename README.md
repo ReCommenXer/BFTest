@@ -1,4 +1,3 @@
------------------aaaa
 
 
 repeat wait() until game:IsLoaded()
@@ -10542,7 +10541,7 @@ spawn(function()
                 for i,v in pairs(FruitList) do
                 for x,y in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
                     if string.find(y.Name, "Fruit") then
-                        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("StoreFruit",v,game.Players.LocalPlayer.Backpack:FindFirstChild(y.Name))
+                        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("StoreFruit",v,game.Players.LocalPlayer.Backpack:FindFirstChild(y.Name)
                     end
                 end
                 end
