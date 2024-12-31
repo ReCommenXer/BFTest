@@ -1,4 +1,3 @@
---------------aaa
 
 
 repeat wait() until game:IsLoaded()
@@ -3823,17 +3822,18 @@ GunAttack = true
                         end
     
                         -- ตรวจสอบว่าเป็นเรือและมีชิ้นส่วน Plane.037
-                        if enemy.Body:FindFirstChild("Part") then
-                            local shipPart = enemy.Body:FindFirstChild("Part")
-                            local shipCFrame = shipPart.CFrame -- ใช้ CFrame ของชิ้นส่วนเรือ
+                        if enemy:FindFirstChild("Body") then
+                            local shipPart = enemy:FindFirstChildOfClass("Body") and enemy:FindFirstChildOfClass("Body"):FindFirstChild("Cube.022")
+                            or enemy:FindFirstChild("VehicleSeat")
+                            if shipPart then
                             local shipArgs = {
-                                [1] = shipCFrame,
+                                [1] = enemy.Body:FindFirstChild("Cube.022").Position,
                                 [2] = { shipPart }
                             }
                             game:GetService("ReplicatedStorage").Modules.Net:FindFirstChild("RE/ShootGunEvent"):FireServer(unpack(shipArgs))
                         end
                     end
-    
+                end
                     -- ยิงแบบสุ่มตำแหน่ง
                     local randomCFrame = CFrame.new(
                         math.random(-2000, 2000),
@@ -10722,7 +10722,7 @@ end)
     
     Misc:AddButtonLeft("Open Devil Shop",function()
         game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("GetFruits")
-        game:GetService("Players").LocalPlayer.PlayerGui.Main.FruitShop.Visible = true
+        game:GetService("Players").LocalPlayer.PlayerGui.Main.FruitShopAndDealer.Root.Shop.Enabled = true
     end)
     
     Misc:AddButtonLeft("Open Inventory",function()
