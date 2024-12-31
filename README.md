@@ -1,3 +1,4 @@
+---------aa
 
 
 repeat wait() until game:IsLoaded()
@@ -3845,7 +3846,7 @@ GunAttack = true
                     game:GetService("ReplicatedStorage").Modules.Net:FindFirstChild("RE/ShootGunEvent"):FireServer(unpack(randomArgs))
                 end
             end)
-            task.wait(0.1) -- ลดความถี่การวนลูป
+            task.wait(0.3) -- ลดความถี่การวนลูป
         end
     end)
     
@@ -4058,7 +4059,7 @@ GunAttack = true
                             end
                         end
                         if AutoDoughtBoss and MagnetDought then
-                            if (v.HumanoidRootPart.Position - PosMonDoughtOpenDoor.Position).Magnitude <= 230 and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
+                            if (v.HumanoidRootPart.Position - PosMonDoughtOpenDoor.Position).Magnitude <= 275 and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
                                 v.Humanoid:ChangeState(11)
                                 v.HumanoidRootPart.CanCollide = false
                                 v.Head.CanCollide = false
