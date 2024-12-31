@@ -9952,8 +9952,6 @@ Teleport:AddSeperatorLeft("Teleport World")
                                             sethiddenproperty(game:GetService("Players").LocalPlayer, "SimulationRadius", math.huge)
                                         end)
                                     end
-                                    enemy.Head.Transparency = 1
-                                    enemy.Head.Size = Vector3.new(20,20,20)
                                     enemy.Humanoid.Health = 0
                                     enemy.HumanoidRootPart.CanCollide = false
                                 end
@@ -10391,7 +10389,7 @@ spawn(function()
   			  for i,v in pairs(game:GetService("Workspace"):GetChildren()) do if v:IsA("Tool") then if string.find(v.Name, "Fruit") then
    				 repeat wait() 
    					 wait(.1) 
-    					v.Handle.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, 10, 0)
+    					v.Handle.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, 5, 0)
    				 wait(.1) 
    				 v.Handle.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, 2, 0)
    					 wait(1) 
