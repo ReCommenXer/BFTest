@@ -1,4 +1,3 @@
------SS
 
 
 repeat wait() until game:IsLoaded()
@@ -10326,7 +10325,7 @@ spawn(function()
             end
         end)
     end)
-wwwwwwwwwwwwwww    spawn(function()
+spawn(function()
         pcall(function()
             while wait(.1) do
                 if AutoBuyFruitSniper then
