@@ -1,4 +1,3 @@
-------------AAA
 
 
 repeat wait() until game:IsLoaded()
@@ -9858,15 +9857,12 @@ Teleport:AddSeperatorLeft("Teleport World")
                 elseif SelectIsland == "Great Tree" then
                     Tween(CFrame.new(2681.2736816406, 1682.8092041016, -7190.9853515625))
                 elseif SelectIsland == "Castle On The Sea" then
-                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(-5072.1875, 314.53302, -2984.28711, -0.284700871, 3.76435949e-08, 0.958616436, 8.0240568e-08, 1, -1.54379105e-08, -0.958616436, 7.25247418e-08, -0.284700871))
-                elseif SelectIsland == "MiniSky" then
+                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(-5143.55371, 314.587158, -3129.7771, -0.327329725, 8.04210885e-08, 0.944910169, -2.44393075e-08, 1, -9.35758777e-08, -0.944910169, -5.37231166e-08, -0.327329725))                elseif SelectIsland == "MiniSky" then
                     Tween(CFrame.new(-260.65557861328, 49325.8046875, -35253.5703125))
                 elseif SelectIsland == "Port Town" then
                     Tween(CFrame.new(-290.7376708984375, 6.729952812194824, 5343.5537109375))
                 elseif SelectIsland == "Hydra Island" then
-                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(5741.869140625, 611.94750976562, -282.61154174805))
-                elseif SelectIsland == "Floating Turtle" then
-                    Tween(CFrame.new(-13274.528320313, 531.82073974609, -7579.22265625))
+game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(5677.88525, 1013.11609, -309.271179, -0.800623715, -2.0267505e-08, -0.599167526, -4.52882283e-08, 1, 2.66892357e-08, 0.599167526, 4.85032672e-08, -0.800623715))                elseif SelectIsland == "Floating Turtle" then
                 elseif SelectIsland == "Mansion" then
                     game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(-12550.1133, 337.185822, -7509.18311, 0.999812901, 3.70209925e-08, -0.019343419, -3.77426304e-08, 1, -3.69415432e-08, 0.019343419, 3.76647051e-08, 0.999812901))
                 elseif SelectIsland == "Haunted Castle" then
@@ -10334,8 +10330,7 @@ spawn(function()
             end
         end)
     end)
-    
-    spawn(function()
+wwwwwwwwwwwwwww    spawn(function()
         pcall(function()
             while wait(.1) do
                 if AutoBuyFruitSniper then
@@ -10368,21 +10363,26 @@ spawn(function()
         AutoStoreFruit = value
     end)
    
-  spawn(function()
-    while task.wait(0.1) do
-        if AutoStoreFruit then
-            pcall(function()
-                for i,v in pairs(FruitList) do
-                for x,y in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
-                    if string.find(y.Name, "Fruit") then
-                        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("StoreFruit",v,game.Players.LocalPlayer.Backpack[y.Name])
+    local player = game.Players.LocalPlayer
+    local backpack = player:FindFirstChild("Backpack")
+
+    spawn(function()
+        while task.wait(0.1) do
+            if AutoStoreFruit then
+                pcall(function()
+                    for _, fruit in pairs(backpack:GetChildren()) do
+                        if string.find(fruit.Name, "Fruit") then
+                            -- ตรวจสอบว่ามี Attribute OriginalName หรือไม่
+                            local originalName = fruit:GetAttribute("OriginalName")
+                            if originalName then
+                                game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("StoreFruit", originalName, fruit)
+                            end
+                        end
                     end
-                end
-                end
-            end)
+                end)
+            end
         end
-    end
-end)
+    end)
     
   
     Teleport:AddToggleLeft("Bring Fruit",BringFruit,function(a)
