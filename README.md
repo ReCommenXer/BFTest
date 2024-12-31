@@ -1,3 +1,4 @@
+--------------aaa
 
 
 repeat wait() until game:IsLoaded()
@@ -3822,8 +3823,8 @@ GunAttack = true
                         end
     
                         -- ตรวจสอบว่าเป็นเรือและมีชิ้นส่วน Plane.037
-                        if enemy:FindFirstChild("Engine") then
-                            local shipPart = enemy:FindFirstChild("Engine")
+                        if enemy.Body:FindFirstChild("Part") then
+                            local shipPart = enemy.Body:FindFirstChild("Part")
                             local shipCFrame = shipPart.CFrame -- ใช้ CFrame ของชิ้นส่วนเรือ
                             local shipArgs = {
                                 [1] = shipCFrame,
