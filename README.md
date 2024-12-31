@@ -1,3 +1,4 @@
+------------AAA
 
 
 repeat wait() until game:IsLoaded()
@@ -10034,7 +10035,8 @@ Teleport:AddSeperatorLeft("Teleport World")
     end)
     
     Teleport:AddLineRight()
-    
+    SelectChip = "Flame"
+
     Teleport:AddDropdownRight("Select Chips",
         {"Flame",
             "Ice",
