@@ -1,3 +1,4 @@
+-----SS
 
 
 repeat wait() until game:IsLoaded()
@@ -9862,7 +9863,7 @@ Teleport:AddSeperatorLeft("Teleport World")
                 elseif SelectIsland == "Port Town" then
                     Tween(CFrame.new(-290.7376708984375, 6.729952812194824, 5343.5537109375))
                 elseif SelectIsland == "Hydra Island" then
-game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(5677.88525, 1013.11609, -309.271179, -0.800623715, -2.0267505e-08, -0.599167526, -4.52882283e-08, 1, 2.66892357e-08, 0.599167526, 4.85032672e-08, -0.800623715))                elseif SelectIsland == "Floating Turtle" then
+                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(5677.88525, 1013.11609, -309.271179, -0.800623715, -2.0267505e-08, -0.599167526, -4.52882283e-08, 1, 2.66892357e-08, 0.599167526, 4.85032672e-08, -0.800623715))                elseif SelectIsland == "Floating Turtle" then
                 elseif SelectIsland == "Mansion" then
                     game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(-12550.1133, 337.185822, -7509.18311, 0.999812901, 3.70209925e-08, -0.019343419, -3.77426304e-08, 1, -3.69415432e-08, 0.019343419, 3.76647051e-08, 0.999812901))
                 elseif SelectIsland == "Haunted Castle" then
@@ -9939,7 +9940,7 @@ game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntranc
     
     
     spawn(function()
-        while wait() do
+        while wait(0) do
             if Auto_Dungeon then
                 local raidTimer = game:GetService("Players").LocalPlayer.PlayerGui.Main.TopHUDList.RaidTimer
                 if raidTimer.Visible == true then
@@ -9947,19 +9948,14 @@ game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntranc
                         if enemy:FindFirstChild("Humanoid") and enemy:FindFirstChild("HumanoidRootPart") and enemy.Humanoid.Health > 0 then
                             pcall(function()
                                 while Auto_Dungeon and enemy.Parent and enemy.Humanoid.Health > 0 do
-                                    wait(0.1) -- ลดระยะเวลาการรอเพื่อให้คำสั่งถูกดำเนินการถี่ขึ้น
-                                    
-                                    -- ตั้งค่าคุณสมบัติ SimulationRadius (ถ้าจำเป็น)
                                     if sethiddenproperty then
                                         pcall(function()
                                             sethiddenproperty(game:GetService("Players").LocalPlayer, "SimulationRadius", math.huge)
                                         end)
                                     end
-    
-                                    -- ลดค่าชีวิตของศัตรู
+                                    enemy.Head.Transparency = 1
+                                    enemy.Head.Size = Vector3.new(20,20,20)
                                     enemy.Humanoid.Health = 0
-                                    
-                                    -- ปิดการชนของ HumanoidRootPart
                                     enemy.HumanoidRootPart.CanCollide = false
                                 end
                             end)
