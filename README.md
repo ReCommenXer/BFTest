@@ -3821,19 +3821,17 @@ GunAttack = true
                             end
                         end
     
-                        -- ตรวจสอบว่าเป็นเรือและมีชิ้นส่วน Plane.037
                         if enemy:FindFirstChild("Body") then
-                            local shipPart = enemy:FindFirstChildOfClass("Body") and enemy:FindFirstChildOfClass("Body"):FindFirstChild("Cube.022")
-                            or enemy:FindFirstChild("VehicleSeat")
-                            if shipPart then
+						for i, Ship in pairs(enemy.Body:GetChildren()) do
                             local shipArgs = {
-                                [1] = enemy.Body:FindFirstChild("Cube.022").Position,
-                                [2] = { shipPart }
+                                [1] = Ship.Position,
+                                [2] = { Ship }
                             }
                             game:GetService("ReplicatedStorage").Modules.Net:FindFirstChild("RE/ShootGunEvent"):FireServer(unpack(shipArgs))
                         end
                     end
                 end
+
                     -- ยิงแบบสุ่มตำแหน่ง
                     local randomCFrame = CFrame.new(
                         math.random(-2000, 2000),
@@ -8086,73 +8084,76 @@ end)
         AutoDoughtBoss = value
         StopTween(AutoDoughtBoss)
     end)
-    spawn(function()
-        while wait() do
-            if AutoDoughtBoss then
-                pcall(function()
-                    local workspace = game:GetService("Workspace")
-                    local replicatedStorage = game:GetService("ReplicatedStorage")
-    
-                    -- ตรวจสอบว่ามี Cake Prince หรือไม่
-                    local cakePrince = workspace.Enemies:FindFirstChild("Cake Prince")
-                    if cakePrince then
-                        for _, enemy in pairs(workspace.Enemies:GetChildren()) do
-                            if enemy.Name == "Cake Prince" and enemy:FindFirstChild("Humanoid") and enemy:FindFirstChild("HumanoidRootPart") and enemy.Humanoid.Health > 0 then
-                                repeat
-                                    task.wait()
-                                    AutoHaki()
-                                    EquipWeapon(SelectWeapon)
-                                    enemy.HumanoidRootPart.CanCollide = false
-                                    enemy.Humanoid.WalkSpeed = 0
-                                    Tween(enemy.HumanoidRootPart.CFrame * CFrame.new(0, -35, 0))
-                                until not AutoDoughtBoss or not enemy.Parent or enemy.Humanoid.Health <= 0
-                            end
+-- Repeat task loop
+spawn(function()
+    while wait() do
+        if AutoDoughtBoss then
+            pcall(function()
+                local workspace = game:GetService("Workspace")
+                local replicatedStorage = game:GetService("ReplicatedStorage")
+
+                -- ตรวจสอบว่ามี Cake Prince หรือไม่
+                local cakePrince = workspace.Enemies:FindFirstChild("Cake Prince")
+                if cakePrince then
+                    for _, enemy in pairs(workspace.Enemies:GetChildren()) do
+                        if enemy.Name == "Cake Prince" and enemy:FindFirstChild("Humanoid") and enemy:FindFirstChild("HumanoidRootPart") and enemy.Humanoid.Health > 0 then
+                            repeat
+                                task.wait()
+                                AutoHaki()
+                                EquipWeapon(SelectWeapon)
+                                enemy.HumanoidRootPart.CanCollide = false
+                                enemy.Humanoid.WalkSpeed = 0
+                                Tween(enemy.HumanoidRootPart.CFrame * CFrame.new(0, -35, 0))
+                            until not AutoDoughtBoss or not enemy.Parent or enemy.Humanoid.Health <= 0
                         end
+                    end
+                else
+                    -- ตรวจสอบว่ามี Cake Prince ใน ReplicatedStorage หรือไม่
+                    local cakePrinceStorage = replicatedStorage:FindFirstChild("Cake Prince")
+                    if cakePrinceStorage then
+                        Tween(cakePrinceStorage.HumanoidRootPart.CFrame * CFrame.new(0, -45, -40))
                     else
-                        -- ตรวจสอบว่ามี Cake Prince ใน ReplicatedStorage หรือไม่
-                        local cakePrinceStorage = replicatedStorage:FindFirstChild("Cake Prince")
-                        if cakePrinceStorage then
-                            Tween(cakePrinceStorage.HumanoidRootPart.CFrame * CFrame.new(0, -45, -40))
-                        else
-                            -- หากเงื่อนไขตรง เปิด BigMirror และหา Cookie Crafter หรืออื่น ๆ
-                            local bigMirror = workspace.Map.CakeLoaf.BigMirror.Other
-                            if bigMirror.Transparency == 1 then
-                                local foundEnemy = false
-                                for _, enemy in pairs(workspace.Enemies:GetChildren()) do
-                                    if enemy.Name == "Cookie Crafter" or enemy.Name == "Cake Guard" or enemy.Name == "Baking Staff" or enemy.Name == "Head Baker" then
-                                        if enemy:FindFirstChild("Humanoid") and enemy:FindFirstChild("HumanoidRootPart") and enemy.Humanoid.Health > 0 then
-                                            foundEnemy = true
-                                            repeat
-                                                task.wait()
-                                                AutoHaki()
-                                                EquipWeapon(SelectWeapon)
-                                                enemy.HumanoidRootPart.CanCollide = false
-                                                enemy.Humanoid.WalkSpeed = 0
-                                                enemy.Head.CanCollide = false
-                                                MagnetDought = true
-                                                PosMonDoughtOpenDoor = enemy.HumanoidRootPart.CFrame
-                                                Tween(enemy.HumanoidRootPart.CFrame * CFrame.new(0, 40, 0))
-                                            until not AutoDoughtBoss or not enemy.Parent or enemy.Humanoid.Health <= 0 or bigMirror.Transparency == 0 or replicatedStorage:FindFirstChild("Cake Prince [Lv. 2300] [Raid Boss]") or workspace.Enemies:FindFirstChild("Cake Prince [Lv. 2300] [Raid Boss]")
-                                        end
+                        -- หากเงื่อนไขตรง เปิด BigMirror และหา Cookie Crafter หรืออื่น ๆ
+                        local bigMirror = workspace.Map.CakeLoaf.BigMirror.Other
+                        if bigMirror.Transparency == 1 then
+                            local foundEnemy = false
+                            for _, enemy in pairs(workspace.Enemies:GetChildren()) do
+                                if enemy.Name == "Cookie Crafter" or enemy.Name == "Cake Guard" or enemy.Name == "Baking Staff" or enemy.Name == "Head Baker" then
+                                    if enemy:FindFirstChild("Humanoid") and enemy:FindFirstChild("HumanoidRootPart") and enemy.Humanoid.Health > 0 then
+                                        foundEnemy = true
+                                        repeat
+                                            task.wait()
+                                            AutoHaki()
+                                            EquipWeapon(SelectWeapon)
+                                            enemy.HumanoidRootPart.CanCollide = false
+                                            enemy.Humanoid.WalkSpeed = 0
+                                            enemy.Head.CanCollide = false
+                                            MagnetDought = true
+                                            PosMonDoughtOpenDoor = enemy.HumanoidRootPart.CFrame
+                                            Tween(enemy.HumanoidRootPart.CFrame * CFrame.new(0, 40, 0))
+                                        until not AutoDoughtBoss or not enemy.Parent or enemy.Humanoid.Health <= 0 or bigMirror.Transparency == 0 or replicatedStorage:FindFirstChild("Cake Prince [Lv. 2300] [Raid Boss]") or workspace.Enemies:FindFirstChild("Cake Prince [Lv. 2300] [Raid Boss]")
                                     end
                                 end
-    
-                                -- หากไม่มีมอนที่ตรงเงื่อนไข
-                                if not foundEnemy then
-                                    Tween(CFrame.new(-2079.6826, 227.9526, -12321.9238))
-                                end
-                            else
-                                MagnetDought = false
-                                if bigMirror.Transparency == 0 then
-                                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2151.82153, 149.315704, -12404.9053)
-                                end
+                            end
+
+                            -- หากไม่มีมอนที่ตรงเงื่อนไข
+                            if not foundEnemy then
+                                print("No suitable enemies found, moving to fallback position.")
+                                Tween(CFrame.new(-2079.6826, 227.9526, -12321.9238))
+                            end
+                        else
+                            MagnetDought = false
+                            if bigMirror.Transparency == 0 then
+                                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2151.82153, 149.315704, -12404.9053)
                             end
                         end
                     end
-                end)
-            end
+                end
+            end)
         end
-    end)
+    end
+end)
+
 
 Main:AddSeperatorLeft("Hallow Scythe")
 Main:AddToggleLeft("Auto Hallow Scythe",AutoFarmBossHallow,function(value)
